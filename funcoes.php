@@ -171,6 +171,13 @@ function caixaProduto(Produto $produto) {
         <div class="prod_details_tab">
             <a href="carrinho.php" class="prod_buy">+ Carrinho</a>
             <a href="details.php?cod=<?php echo $codigo ?>" class="prod_details">Detalhes</a>
+            <?php
+            if(isset($_SESSION['admin']) && $_SESSION['admin']){                                   
+              
+                echo  '<a href = admin.php?action=produto&cod=' . $produto->get('cod_prod') .' class="prod_buy" style="color:red">Modificar</a>';
+                                  
+             }
+            ?>
         </div>
     </div>
 
@@ -210,7 +217,7 @@ function carrinhoProduto(Produto $produto) {
             <div class="prod_price2">
                 <p>
                     <label for=<?php echo "\"spinner$codigo\""; ?>>Quantidade:</label>
-                    <input id=<?php echo "\"spinner$codigo\""; ?> name=<?php echo "\"spinner$codigo\""; ?> value="1" />
+                    <input id=<?php echo "\"spinner$codigo\""; ?> name= <?php echo "\"spinner$codigo\""; ?> value="1" />
                 </p>
             </div>
             <div class="carrinho_prod_details_tab2">

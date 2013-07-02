@@ -93,7 +93,7 @@ $stmt->bind_param("i", $cod);
             $p->set('cod_marc', $cod_marc);
             $p->set('preco', $preco);
             $p->set('dimencoes', $dimencoes);
-             $p->set('categoria', $categoria);
+            $p->set('categoria', $categoria);
 
         }
         

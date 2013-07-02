@@ -78,6 +78,7 @@ include 'session_start.php';
                 <?php
                 include ('menu.php');
                 include ('menuEsquerda.php');
+                require_once 'funcoes.php';
 
                 require_once 'DAO/ProdutoDAO.php';
 
@@ -92,7 +93,7 @@ include 'session_start.php';
                 $nome = $p->get('nome');
                 $preco = $p->get('preco');
 
-                $imagem = "imagensProdutos/" .$cod. ".jpg";
+                $imagem = imagem($cod);
 
                 $descricao = $p->get('descricao');
                 ?>
@@ -108,7 +109,7 @@ include 'session_start.php';
                         <div class="center_prod_box_big">
 
                             <div class="product_img_big">
-                                <a href="javascript:popImage('<?php echo $imagem; ?>','<?php echo $nome; ?>')" title="header=[Zoom] body=[&nbsp;] fade=[on]"><img src="<?php echo $imagem; ?>" alt="" title="" border="0" width ="180" /></a>
+                                <a href="javascript:popImage('<?php echo str_replace('\\','/', $imagem )?>','<?php echo $nome; ?>')" title="header=[Zoom] body=[&nbsp;] fade=[on]"><img src="<?php echo $imagem; ?>" alt="" title="" border="0" width ="180" /></a>
                                 <div class="thumbs">
                                     <a href="#" title="header=[Thumb1] body=[&nbsp;] fade=[on]"><img src="<?php echo $imagem; ?>" alt="" title="" border="0" height ="40"/></a>
                                     <a href="#" title="header=[Thumb2] body=[&nbsp;] fade=[on]"><img src="<?php echo $imagem; ?>" alt="" title="" border="0" height ="40"/></a>
@@ -139,6 +140,16 @@ include 'session_start.php';
                                 </div>
 
                                 <a href="carrinho.php" class="prod_buy">Comprar</a>
+                                
+                                
+                               <?php
+                               
+                               if(isset($_SESSION['admin']) && $_SESSION['admin']){
+                                   
+                                  echo  '<a href = admin.php?action=produto&cod=' . $p->get('cod_prod') .' class="prod_buy" style="color:red">Modificar</a>';
+                                   
+                               }
+                               ?>
 
                             </div>
                         </div>
