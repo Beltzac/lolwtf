@@ -1,5 +1,9 @@
 <?php
 include 'session_start.php';
+if(!$_SESSION['admin']){
+    
+    header('Location: index.php');
+}
 ?>
 <html>
     <head>
@@ -81,14 +85,11 @@ $produto = $pdao->selectByCod($_GET['cod']);
                 default:
                     break;
             }
-            
-            
+                       
         }
         
-        ?>
-        
-        
-        
+        ?>     
+           
         
         <div id="main_container">
 

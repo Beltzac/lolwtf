@@ -1,3 +1,10 @@
+<?php
+include 'session_start.php';
+if(!$_SESSION['admin']){
+    
+    header('Location: index.php');
+}
+?>
 <html>
     <head>
     </head>
