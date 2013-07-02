@@ -10,6 +10,7 @@ include 'session_start.php';
 		<script type="text/javascript" src="js/boxOver.js"></script>
 		<script src="js/jquery-2.0.2.min.js"></script>
 		<script src="js/jquery.validate.min.js"></script>
+		<script src="js/jquery.maskedinput.js"></script>
 
 		<script>
 			$(document).ready(function() {
@@ -62,6 +63,12 @@ include 'session_start.php';
 			});
 
 		</script>
+<script type="text/javascript">
+$(document).ready(function(){
+		$("#telefone").mask("(99)9999-9999");
+});
+</script>
+		
 
 	</head>
 	<body>
@@ -104,7 +111,7 @@ include 'session_start.php';
 
 									<div class="form_row">
 										<label class="contact"><strong>Telefone:</strong></label>
-										<input type="text" class="contact_input" name="campoTelefone"/>
+										<input type="text" id="telefone" class="contact_input" name="campoTelefone"/>
 									</div>
 
 									<div class="form_row">
