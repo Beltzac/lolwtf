@@ -4,11 +4,7 @@ require_once 'connection.php';
 require_once 'Pessoa.php';
 require_once 'DAO.php';
 
-class PessoaDAO extends DAO  {
-
-   
-
-  
+class PessoaDAO extends DAO  { 
 
     function insert( Pessoa $pessoa) {
 
@@ -38,7 +34,6 @@ class PessoaDAO extends DAO  {
         $stmt->bind_result($nome, $telefone, $senha, $email, $rg, $cpf, $nivel_d_aces, $cod_end,$id,$nascimento);
 
         $result = array();
-
 
 
         while ($stmt->fetch()) {

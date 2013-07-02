@@ -1,8 +1,6 @@
 <?php
 
-class Produto {
-
-   
+class Produto {   
     
 private $nome = null;
 private $descricao= null;

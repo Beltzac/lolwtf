@@ -18,8 +18,10 @@
 		Pesquisa
 	</div>
 	<div class="border_box">
-		<input type="text" name="newsletter" class="newsletter_input" value=""/>
-		<a href="pesquisa.php" class="join">Procurar</a>
+            <form action="pesquisa.php" method="get">
+		<input type="text" name="pesquisa" class="newsletter_input" value=""/>
+		  <input class="submit" type="submit" value="Pesquisar" name="tipo"/>
+                </form>
 	</div>
     
     <?php

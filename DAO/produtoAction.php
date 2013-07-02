@@ -12,8 +12,6 @@ function redirect() {
 
 $p = new Produto();
 
-
-
         $p->set("nome", $_POST["nome"]);
         $p->set("descricao", $_POST["descricao"]);
         $p->set("estoque", $_POST["estoque"]);

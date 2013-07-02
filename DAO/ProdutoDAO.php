@@ -39,9 +39,7 @@ class ProdutoDAO  extends DAO {
     function  selectAll() {
         $stmt = $this->con->stmt_init();
         $stmt->prepare("SELECT * FROM produto");
-
         $stmt->execute();
-
         $stmt->bind_result($nome, $descricao, $cod_prod,$categoria, $estoque, $peso, $cod_marc, $preco, $dimencoes);
 
         $result = array();
@@ -83,7 +81,37 @@ $stmt->bind_param("i", $cod);
 
         $stmt->bind_result($nome, $descricao, $cod_prod,$categoria, $estoque, $peso, $cod_marc, $preco, $dimencoes);
 
-     
+        while ($stmt->fetch()) {
+
+            $p = new Produto();
+
+            $p->set('nome', $nome);
+            $p->set('descricao', $descricao);
+            $p->set('cod_prod', $cod_prod);
+            $p->set('estoque', $estoque);
+            $p->set('peso', $peso);
+            $p->set('cod_marc', $cod_marc);
+            $p->set('preco', $preco);
+            $p->set('dimencoes', $dimencoes);
+             $p->set('categoria', $categoria);
+
+        }
+        
+        $stmt->close();
+        return $p;
+    }
+
+    function  selectLike($pesquisa) {
+        $stmt = $this->con->stmt_init();
+        $stmt->prepare("SELECT * FROM produto WHERE concat_ws(' ',nome,descricao,preco) LIKE ?");
+        $param = "%".$pesquisa."%";
+$stmt->bind_param("s", $param);
+        
+        $stmt->execute();
+
+        $stmt->bind_result($nome, $descricao, $cod_prod,$categoria, $estoque, $peso, $cod_marc, $preco, $dimencoes);
+
+        $result = array();
 
 
 
@@ -100,17 +128,17 @@ $stmt->bind_param("i", $cod);
             $p->set('cod_marc', $cod_marc);
             $p->set('preco', $preco);
             $p->set('dimencoes', $dimencoes);
-             $p->set('categoria', $categoria);
+            $p->set('categoria', $categoria);
+
+            $result[] = $p;
 
         }
 
 
         $stmt->close();
 
-        return $p;
+        return $result;
     }
-
-    
    
     
 }

@@ -31,14 +31,21 @@ include 'session_start.php';
 
 					<?php
 
-				
+				require_once 'DAO/ProdutoDAO.php';
+                                
+                                $pdao = new ProdutoDAO();
+                                
+                                if(isset($_GET['pesquisa'])){
+                                $pesquisa = $pdao->selectLike($_GET['pesquisa']);
 
-			for ($i = 0; $i < count($array); $i++) {
+                                foreach ($pesquisa as $produto) {
 
-						caixaProduto($array[$i]['nome'], $array[$i]['preco'], $array[$i]['codigo'], $array[$i]['imagem']);
+						caixaProduto($produto);
 
 					}
+                                }
 					?>
+                                    
 				</div>
 
 				<?php
