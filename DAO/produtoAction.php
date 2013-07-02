@@ -21,6 +21,7 @@ $p = new Produto();
         $p->set("cod_marc", $_POST["cod_marc"]);
         $p->set("preco", $_POST["preco"]);
         $p->set('categoria', $_POST["categoria"]);
+        $p->set('dimensoes', $_POST["dimensoes"]);
 
 
 $dao = new ProdutoDAO();

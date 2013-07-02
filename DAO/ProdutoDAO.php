@@ -22,11 +22,11 @@ class ProdutoDAO  extends DAO {
 
         $stmt = $this->con->stmt_init();
 
-        $stmt->prepare("INSERT INTO PRODUTO (nome, descricao, estoque, peso, cod_marc, preco, categoria) VALUES (?,?,?,?,?,?,?)");
+        $stmt->prepare("INSERT INTO PRODUTO (nome, descricao, estoque, peso, cod_marc, preco, categoria,dimensoes) VALUES (?,?,?,?,?,?,?,?)");
         if ($stmt) {
 
 
-            $stmt->bind_param("ssiiis", $produto->get('nome'), $produto->get('descricao'), $produto->get('estoque'), $produto->get('peso'), $produto->get('cod_marc'), $produto->get('preco'), $produto->get('categoria'));
+            $stmt->bind_param("ssiiis", $produto->get('nome'), $produto->get('descricao'), $produto->get('estoque'), $produto->get('peso'), $produto->get('cod_marc'), $produto->get('preco'), $produto->get('categoria'),$produto->get('dimensoes'));
 
             $stmt->execute();
             $err = $stmt->errno;

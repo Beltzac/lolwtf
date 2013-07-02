@@ -1,4 +1,3 @@
-//Teste
 <?php
 include 'session_start.php';
 ?>
@@ -65,6 +64,32 @@ include 'session_start.php';
     </head>
     <body>
 
+        <?php
+        require_once 'DAO/ProdutoDAO.php';
+        $produto = new Produto();
+        
+        if(isset($_GET['action']) && isset($_GET['cod'])){
+            switch ($_GET['action']) {
+                case 'produto':
+                    $pdao = new ProdutoDAO();
+                    
+$produto = $pdao->selectByCod($_GET['cod']);
+
+                    break;
+
+
+                default:
+                    break;
+            }
+            
+            
+        }
+        
+        ?>
+        
+        
+        
+        
         <div id="main_container">
 
             <?php
@@ -87,11 +112,11 @@ include 'session_start.php';
                             <div class="contact_form">
                                 <form id="produto" method="post" action="DAO/produtoAction.php" enctype="multipart/form-data">
 
-                                    <input type="hidden" name="acao" value="novoProduto">
+                              
 
                                     <div class="form_row">
                                         <label class="contact"><strong>Nome:</strong></label>
-                                        <input type="text" class="contact_input" name="nome"  />
+                                        <input type="text" class="contact_input" name="nome" value="<?php echo $produto->get('nome') ?>" />
                                     </div>
 
                                     <div class="form_row">
@@ -105,7 +130,10 @@ include 'session_start.php';
                                             $marcas = $mdao->selectAll();
 
                                             foreach ($marcas as $value) {
-                                                echo "<option value='" . $value->get('codmarc') . "'>" . $value->get('nome') . "</option>";
+                                                if ($value->get('codmarc') == $produto->get('cod_marc'))
+                                                echo "<option selected value='" . $value->get('codmarc') . "'>" . $value->get('nome') . "</option>";
+                                                else
+                                                     echo "<option value='" . $value->get('codmarc') . "'>" . $value->get('nome') . "</option>";
                                             }
                                             ?>
                                         </select>
@@ -116,7 +144,7 @@ include 'session_start.php';
                                     <div class="form_row">
                                         <label class="contact"><strong>Categoria:</strong></label>
                                         
-                                        <select name="categoria" class="contact_input">
+                                        <select name="categoria" class="contact_input" >
                                             <?php
                                             require_once 'DAO/CategoriaDAO.php';
                                             $cdao = new CategoriaDAO();
@@ -124,6 +152,10 @@ include 'session_start.php';
                                             $categorias = $cdao->selectAll();
 
                                             foreach ($categorias as $value) {
+                                                
+                                                if($value->get('cod') == $produto->get('categoria'))
+                                                 echo "<option selected value='" . $value->get('cod') . "'>" . $value->get('nome') . "</option>";
+                                                 else
                                                 echo "<option value='" . $value->get('cod') . "'>" . $value->get('nome') . "</option>";
                                             }
                                             ?>
@@ -134,23 +166,23 @@ include 'session_start.php';
 
                                     <div class="form_row">
                                         <label class="contact"><strong>Dimensões:</strong></label>
-                                        <input type="text" class="contact_input" name="dimensoes" />
+                                        <input type="text" class="contact_input" name="dimensoes" value="<?php echo $produto->get('dimensoes') ?>"/>
                                     </div>
 
                                     <div class="form_row">
                                         <label class="contact"><strong>preço:</strong></label>
-                                        <input type="text" class="contact_input" name="preco"  />
+                                        <input type="text" class="contact_input" name="preco" value="<?php echo $produto->get('preco') ?>" />
                                     </div>
 
 
                                     <div class="form_row">
                                         <label class="contact"><strong>peso:</strong></label>
-                                        <input type="text" class="contact_input" name="peso" />
+                                        <input type="text" class="contact_input" name="peso" value="<?php echo $produto->get('peso') ?>" />
                                     </div>
 
                                     <div class="form_row">
                                         <label class="contact"><strong>estoque:</strong></label>
-                                        <input type="text" class="contact_input" name="estoque" />
+                                        <input type="text" class="contact_input" name="estoque" value="<?php echo $produto->get('estoque') ?>" />
                                     </div>
 
                                     <div class="form_row">
@@ -161,7 +193,7 @@ include 'session_start.php';
 
                                     <div class="form_row">
                                         <label class="contact"><strong>Descrição:</strong></label>
-                                        <textarea class="contact_textarea" name="descricao"></textarea>  
+                                        <textarea class="contact_textarea" name="descricao" ><?php echo $produto->get('descricao') ?></textarea>  
 
                                     </div>
 

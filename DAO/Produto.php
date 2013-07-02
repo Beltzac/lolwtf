@@ -12,7 +12,7 @@ private $peso= null;
 private $cod_marc= null;
 private $preco= null;
 private $categoria= null;
-
+private $dimensoes= null;
 
 function set($campo, $valor)
 {
