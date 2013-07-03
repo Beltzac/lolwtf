@@ -7,12 +7,9 @@ private static $connection = NULL;
 function conecta() {
 
 	
-	$conexao = new mysqli("localhost", "root", "","lolwtf2");
-	
-	if (mysqli_connect_errno()) {
-    printf("Falha na conexão: %s\n", mysqli_connect_error());
-    exit();
-}
+	$conexao = new mysqli("localhost", "root", "","lolwtf2") or die("Problem connecting: ".mysqli_error());
+
+        
 	return $conexao;
 
 }

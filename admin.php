@@ -77,8 +77,10 @@ if(!$_SESSION['admin']){
                 case 'produto':
                     $pdao = new ProdutoDAO();
                     
-$produto = $pdao->selectByCod($_GET['cod']);
-
+$select = $pdao->selectByCod($_GET['cod']);
+if($select){
+$produto = $select;
+}
                     break;
 
 
@@ -113,7 +115,7 @@ $produto = $pdao->selectByCod($_GET['cod']);
                             <div class="contact_form">
                                 <form id="produto" method="post" action="DAO/produtoAction.php" enctype="multipart/form-data">
 
-                              
+                              <input type="hidden" value="<?php echo $produto->get('cod_prod') ?>" name="codigo" />
 
                                     <div class="form_row">
                                         <label class="contact"><strong>Nome:</strong></label>
@@ -199,7 +201,9 @@ $produto = $pdao->selectByCod($_GET['cod']);
                                     </div>
 
                                     <div class="form_row">
-                                        <input class="submit" type="submit" value="Novo" name="tipo"/><input class="submit" type="submit" value="Atualizar" name="tipo"/>
+                                        <input class="submit" type="submit" value="Novo" name="tipo"/>
+                                        <input class="submit" type="submit" value="Atualizar" name="tipo"/>
+                                        <input class="submit" type="submit" value="Deletar" name="tipo"/>
 
                                     </div>
                                 </form>

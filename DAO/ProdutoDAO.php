@@ -26,21 +26,22 @@ class ProdutoDAO  extends DAO {
         if ($stmt) {
 
 
-            $stmt->bind_param("ssiiis", $produto->get('nome'), $produto->get('descricao'), $produto->get('estoque'), $produto->get('peso'), $produto->get('cod_marc'), $produto->get('preco'), $produto->get('categoria'),$produto->get('dimensoes'));
-
+            $stmt->bind_param("ssiiisis", $produto->get('nome'), $produto->get('descricao'), $produto->get('estoque'), $produto->get('peso'), $produto->get('cod_marc'), $produto->get('preco'), $produto->get('categoria'),$produto->get('dimensoes'));
+            
             $stmt->execute();
             $err = $stmt->errno;
-            $stmt->close();
-
-            return $err;
+              $stmt->close();
         }
+           
+            return $err;
+        
     }
 
     function  selectAll() {
         $stmt = $this->con->stmt_init();
         $stmt->prepare("SELECT * FROM produto");
         $stmt->execute();
-        $stmt->bind_result($nome, $descricao, $cod_prod,$categoria, $estoque, $peso, $cod_marc, $preco, $dimencoes);
+        $stmt->bind_result($nome, $descricao, $cod_prod,$categoria, $estoque, $peso, $cod_marc, $preco, $dimensoes);
 
         $result = array();
 
@@ -58,7 +59,7 @@ class ProdutoDAO  extends DAO {
             $p->set('peso', $peso);
             $p->set('cod_marc', $cod_marc);
             $p->set('preco', $preco);
-            $p->set('dimencoes', $dimencoes);
+            $p->set('dimensoes', $dimensoes);
              $p->set('categoria', $categoria);
 
             $result[] = $p;
@@ -75,11 +76,11 @@ class ProdutoDAO  extends DAO {
     function  selectByCod($cod) {
         $stmt = $this->con->stmt_init();
         $stmt->prepare("SELECT * FROM produto WHERE cod_prod = ?");
-$stmt->bind_param("i", $cod);
+        $stmt->bind_param("i", $cod);
         
         $stmt->execute();
 
-        $stmt->bind_result($nome, $descricao, $cod_prod,$categoria, $estoque, $peso, $cod_marc, $preco, $dimencoes);
+        $stmt->bind_result($nome, $descricao, $cod_prod,$categoria, $estoque, $peso, $cod_marc, $preco, $dimensoes);
 
         while ($stmt->fetch()) {
 
@@ -92,7 +93,7 @@ $stmt->bind_param("i", $cod);
             $p->set('peso', $peso);
             $p->set('cod_marc', $cod_marc);
             $p->set('preco', $preco);
-            $p->set('dimencoes', $dimencoes);
+            $p->set('dimensoes', $dimensoes);
             $p->set('categoria', $categoria);
 
         }
@@ -105,11 +106,11 @@ $stmt->bind_param("i", $cod);
         $stmt = $this->con->stmt_init();
         $stmt->prepare("SELECT * FROM produto WHERE concat_ws(' ',nome,descricao,preco) LIKE ?");
         $param = "%".$pesquisa."%";
-$stmt->bind_param("s", $param);
+        $stmt->bind_param("s", $param);
         
         $stmt->execute();
 
-        $stmt->bind_result($nome, $descricao, $cod_prod,$categoria, $estoque, $peso, $cod_marc, $preco, $dimencoes);
+        $stmt->bind_result($nome, $descricao, $cod_prod,$categoria, $estoque, $peso, $cod_marc, $preco, $dimensoes);
 
         $result = array();
 
@@ -127,7 +128,7 @@ $stmt->bind_param("s", $param);
             $p->set('peso', $peso);
             $p->set('cod_marc', $cod_marc);
             $p->set('preco', $preco);
-            $p->set('dimencoes', $dimencoes);
+            $p->set('dimensoes', $dimensoes);
             $p->set('categoria', $categoria);
 
             $result[] = $p;
@@ -140,6 +141,44 @@ $stmt->bind_param("s", $param);
         return $result;
     }
    
+    
+    function Update(Produto $produto) {
+
+
+        $stmt = $this->con->stmt_init();
+
+        $stmt->prepare("UPDATE PRODUTO set nome = ?, descricao = ?, estoque = ?, peso = ?, cod_marc = ?, preco = ?, categoria = ?,dimensoes = ? where cod_prod = ?");
+        if ($stmt) {
+
+
+            $stmt->bind_param("ssiiisisi", $produto->get('nome'), $produto->get('descricao'), $produto->get('estoque'), $produto->get('peso'), $produto->get('cod_marc'), $produto->get('preco'), $produto->get('categoria'),$produto->get('dimensoes'),$produto->get('cod_prod'));
+
+            $stmt->execute();
+            $err = $stmt->errno;
+            $stmt->close();           
+        }
+         return $err;
+    }
+    
+    function Delete($cod) {
+
+
+        $stmt = $this->con->stmt_init();
+
+        $stmt->prepare("DELETE FROM PRODUTO where cod_prod = ?");
+        
+        
+        if ($stmt) {
+
+
+           $stmt->bind_param("i", $cod);
+
+            $stmt->execute();
+            $err = $stmt->errno;
+            $stmt->close();           
+        }
+         return $err;
+    }
     
 }
 
