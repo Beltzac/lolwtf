@@ -10,11 +10,17 @@ if(!$_SESSION['admin']){
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>Administração - Lolwtf Mobile</title>
         <link rel="stylesheet" type="text/css" href="style.css" />
-        <script type="text/javascript" src="js/boxOver.js"></script>
+		<link rel="stylesheet" type="text/css" href="style.css" />
+		<script type="text/javascript" src="js/boxOver.js"></script>
+                
+                 <link rel="stylesheet" href="jquery-ui.min.css" />
+<script src="js/jquery-2.0.2.min.js"></script>
+<script src="js/jquery-ui.min.js"></script>
 
-        <link rel="stylesheet" href="jquery-ui.min.css" />
-        <script src="js/jquery-2.0.2.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>
+
+
+		<script src="js/jquery.validate.min.js"></script>
+		<script src="js/jquery.maskedinput.js"></script>
 
         <script>
             $(function() {
@@ -64,6 +70,147 @@ if(!$_SESSION['admin']){
 
             });
         </script>
+        
+        		<script>
+			$(document).ready(function() {
+				$("#produto").validate({
+					// Define as regras
+					rules : {
+						nome : {
+							// campoNome será obrigatório (required) e terá tamanho mínimo (minLength)
+							required : true,
+							minlength : 3
+						},
+
+                                            descricao : {
+							required : true,
+							minlength : 10
+						},
+						
+					},
+					// Define as mensagens de erro para cada regra
+					messages : {
+						nome : {
+							required : "Digite o seu nome",
+							minlength : "O nome deve ter pelo menos 3 caracteres"
+						},
+
+						descricao : {
+							required : "Digite o sua mensagem",
+							minlength : "Sua mensagem deve conter, no m&iacutenimo, 10 caracteres"
+						}
+
+					}
+				});
+			});
+
+		</script>
+                
+                     		<script>
+			$(document).ready(function() {
+				$("#cliente").validate({
+					// Define as regras
+					rules : {
+                                            nome : {
+							// campoNome será obrigatório (required) e terá tamanho mínimo (minLength)
+							required : true,
+							minlength : 3
+						},
+                                                
+                                                email : {
+							// campoEmail será obrigatório (required) e precisará ser um e-mail válido (email)
+							required : true,
+							email : true
+						},
+                                                telefone : {
+							required : true,
+							minlength : 8
+						},
+                                                
+                                                rg : {
+							required : true,
+							minlength : 9
+						},
+                                                
+                                                cep : {
+							required : true,
+							minlength : 8
+						},
+						
+						cpf : {
+							required : true,
+							minlength : 11
+						},
+						
+						nascimento : {
+							required : true,
+							minlength : 8
+						},
+
+
+                                            senha : {
+							required : true,
+							minlength : 6
+						},
+						
+					},
+					// Define as mensagens de erro para cada regra
+					messages : {
+						nome : {
+							required : "Digite o seu nome",
+							minlength : "O nome deve ter pelo menos 3 caracteres"
+						},
+                                                
+                                                email : {
+							required : "Digite o seu e-mail para contato",
+							email : "Digite um e-mail v&aacutelido"
+						},
+                                                
+                                                telefone : {
+							required : "Digite o seu telefone",
+							minlength : "Seu telefone deve ter pelo menos 8 n&uacutemeros"
+						},
+                                                
+                                                rg : {
+							required : "Digite seu rg",
+							minlength : "O seu rg deve conter, no m&iacutenimo, 9 caracteres"
+						},
+                                                
+                            
+						
+						cep : {
+							required : "Digite seu CEP",
+							minlength : ""
+						},
+						
+						cpf : {
+							required : "Digite seu CPF",
+							minlength : ""
+						},
+                                                
+
+						senha : {
+							required : "Digite sua senha",
+							minlength : "A sua senha deve conter, no m&iacutenimo, 6 caracteres"
+						}
+
+					}
+				});
+			});
+
+		</script>
+<script type="text/javascript">
+$(document).ready(function(){
+		$("#clitelefone").mask("(99)9999-9999");
+                $("#prodpreco").mask("99999,99");
+                $("#prodestoque").mask("999");
+                $("#clicpf").mask("999.999.999-99");
+                $("#clicep").mask("99.999-999");
+                $("#clirg").mask("99.999.999-9");
+                $("#prodpeso").mask("99999g");
+                $("#proddimensao").mask("999x999x999");
+});
+</script>
 
     </head>
     <body>
@@ -171,27 +318,27 @@ $produto = $select;
 
                                     <div class="form_row">
                                         <label class="contact"><strong>Dimensões:</strong></label>
-                                        <input type="text" class="contact_input" name="dimensoes" value="<?php echo $produto->get('dimensoes') ?>"/>
+                                        <input type="text" class="contact_input" id="proddimensao" name="dimensoes" value="<?php echo $produto->get('dimensoes') ?>"/>
                                     </div>
 
                                     <div class="form_row">
-                                        <label class="contact"><strong>preço:</strong></label>
-                                        <input type="text" class="contact_input" name="preco" value="<?php echo $produto->get('preco') ?>" />
+                                        <label class="contact"><strong>Preço:</strong></label>
+                                        <input type="text" id="prodpreco" class="contact_input" name="preco" value="<?php echo $produto->get('preco') ?>" />
                                     </div>
 
 
                                     <div class="form_row">
-                                        <label class="contact"><strong>peso:</strong></label>
-                                        <input type="text" class="contact_input" name="peso" value="<?php echo $produto->get('peso') ?>" />
+                                        <label class="contact"><strong>Peso:</strong></label>
+                                        <input type="text" class="contact_input" id="prodpeso" name="peso" value="<?php echo $produto->get('peso') ?>" />
                                     </div>
 
                                     <div class="form_row">
-                                        <label class="contact"><strong>estoque:</strong></label>
-                                        <input type="text" class="contact_input" name="estoque" value="<?php echo $produto->get('estoque') ?>" />
+                                        <label class="contact"><strong>Estoque:</strong></label>
+                                        <input type="text" id="prodestoque" class="contact_input" name="estoque" value="<?php echo $produto->get('estoque') ?>" />
                                     </div>
 
                                     <div class="form_row">
-                                        <label class="contact"><strong>imagem:</strong></label>
+                                        <label class="contact"><strong>Imagem:</strong></label>
                                         <input type="file" class="contact_input" name="imagem" />
                                     </div>
 
@@ -216,45 +363,47 @@ $produto = $select;
 
                         <div>
                             <div class="contact_form">
+                                <form id="cliente" method="post" action="#">
 
                                 <div class="form_row">
                                     <label class="contact"><strong>Nome completo:</strong></label>
-                                    <input type="text" class="contact_input" />
+                                    <input type="text" name="nome" class="contact_input" />
                                 </div>
 
                                 <div class="form_row">
                                     <label class="contact"><strong>Email:</strong></label>
-                                    <input type="text" class="contact_input" />
+                                    <input type="text" name="email" class="contact_input" />
                                 </div>
 
                                 <div class="form_row">
                                     <label class="contact"><strong>Telefone:</strong></label>
-                                    <input type="text" class="contact_input" />
+                                    <input type="text" name="telefone" id="clitelefone" class="contact_input" />
                                 </div>
 
                                 <div class="form_row">
                                     <label class="contact"><strong>RG:</strong></label>
-                                    <input type="text" class="contact_input" />
+                                    <input type="text" name="rg" id="clirg" class="contact_input" />
                                 </div>
 
                                 <div class="form_row">
                                     <label class="contact"><strong>CPF:</strong></label>
-                                    <input type="text" class="contact_input" />
+                                    <input type="text" name="cpf" id="clicpf" class="contact_input" />
                                 </div>
 
                                 <div class="form_row">
                                     <label class="contact"><strong>Data de nascimento:</strong></label>
-                                    <input type="text" class="contact_input" id="datepicker" />
+                                    <input type="text" name="nascimento" class="contact_input" id="datepicker" />
                                 </div>
 
                                 <div class="form_row">
                                     <label class="contact"><strong>Senha:</strong></label>
-                                    <input type="text" class="contact_input" />
+                                    <input type="password" name="senha" class="contact_input" />
                                 </div>
 
                                 <div class="form_row">
                                     <a href="#" class="prod_details">Novo</a><a href="#" class="prod_details">Atualizar</a>
                                 </div>
+                            </form> 
 
                             </div>
                         </div>
