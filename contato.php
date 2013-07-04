@@ -55,7 +55,7 @@ include 'session_start.php';
 	
 							campoMsg : {
 							required : "Digite o sua mensagem",
-							minlength : "O sua mensagem deve conter, no m&iacutenimo, 10 caracteres"
+							minlength : "Sua mensagem deve conter, no m&iacutenimo, 10 caracteres"
 						}
 
 					}
