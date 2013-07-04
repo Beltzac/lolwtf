@@ -4,7 +4,7 @@ include 'session_start.php';
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>Lolwtf Mobile</title>
+        <title>Lolwtf Mobile - teste</title>
         <link rel="stylesheet" type="text/css" href="style.css" />
         <script type="text/javascript" src="js/boxOver.js"></script>
     </head>
