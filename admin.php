@@ -80,6 +80,8 @@ if(!$_SESSION['admin']){
 $select = $pdao->selectByCod($_GET['cod']);
 if($select){
 $produto = $select;
+}else{
+    header('Location: admin.php');
 }
                     break;
 

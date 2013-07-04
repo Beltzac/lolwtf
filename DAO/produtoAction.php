@@ -2,8 +2,7 @@
 
 include '../session_start.php';
 if (!$_SESSION['admin']) {
-
-    // header('Location: ../index.php');
+    header('Location: ../index.php');
 }
 
 require_once 'ProdutoDAO.php';
@@ -82,10 +81,9 @@ switch ($_POST['tipo']) {
 
         $err = $dao->Delete($_POST["codigo"]);
         if (!$err) {
-            unlink("../imagensProdutos/" . $_POST["codigo"] . ".jpg");
-            redirect();
+            unlink("../imagensProdutos/" . $_POST["codigo"] . ".jpg");            
+            header('Location: ../admin.php');            
         } else {
-
             echo 'Erro!';
         }
 
