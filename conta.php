@@ -11,7 +11,8 @@ include 'session_start.php';
 		<link rel="stylesheet" href="jquery-ui.min.css" />
 		<script src="js/jquery-2.0.2.min.js"></script>
 		<script src="js/jquery-ui.min.js"></script>
-
+		<script src="js/jquery.maskedinput.js"></script>
+                
 		<script>
 			$(function() {
 				$("#accordion").accordion();
@@ -32,6 +33,14 @@ include 'session_start.php';
 
 			});
 		</script>
+                <script type="text/javascript">
+$(document).ready(function(){
+        $("#detcpf").mask("999.999.999-99");
+        $("#endcep").mask("99.999-999");
+		$("#dettel").mask("(99)9999-9999");
+		$("#detrg").mask("99.999.999-9");
+});
+</script>
 
 	</head>
 	<body>
@@ -56,7 +65,7 @@ include 'session_start.php';
 						<h3>Detalhes da minha conta</h3>
 
 						<div>
-
+                                                    <form action="#" id="detalhe" method="post">
 							<div class="contact_form">
 
 								<div class="form_row">
@@ -71,17 +80,17 @@ include 'session_start.php';
 
 								<div class="form_row">
 									<label class="contact"><strong>Telefone:</strong></label>
-									<input type="text" class="contact_input" />
+									<input type="text" id="dettel" class="contact_input" />
 								</div>
 
 								<div class="form_row">
 									<label class="contact"><strong>RG:</strong></label>
-									<input type="text" class="contact_input" />
+									<input type="text" id="detrg" class="contact_input" />
 								</div>
 
 								<div class="form_row">
 									<label class="contact"><strong>CPF:</strong></label>
-									<input type="text" class="contact_input" />
+									<input type="text" id="detcpf" class="contact_input" />
 								</div>
 
 								<div class="form_row">
@@ -94,7 +103,7 @@ include 'session_start.php';
 									<input type="password" class="contact_input" />
 								</div>
 
-	<div class="form_row">
+                                                                <div class="form_row">
 									<label class="contact"><strong>Senha nova:</strong></label>
 									<input type="password" class="contact_input" />
 								</div>
@@ -103,15 +112,15 @@ include 'session_start.php';
 								<div class="form_row">
 									<a href="#" class="prod_details">Atualizar</a>
 								</div>
-
 							</div>
+                                                     </form>
 
 						</div>
 
-						<h3> endereços</h3>
+						<h3> Endereços</h3>
 
 						<div>
-
+                                                    <form method="post" id="endereco" action="#">
 							<div class="contact_form">
 
 								<div class="form_row">
@@ -121,7 +130,7 @@ include 'session_start.php';
 
 								<div class="form_row">
 									<label class="contact"><strong>CEP:</strong></label>
-									<input type="text" class="contact_input" />
+									<input type="text" id="endcep" class="contact_input" />
 								</div>
 
 								<div class="form_row">
@@ -139,7 +148,7 @@ include 'session_start.php';
 								</div>
 
 							</div>
-
+                                                    </form>
 						</div>
 
 					</div>
