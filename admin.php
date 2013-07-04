@@ -207,7 +207,7 @@ $(document).ready(function(){
                 $("#clicpf").mask("999.999.999-99");
                 $("#clicep").mask("99.999-999");
                 $("#clirg").mask("99.999.999-9");
-                $("#prodpeso").mask("99.999kg");
+                $("#prodpeso").mask("99999g");
                 $("#proddimensao").mask("999x999x999");
 });
 </script>
