@@ -207,6 +207,8 @@ $(document).ready(function(){
                 $("#clicpf").mask("999.999.999-99");
                 $("#clicep").mask("99.999-999");
                 $("#clirg").mask("99.999.999-9");
+                $("#prodpeso").mask("99.999kg");
+                $("#proddimensao").mask("999x999x999");
 });
 </script>
 
@@ -314,7 +316,7 @@ $produto = $select;
 
                                     <div class="form_row">
                                         <label class="contact"><strong>Dimensões:</strong></label>
-                                        <input type="text" class="contact_input" name="dimensoes" value="<?php echo $produto->get('dimensoes') ?>"/>
+                                        <input type="text" class="contact_input" id="proddimensao" name="dimensoes" value="<?php echo $produto->get('dimensoes') ?>"/>
                                     </div>
 
                                     <div class="form_row">
@@ -325,7 +327,7 @@ $produto = $select;
 
                                     <div class="form_row">
                                         <label class="contact"><strong>Peso:</strong></label>
-                                        <input type="text" class="contact_input" name="peso" value="<?php echo $produto->get('peso') ?>" />
+                                        <input type="text" class="contact_input" id="prodpeso" name="peso" value="<?php echo $produto->get('peso') ?>" />
                                     </div>
 
                                     <div class="form_row">
