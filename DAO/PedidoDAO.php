@@ -99,11 +99,40 @@ class PedidoDAO extends DAO {
         $stmt->close();
         return $p;
     }
+    
+    
+        function  selectAtual($codPessoa) {
+        $stmt = $this->con->stmt_init();
+        $stmt->prepare("SELECT * FROM pedido p WHERE data = (select max(data) from pedido where cod_pedido = p.cod_pedido) and id_p = ?");
+        $stmt->bind_param("i", $codPessoa);
+        
+        $stmt->execute();
+
+        $stmt->bind_result($situacao,$cod_pedido,$forma_d_entreg, $forma_d_pag,$data,$id_p,$cod_end);
+
+        while ($stmt->fetch()) {
+
+            $p = new Pedido();
+
+
+            $p->set('situacao', $situacao);
+            $p->set('cod_pedido', $cod_pedido);
+            $p->set('forma_d_entreg', $forma_d_entreg);
+            $p->set('forma_d_pag', $forma_d_pag);
+            $p->set('data', $data);
+            $p->set('id_p', $id_p);
+            $p->set('cod_end', $cod_end);
+
+        }
+        
+        $stmt->close();
+        return $p;
+    }
 
     
    
     
-    function Update(Produto $produto) {
+    function Update(Pedido $produto) {
 
 
         $stmt = $this->con->stmt_init();
