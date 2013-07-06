@@ -1,13 +1,19 @@
 
 
-	<?php $r = rand(0, 5);
-	include_once 'funcoes.php';
+	<?php 
+	require_once 'funcoes.php';
+        require_once 'DAO/ProdutoDAO.php';
+        
+        $pdao = new ProdutoDAO();
+        
+	$p = $pdao->selectByCod(27);
 
-	$codigo = $r;
-
-	$nome = $array[$codigo]['nome'];
-	$preco = $array[$codigo]['preco'];
-	$imagem = $array[$codigo]['imagem'];
+	$nome = $p->get('nome');
+	$preco = $p->get('preco');
+        $preco = $p->get('preco');
+        $codigo = $p->get('cod_prod');
+	$imagem = imagem($p->get('cod_prod'));
+        
 	?>
 
 <div class="right_content">

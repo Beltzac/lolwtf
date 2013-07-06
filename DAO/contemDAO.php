@@ -15,7 +15,7 @@ require_once 'connection.php';
 require_once 'contem.php';
 require_once 'DAO.php';
 
-class contemDAO {
+class contemDAO extends DAO {
 function insert($contem) {
 
 
@@ -29,6 +29,7 @@ function insert($contem) {
             
             $stmt->execute();
             $err = $stmt->errno;
+            echo $stmt->error;
               $stmt->close();
         }
            
@@ -71,7 +72,7 @@ function insert($contem) {
     
     function  selectByCod($cod_ped, $cod_prod) {
         $stmt = $this->con->stmt_init();
-        $stmt->prepare("SELECT * FROM pedido WHERE cod_ped = ? and cod_prod = ?");
+        $stmt->prepare("SELECT * FROM contem WHERE cod_ped = ? and cod_prod = ?");
         $stmt->bind_param("ii", $cod_ped, $cod_prod);
         
         $stmt->execute();
@@ -101,7 +102,35 @@ function insert($contem) {
     }
     
     
-           
+        function  selectAllByCod($cod_ped) {
+        $stmt = $this->con->stmt_init();
+        $stmt->prepare("SELECT * FROM contem WHERE cod_ped = ?");
+        $stmt->bind_param("i", $cod_ped);
+        
+        $stmt->execute();
+
+        $stmt->bind_result($quantidade,$preco, $cod_prod,$cod_ped);
+
+        $result = array();
+   
+        while ($stmt->fetch()) {
+
+            $p = new contem();
+
+            $p->set('quantidade', $quantidade);
+            $p->set('preco', $preco);
+            $p->set('cod_prod', $cod_prod);
+            $p->set('cod_ped', $cod_ped);       
+          
+            $result[] = $p;
+
+        }
+
+        echo $stmt->error;
+        $stmt->close();
+
+        return $result;
+    }
    
     
     function Update(contem $contem) {
@@ -128,7 +157,7 @@ function insert($contem) {
 
         $stmt = $this->con->stmt_init();
 
-        $stmt->prepare("DELETE FROM pedido where where cod_prod = ? and cod_ped = ?");
+        $stmt->prepare("DELETE FROM contem where where cod_prod = ? and cod_ped = ?");
         
         
         if ($stmt) {

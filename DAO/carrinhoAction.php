@@ -5,7 +5,7 @@ if (!$_SESSION['logado']) {
     header('Location: ../index.php');
 }
 
-require_once 'PedidoDAO.php';
+
 
 function redirect() {
     if (isset($_SERVER['HTTP_REFERER'])) {
@@ -15,57 +15,62 @@ function redirect() {
     }
 }
 
-if (!isset($_POST['tipo'])) {
+if (!isset($_GET['tipo'])) {
     redirect();
 }
 
-
+require_once 'PedidoDAO.php';
+require_once 'ProdutoDAO.php';
+require_once 'ContemDAO.php';
 
 $pdao = new ProdutoDAO();
 $cdao = new contemDAO();
+$peddao = new PedidoDAO();
+$pedido = $peddao->selectAtual($_SESSION['id']);
 
-switch ($_POST['tipo']) {
+
+switch ($_GET['tipo']) {
     case 'adicionarProduto':
 
         $c = new contem();
 
-        $c->set('cod_prod', $_POST['cod_prod']);
-        $c->set('cod_ped', $_POST['cod_ped']);
+        $c->set('cod_prod', $_GET['cod_prod']);
+        $c->set('cod_ped', $pedido);
 
-        $c->set('quantidade', $_POST['quantidade']);
+        $c->set('quantidade', 1);
 
-        $produto = $pdao->selectByCod($_POST['cod_prod']);
+        $produto = $pdao->selectByCod($_GET['cod_prod']);
 
         $c->set('preco', $produto->get('preco'));
 
         $cdao->insert($c);
 
- redirect();
+// redirect();
         break;
 
     case 'removerProduto':
 
-        $cdao->Delete($_POST['cod_prod'], $_POST['cod_ped']);
+        $cdao->Delete($_GET['cod_prod'], $pedido);
         
- redirect();
+ //redirect();
         break;
 
-    case 'atualizaQuantidade':
+    case 'atualizarQuantidade':
 
         $c = new contem();
 
-        $c->set('cod_prod', $_POST['cod_prod']);
-        $c->set('cod_ped', $_POST['cod_ped']);
+        $c->set('cod_prod', $_GET['cod_prod']);
+        $c->set('cod_ped', $pedido);
 
-        $c->set('quantidade', $_POST['quantidade']);
+        $c->set('quantidade', $_GET['quantidade']);
 
-        $produto = $pdao->selectByCod($_POST['cod_prod']);
+        $produto = $pdao->selectByCod($_GET['cod_prod']);
 
         $c->set('preco', $produto->get('preco'));
 
         $cdao->Update($c);
         
- redirect();
+ //redirect();
         break;
 
     case 'finalizar':

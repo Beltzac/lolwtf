@@ -103,13 +103,14 @@ class PedidoDAO extends DAO {
     
         function  selectAtual($codPessoa) {
         $stmt = $this->con->stmt_init();
-        $stmt->prepare("SELECT * FROM pedido p WHERE data = (select max(data) from pedido where cod_pedido = p.cod_pedido) and id_p = ?");
+        $stmt->prepare("SELECT * FROM pedido WHERE id_p = ?");
         $stmt->bind_param("i", $codPessoa);
         
         $stmt->execute();
 
         $stmt->bind_result($situacao,$cod_pedido,$forma_d_entreg, $forma_d_pag,$data,$id_p,$cod_end);
 
+        $p=null;
         while ($stmt->fetch()) {
 
             $p = new Pedido();
@@ -124,7 +125,7 @@ class PedidoDAO extends DAO {
             $p->set('cod_end', $cod_end);
 
         }
-        
+        echo $stmt->error;
         $stmt->close();
         return $p;
     }
