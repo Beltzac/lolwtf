@@ -2,6 +2,7 @@
 	<?php 
 	require_once 'funcoes.php';
         require_once 'DAO/ProdutoDAO.php';
+        require_once 'DAO/CategoriaDAO.php';
         
         $pdao = new ProdutoDAO();   
 
@@ -20,24 +21,26 @@
 	</div>
 
 	<ul class="left_menu">
-		<li class="odd">
-			<a href="pesquisa.php">Celulares</a>
-		</li>
-		<li class="even">
-			<a href="pesquisa.php">Smartphones</a>
-		</li>
-		<li class="odd">
-			<a href="pesquisa.php">Carregadores</a>
-		</li>
-		<li class="even">
-			<a href="pesquisa.php">Accessórios</a>
-		</li>
-		<li class="odd">
-			<a href="pesquisa.php">Capas</a>
-		</li>
-		<li class="even">
-			<a href="pesquisa.php">Tablets</a>
-		</li>
+            <?php
+            
+            $cdao = new CategoriaDAO();
+            $marcas = $cdao->selectAll();
+            $i = 0;
+            foreach ($marcas as $value) {
+
+                if($i % 2 ==0){                    
+                echo '<li class="odd">';
+                }else{
+                echo '<li class="even">';
+                }                
+                echo '<a href="pesquisa.php?pesquisa='.$value->get('nome').'">'.$value->get('nome').'</a></li>';
+                $i++;
+
+            }
+            
+		
+                
+                ?>
 	</ul>
 
 	<div class="title_box">

@@ -3,6 +3,7 @@
 	<?php 
 	require_once 'funcoes.php';
         require_once 'DAO/ProdutoDAO.php';
+         require_once 'DAO/MarcaDAO.php';
         
         $pdao = new ProdutoDAO();
         
@@ -94,21 +95,27 @@
 	</div>
 
 	<ul class="left_menu">
-		<li class="odd">
-			<a href="pesquisa.php">Apple</a>
-		</li>
-		<li class="even">
-			<a href="pesquisa.php">Samsung</a>
-		</li>
-		<li class="odd">
-			<a href="pesquisa.php">Nokia</a>
-		</li>
-		<li class="even">
-			<a href="pesquisa.php">LG</a>
-		</li>
-		<li class="odd">
-			<a href="pesquisa.php">Motorola</a>
-		</li>
+		 <?php
+            
+            $mdao = new MarcaDAO();
+            $marcas = $mdao->selectAll();
+            $i = 0;
+            foreach ($marcas as $value) {
+
+                if($i % 2 ==0){                    
+                echo '<li class="odd">';
+                }else{
+                echo '<li class="even">';
+                }
+                
+                echo '<a href="pesquisa.php?pesquisa='.$value->get('nome').'">'.$value->get('nome').'</a></li>';
+                $i++;
+
+            }
+            
+		
+                
+                ?>
 	</ul>
 
 	<div class="banner_adds">

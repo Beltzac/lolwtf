@@ -301,9 +301,9 @@ $produto = $select;
                                             require_once 'DAO/CategoriaDAO.php';
                                             $cdao = new CategoriaDAO();
 
-                                            $categorias = $cdao->selectAll();
+                                            $marcas = $cdao->selectAll();
 
-                                            foreach ($categorias as $value) {
+                                            foreach ($marcas as $value) {
                                                 
                                                 if($value->get('cod') == $produto->get('categoria'))
                                                  echo "<option selected value='" . $value->get('cod') . "'>" . $value->get('nome') . "</option>";

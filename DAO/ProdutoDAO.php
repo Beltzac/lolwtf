@@ -103,14 +103,14 @@ class ProdutoDAO  extends DAO {
         return $p;
     }
 
-    function  selectLike($pesquisa) {
+    function  selectLike($pesquisa,$limite = 50) {
         $stmt = $this->con->stmt_init();
-        $stmt->prepare("SELECT * FROM produto WHERE concat_ws(' ',nome,descricao,preco) LIKE ?");
+        $stmt->prepare("SELECT * FROM produto WHERE concat_ws(' ',nome,descricao,preco,(select nome from categoria where cod = categoria),(select nome from marca where codmarc = cod_marc)) LIKE ? LIMIT ?");
         $param = "%".$pesquisa."%";
-        $stmt->bind_param("s", $param);
+        $stmt->bind_param("si", $param,$limite);
         
         $stmt->execute();
-
+        echo $stmt->error;
         $stmt->bind_result($nome, $descricao, $cod_prod,$categoria, $estoque, $peso, $cod_marc, $preco, $dimensoes);
 
         $result = array();

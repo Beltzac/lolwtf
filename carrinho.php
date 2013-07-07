@@ -18,6 +18,7 @@
             <?php
             include ('funcoes.php');
             include ('header.php');
+            
             ?>
 
             <div id="main_content">

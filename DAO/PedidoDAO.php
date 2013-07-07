@@ -104,12 +104,12 @@ class PedidoDAO extends DAO {
     
         function  selectAtual($codPessoa) {
         $stmt = $this->con->stmt_init();
-        $stmt->prepare("SELECT * FROM pedido WHERE id_p = ? and situacao = ? and cod_pedido =(SELECT max(cod_pedido) FROM pedido) LIMIT 1");
+        $stmt->prepare("SELECT * FROM pedido WHERE id_p = ? and situacao = ? ORDER BY cod_pedido DESC LIMIT 1");
         $param = 'carrinho';
         $stmt->bind_param("is", $codPessoa, $param );
         
         $stmt->execute();
-echo $stmt->error;
+        echo $stmt->error;
         $stmt->bind_result($situacao,$cod_pedido,$forma_d_entreg, $forma_d_pag,$data,$id_p,$cod_end);
 
         $p=null;

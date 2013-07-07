@@ -139,7 +139,7 @@ include 'session_start.php';
                                     <span class="price">R$<?php echo $preco; ?></span>
                                 </div>
 
-                                <a href="carrinho.php" class="prod_buy">Comprar</a>
+                                 <a href="DAO/carrinhoAction.php?tipo=adicionarProduto&cod_prod=<?php echo $cod ?>" class="prod_buy">Comprar</a>
                                 
                                 
                                <?php
