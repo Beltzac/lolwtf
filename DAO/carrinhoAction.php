@@ -35,7 +35,7 @@ switch ($_GET['tipo']) {
         $c = new contem();
 
         $c->set('cod_prod', $_GET['cod_prod']);
-        $c->set('cod_ped', $pedido);
+        $c->set('cod_ped', $pedido->get('cod_pedido'));
 
         $c->set('quantidade', 1);
 
@@ -45,14 +45,14 @@ switch ($_GET['tipo']) {
 
         $cdao->insert($c);
 
-// redirect();
+        redirect();
         break;
 
     case 'removerProduto':
 
-        $cdao->Delete($_GET['cod_prod'], $pedido);
-        
- //redirect();
+        $cdao->Delete($_GET['cod_prod'], $pedido->get('cod_pedido'));
+        redirect();
+         
         break;
 
     case 'atualizarQuantidade':
@@ -60,7 +60,7 @@ switch ($_GET['tipo']) {
         $c = new contem();
 
         $c->set('cod_prod', $_GET['cod_prod']);
-        $c->set('cod_ped', $pedido);
+        $c->set('cod_ped', $pedido->get('cod_pedido'));
 
         $c->set('quantidade', $_GET['quantidade']);
 
@@ -70,7 +70,7 @@ switch ($_GET['tipo']) {
 
         $cdao->Update($c);
         
- //redirect();
+        redirect();
         break;
 
     case 'finalizar':

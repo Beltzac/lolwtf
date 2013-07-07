@@ -67,16 +67,18 @@
                     $contem = $cdao->selectAllByCod($carrinho->get('cod_pedido'));
                     
                     $produtos = array();
-                    
+                    $total=0;
                                        
                      foreach ($contem as $value){                    
-                         $produtos[] = $proddao->selectByCod($value->get('cod_prod'));
-                     }        
+                         $produtos[] = array($proddao->selectByCod($value->get('cod_prod')), $value->get('quantidade'));
+                         $total+=$value->get('preco') * $value->get('quantidade');
+                     }                        
                      
-                      
-
-                    foreach ($produtos as $value)
-                        carrinhoProduto($value);                    
+                    foreach ($produtos as $value){                        
+                        carrinhoProduto($value[0],$value[1]);                    
+                    }
+                    
+                    echo 'Total:'.$total;
                     ?>
 
 

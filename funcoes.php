@@ -45,7 +45,7 @@ function caixaProduto(Produto $produto) {
     <?php
 }
 
-function carrinhoProduto(Produto $produto) {
+function carrinhoProduto(Produto $produto, $quantidade) {
 
     $codigo = $produto->get('cod_prod');
     $nome = $produto->get('nome');
@@ -76,23 +76,30 @@ function carrinhoProduto(Produto $produto) {
                 <span class="price">R$ <?php echo $preco ?></span>
             </div>
             <form action="DAO/carrinhoAction.php" method="get" id="<?php echo $codigo ?>">
+                
+            <input type="hidden" value="atualizarQuantidade" name="tipo" />
+            <input type="hidden" value="<?php echo $codigo ?>" name="cod_prod" />
+            
             <div class="prod_price2">
                 <p>
-                    <label for=<?php echo "\"spinner$codigo\""; ?>>Quantidade:</label>
-                    <input id=<?php echo "\"spinner$codigo\""; ?> name="quantidade" value="1" />
+                    <label for="<?php echo "spinner$codigo"; ?>">Quantidade:</label>
+                    <input id="<?php echo "spinner$codigo"; ?>" name="quantidade" value="<?php echo $quantidade ?>" />
                 </p>
             </div>
-                
-            </form>
+              
+           
             
             <div class="carrinho_prod_details_tab2">
                  <a href="details.php?cod=<?php echo $codigo ?>" class="prod_details">Detalhes</a>
                  
                 <a href="dao/carrinhoAction.php?tipo=removerProduto&cod_prod=<?php echo $codigo ?>" class="prod_buy">Remover</a>
+                
+                	
+                <input type="submit" id="<?php echo 'but'.$codigo ?>" style="display:none;">
                
-                <a href="dao/carrinhoAction.php?tipo=atualizarQuantidade&cod_prod=<?php echo $codigo ?>" onclick="document.forms['<?php echo $codigo ?>'].submit();" class="prod_buy">Atualizar</a>
+                <a href="#" onclick="document.getElementById('<?php echo 'but'.$codigo ?>').click();" class="prod_buy">Atualizar</a>
             </div>
-            
+             </form>
         </div>
         <br/>
 

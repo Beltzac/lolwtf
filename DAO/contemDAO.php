@@ -145,6 +145,7 @@ function insert($contem) {
             $stmt->bind_param("iiii", $contem->get('quantidade'), $contem->get('preco'), $contem->get('cod_prod'), $contem->get('cod_ped'));
 
             $stmt->execute();
+            echo $stmt->error;
             $err = $stmt->errno;
             $stmt->close();           
         }
@@ -157,13 +158,14 @@ function insert($contem) {
 
         $stmt = $this->con->stmt_init();
 
-        $stmt->prepare("DELETE FROM contem where where cod_prod = ? and cod_ped = ?");
+        $stmt->prepare("DELETE FROM contem where cod_prod = ? and cod_ped = ?");
         
         
         if ($stmt) {
 
 
-           $stmt->bind_param("ii", $cod);
+           $stmt->bind_param("ii", $cod_prod,$cod_ped);
+           echo $stmt->error;
 
             $stmt->execute();
             $err = $stmt->errno;
