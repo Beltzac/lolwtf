@@ -37,9 +37,10 @@ class PedidoDAO extends DAO {
         
     }
 
-    function  selectAll() {
+    function  selectAll($limite = 1000) {
         $stmt = $this->con->stmt_init();
-        $stmt->prepare("SELECT * FROM produto");
+        $stmt->prepare("SELECT * FROM produto LIMIT ?");
+         $stmt->bind_param("i", $limite);
         $stmt->execute();
         $stmt->bind_result($situacao,$cod_pedido,$forma_d_entreg, $forma_d_pag,$data,$id_p,$cod_end);
 
@@ -74,7 +75,7 @@ class PedidoDAO extends DAO {
     
     function  selectByCod($cod) {
         $stmt = $this->con->stmt_init();
-        $stmt->prepare("SELECT * FROM pedido WHERE cod_pedido = ?");
+        $stmt->prepare("SELECT * FROM pedido WHERE cod_pedido = ? LIMIT 1");
         $stmt->bind_param("i", $cod);
         
         $stmt->execute();
@@ -103,11 +104,12 @@ class PedidoDAO extends DAO {
     
         function  selectAtual($codPessoa) {
         $stmt = $this->con->stmt_init();
-        $stmt->prepare("SELECT * FROM pedido WHERE id_p = ?");
-        $stmt->bind_param("i", $codPessoa);
+        $stmt->prepare("SELECT * FROM pedido WHERE id_p = ? and situacao = ? and cod_pedido =(SELECT max(cod_pedido) FROM pedido) LIMIT 1");
+        $param = 'carrinho';
+        $stmt->bind_param("is", $codPessoa, $param );
         
         $stmt->execute();
-
+echo $stmt->error;
         $stmt->bind_result($situacao,$cod_pedido,$forma_d_entreg, $forma_d_pag,$data,$id_p,$cod_end);
 
         $p=null;

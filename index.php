@@ -48,7 +48,7 @@ include 'session_start.php';
                         require_once 'DAO/ProdutoDAO.php';
                         $pdao = new ProdutoDAO();
                        
-                    $data = $pdao->selectAll();
+                    $data = $pdao->selectAll(9);
                        
                   
                     foreach ($data as $value) {

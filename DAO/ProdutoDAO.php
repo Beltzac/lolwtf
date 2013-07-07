@@ -37,9 +37,10 @@ class ProdutoDAO  extends DAO {
         
     }
 
-    function  selectAll() {
+    function  selectAll($limite) {
         $stmt = $this->con->stmt_init();
-        $stmt->prepare("SELECT * FROM produto");
+        $stmt->prepare("SELECT * FROM produto LIMIT ?");
+         $stmt->bind_param("i", $limite);
         $stmt->execute();
         $stmt->bind_result($nome, $descricao, $cod_prod,$categoria, $estoque, $peso, $cod_marc, $preco, $dimensoes);
 
