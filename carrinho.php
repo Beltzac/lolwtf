@@ -67,6 +67,8 @@
                     
                     $contem = $cdao->selectAllByCod($carrinho->get('cod_pedido'));
                     
+                    $_SESSION['carrinho'] = $carrinho->get('cod_pedido');
+                    
                     $produtos = array();
                     $total=0;
                                        

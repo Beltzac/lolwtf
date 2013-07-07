@@ -37,7 +37,10 @@ if ($senha == $senhadb) {
     $_SESSION['logado'] = TRUE;
      $_SESSION['id'] = $p->get('id');
       $_SESSION['nome'] = $p->get('nome');
-    
+      $carrinho = $pdao->selectAtual($_SESSION['id']);
+      if($carrinho){
+      $_SESSION['carrinho'] = $carrinho->get('cod_pedido');
+      }
     if($p->get('nivel_d_aces') > 0){
       $_SESSION['admin'] = TRUE;
     }

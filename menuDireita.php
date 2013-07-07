@@ -3,7 +3,8 @@
 	<?php 
 	require_once 'funcoes.php';
         require_once 'DAO/ProdutoDAO.php';
-         require_once 'DAO/MarcaDAO.php';
+        require_once 'DAO/MarcaDAO.php';
+        require_once 'DAO/carrinhoDAO.php';
         
         $pdao = new ProdutoDAO();
         
@@ -33,6 +34,8 @@
     
     <?php
     if  (isset($_SESSION['logado']) && $_SESSION['logado']){
+        $caDAO = new carrinhoDAO();
+        $total = $caDAO->total($_SESSION['carrinho']);
     ?>
     
     	<div class="shopping_cart">
@@ -41,10 +44,10 @@
 		</div>
 
 		<div class="cart_details">
-			3 item(s)
+			<?php echo $total[1] ?> item(s)
 			<br />
 			<span class="border_cart"></span>
-			Total: <span class="price">R$350,00</span>
+			Total: <span class="price">R$ <?php echo $total[0] ?></span>
 		</div>
 
 		<div class="cart_icon">
