@@ -2,9 +2,9 @@
 
 function imagem($cod) {
     if (file_exists("imagensProdutos\\" . $cod . ".jpg")) {
-        return "imagensProdutos\\$cod.jpg";
+        return "imagensProdutos/$cod.jpg";
     } else {
-        return"images\\indefinido.jpg";
+        return"images/indefinido.jpg";
     }
 }
 

@@ -61,7 +61,7 @@
                         
                         $pdao->insert($pedido);
                         
-                        $carrinho = $pdao->selectAtual($_SESSION['id']);
+                        header("Location: carrinho.php");
                     }
                     
                     $contem = $cdao->selectAllByCod($carrinho->get('cod_pedido'));
