@@ -1,7 +1,8 @@
+
 <?php
 include 'session_start.php';
 if(!$_SESSION['admin']){
-    
+    //FSJHAKKKKFS
     header('Location: index.php');
 }
 ?>
