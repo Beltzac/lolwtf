@@ -5,10 +5,17 @@
         require_once 'DAO/ProdutoDAO.php';
         require_once 'DAO/MarcaDAO.php';
         require_once 'DAO/carrinhoDAO.php';
+        include_once 'php_fast_cache.php';
         
-        $pdao = new ProdutoDAO();
+       
         
-	$p = $pdao->selectByCod(27);
+	    $p = phpFastCache::get("produtoDireito");
+        
+        if(!$p){
+            $pdao = new ProdutoDAO();
+            $p = $pdao->selectByCod(27);
+            phpFastCache::set("produtoDireito",$p,600);
+        }
 
 	$nome = $p->get('nome');
 	$preco = $p->get('preco');
@@ -34,8 +41,7 @@
     
     <?php
     if  (isset($_SESSION['logado']) && $_SESSION['logado']){
-        $caDAO = new carrinhoDAO();
-        $total = $caDAO->total($_SESSION['carrinho']);
+        
     ?>
     
     	<div class="shopping_cart">
@@ -44,10 +50,10 @@
 		</div>
 
 		<div class="cart_details">
-			<?php echo $total[1] ?> item(s)
+			<?php echo $_SESSION['quantidadeProdutos'] ?> item(s)
 			<br />
 			<span class="border_cart"></span>
-			Total: <span class="price">R$ <?php echo $total[0] ?></span>
+			Total: <span class="price">R$ <?php echo $_SESSION['valorTotal'] ?></span>
 		</div>
 
 		<div class="cart_icon">
@@ -100,8 +106,14 @@
 	<ul class="left_menu">
 		 <?php
             
+            
+             $marcas = phpFastCache::get("marcas");
+        
+        if(!$marcas){
             $mdao = new MarcaDAO();
-            $marcas = $mdao->selectAll();
+              $marcas = $mdao->selectAll();
+            phpFastCache::set("marcas",$marcas,600);
+        }
             $i = 0;
             foreach ($marcas as $value) {
 

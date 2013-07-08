@@ -10,18 +10,15 @@ if(!$_SESSION['admin']){
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>Administração - Lolwtf Mobile</title>
         <link rel="stylesheet" type="text/css" href="style.css" />
-		<link rel="stylesheet" type="text/css" href="style.css" />
-		<script type="text/javascript" src="js/boxOver.js"></script>
-                
-                 <link rel="stylesheet" href="jquery-ui.min.css" />
-<script src="js/jquery-2.0.2.min.js"></script>
-<script src="js/jquery-ui.min.js"></script>
-
-
-
-		<script src="js/jquery.validate.min.js"></script>
-		<script src="js/jquery.maskedinput.js"></script>
-
+	<link rel="stylesheet" type="text/css" href="style.css" />
+	<script type="text/javascript" src="js/boxOver.js"></script>                
+        <link rel="stylesheet" href="jquery-ui.min.css" />
+        
+        <script src="js/jquery-2.0.2.min.js"></script>
+        <script src="js/jquery-ui.min.js"></script>
+	<script src="js/jquery.validate.min.js"></script>
+	<script src="js/jquery.maskedinput.js"></script>
+        
         <script>
             $(function() {
                 $("#accordion").accordion();
@@ -224,13 +221,13 @@ $(document).ready(function(){
                 case 'produto':
                     $pdao = new ProdutoDAO();
                     
-$select = $pdao->selectByCod($_GET['cod']);
-if($select){
-$produto = $select;
-}else{
-    header('Location: admin.php');
-}
-                    break;
+                    $select = $pdao->selectByCod($_GET['cod']);
+                    if($select){
+                         $produto = $select;
+                    }else{
+                        header('Location: admin.php');
+                    }
+                                        break;
 
 
                 default:

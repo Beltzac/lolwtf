@@ -46,9 +46,16 @@ include 'session_start.php';
 
                     <?php
                         require_once 'DAO/ProdutoDAO.php';
-                        $pdao = new ProdutoDAO();
-                       
-                    $data = $pdao->selectAll(9);
+                        include_once 'php_fast_cache.php';
+                         
+                         $data = phpFastCache::get("index");
+        
+        if(!$data){
+            $pdao = new ProdutoDAO();   
+            $data = $pdao->selectAll(9);
+            phpFastCache::set("index",$data,300);
+        }    
+                   
                        
                   
                     foreach ($data as $value) {

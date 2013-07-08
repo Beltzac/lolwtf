@@ -37,54 +37,24 @@
                     
                     <?php
                     
-                    require_once 'DAO/ProdutoDAO.php';
-                    require_once 'DAO/PedidoDAO.php';
-                    require_once 'DAO/contemDAO.php';
-                    require_once 'DAO/PessoaDAO.php';
+                    require_once 'DAO/carrinhoDAO.php';
                     
-                    $pdao = new PedidoDAO();
-                    $cdao = new contemDAO();
-                    $proddao = new ProdutoDAO();              
-                    $pesdao = new PessoaDAO();
-                    
-                    
-                    
-                    $carrinho = $pdao->selectAtual($_SESSION['id']);
-                    if(!$carrinho){
-                        
-                        $pedido = new Pedido();
-                        $pessoa = new Pessoa();
-                        $pessoa = $pesdao->selectByCod($_SESSION['id']);
-                        
-                        $pedido->set('situacao', 'carrinho');
-                        $pedido->set('id_p', $_SESSION['id']);
-                        $pedido->set('cod_end', $pessoa->get('cod_end'));
-                        
-                        $pdao->insert($pedido);
-                        
-                        header("Location: carrinho.php");
+                                
+                    if(!$_SESSION['carrinho'] || !isset($_SESSION['carrinho'])){
+                        header('Location: dao/carrinhoAction.php?tipo=iniciar');
                     }
                     
-                    $contem = $cdao->selectAllByCod($carrinho->get('cod_pedido'));
-                    
-                    $_SESSION['carrinho'] = $carrinho->get('cod_pedido');
-                    
-                    $produtos = array();
-                    $total=0;
-                                       
-                     foreach ($contem as $value){                    
-                         $produtos[] = array($proddao->selectByCod($value->get('cod_prod')), $value->get('quantidade'));
-                         $total+=$value->get('preco') * $value->get('quantidade');
-                     }                        
-                     
+                                                          
+                    $cardao = new carrinhoDAO();                    
+                    $produtos = $cardao->selectProdutosPedido($_SESSION['carrinho']);
+                                                          
                     foreach ($produtos as $value){                        
                         carrinhoProduto($value[0],$value[1]);                    
                     }
                     
-                    echo 'Total:'.$total;
+                    $t = $cardao->total($_SESSION['carrinho']);
+                    echo 'Total:'.$t[0];
                     ?>
-
-
 
                     <div class="form_row">
                         <a href="formapag.php" class="prod_buy">Finalizar</a>

@@ -1,11 +1,15 @@
 <?php
 
 include '../session_start.php';
+require_once 'PedidoDAO.php';
+require_once 'ProdutoDAO.php';
+require_once 'ContemDAO.php';
+require_once 'PessoaDAO.php';
+require_once 'carrinhoDAO.php';
+
 if (!$_SESSION['logado']) {
     header('Location: ../index.php');
 }
-
-
 
 function redirect() {
     if (isset($_SERVER['HTTP_REFERER'])) {
@@ -13,15 +17,20 @@ function redirect() {
     } else {
         header('Location: ../index.php');
     }
+    
+    
+    $caDAO = new carrinhoDAO();
+    $total =  $caDAO->total($_SESSION['carrinho']);  
+    $_SESSION['valorTotal'] = $total[0];  
+    $_SESSION['quantidadeProdutos'] = $total[1];  
+    
 }
 
 if (!isset($_GET['tipo'])) {
     redirect();
 }
 
-require_once 'PedidoDAO.php';
-require_once 'ProdutoDAO.php';
-require_once 'ContemDAO.php';
+
 
 $pdao = new ProdutoDAO();
 $cdao = new contemDAO();
@@ -52,7 +61,7 @@ switch ($_GET['tipo']) {
 
         $cdao->Delete($_GET['cod_prod'], $pedido->get('cod_pedido'));
         redirect();
-         
+
         break;
 
     case 'atualizarQuantidade':
@@ -69,13 +78,36 @@ switch ($_GET['tipo']) {
         $c->set('preco', $produto->get('preco'));
 
         $cdao->Update($c);
-        
+
         redirect();
         break;
 
     case 'finalizar':
 
- redirect();
+        redirect();
+        break;
+
+    case 'iniciar':
+        
+        $_SESSION['carrinho'] = $pdao->selectAtual($_SESSION['id']);
+        
+        if(!$_SESSION['carrinho']){
+        $pesdao = new PessoaDAO();
+        $pedido = new Pedido();
+        $pessoa = new Pessoa();
+        $pessoa = $pesdao->selectByCod($_SESSION['id']);
+
+        $pedido->set('situacao', 'carrinho');
+        $pedido->set('id_p', $_SESSION['id']);
+        $pedido->set('cod_end', $pessoa->get('cod_end'));
+
+        $pdao->insert($pedido);
+        $_SESSION['carrinho'] = $pdao->selectAtual($_SESSION['id']);
+        }
+      
+
+        redirect();
+        
         break;
 
     default:

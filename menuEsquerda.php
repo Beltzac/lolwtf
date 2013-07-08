@@ -3,11 +3,16 @@
 	require_once 'funcoes.php';
         require_once 'DAO/ProdutoDAO.php';
         require_once 'DAO/CategoriaDAO.php';
+        include_once 'php_fast_cache.php';
+              
+        $p = phpFastCache::get("produtoEsquerdo");
         
-        $pdao = new ProdutoDAO();   
-
-	$p = $pdao->selectByCod(27);
-
+        if(!$p){
+            $pdao = new ProdutoDAO();   
+            $p = $pdao->selectByCod(27);
+            phpFastCache::set("produtoEsquerdo",$p,600);
+        }
+        
 	$nome = $p->get('nome');
 	$preco = $p->get('preco');
         $codigo = $p->get('cod_prod');
@@ -22,11 +27,23 @@
 
 	<ul class="left_menu">
             <?php
+                    
             
+                    
+            
+            
+               $categorias = phpFastCache::get("categorias");
+        
+        if(!$categorias){
             $cdao = new CategoriaDAO();
-            $marcas = $cdao->selectAll();
+              $categorias = $cdao->selectAll();
+            phpFastCache::set("categorias",$categorias,600);
+        }
+            
+            
+            
             $i = 0;
-            foreach ($marcas as $value) {
+            foreach ($categorias as $value) {
 
                 if($i % 2 ==0){                    
                 echo '<li class="odd">';
