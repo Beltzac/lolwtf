@@ -47,8 +47,8 @@ include 'session_start.php';
                     <?php
                         require_once 'DAO/ProdutoDAO.php';
                         include_once 'php_fast_cache.php';
-                         
-                         $data = phpFastCache::get("index");
+                                                                      
+                        $data = phpFastCache::get("index");
         
         if(!$data){
             $pdao = new ProdutoDAO();   

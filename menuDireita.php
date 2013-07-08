@@ -42,6 +42,14 @@
     <?php
     if  (isset($_SESSION['logado']) && $_SESSION['logado']){
         
+        
+       if(!isset($_SESSION['quantidadeProdutos']) || !isset($_SESSION['valorTotal'])){
+           
+           $caDAO = new carrinhoDAO();
+    $total =  $caDAO->total($_SESSION['carrinho']);  
+    $_SESSION['valorTotal'] = $total[0];  
+    $_SESSION['quantidadeProdutos'] = $total[1];  
+       }
     ?>
     
     	<div class="shopping_cart">
