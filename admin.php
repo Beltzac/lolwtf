@@ -428,6 +428,21 @@ $(document).ready(function(){
                                     <br/>
                                     <input type='radio' name='op' value='op2'>
                                     Fabricantes
+                                    <select name="cod_marc" class="contact_input">
+                                            <?php
+                                            require_once 'DAO/MarcaDAO.php';
+                                            $mdao = new MarcaDAO();
+
+                                            $marcas = $mdao->selectAll();
+
+                                            foreach ($marcas as $value) {
+                                                if ($value->get('codmarc') == $produto->get('cod_marc'))
+                                                echo "<option selected value='" . $value->get('codmarc') . "'>" . $value->get('nome') . "</option>";
+                                                else
+                                                     echo "<option value='" . $value->get('codmarc') . "'>" . $value->get('nome') . "</option>";
+                                            }
+                                            ?>
+                                        </select>
                                     <br/>
                                     <input type='radio' name='op' value='op3'>
                                     Venda
