@@ -80,7 +80,7 @@ class ProdutoDAO  extends DAO {
         $stmt->bind_param("i", $cod);
         
         $stmt->execute();
-
+        echo $stmt->error;
         $stmt->bind_result($nome, $descricao, $cod_prod,$categoria, $estoque, $peso, $cod_marc, $preco, $dimensoes);
 
         while ($stmt->fetch()) {

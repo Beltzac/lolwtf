@@ -3,6 +3,12 @@
 include '../session_start.php';
 if (!$_SESSION['admin']) {
     header('Location: ../index.php');
+    exit();
+}
+
+if (!isset($_POST['tipo'])) {
+    redirect();
+    exit();
 }
 
 require_once 'ProdutoDAO.php';
@@ -15,9 +21,7 @@ function redirect() {
     }
 }
 
-if (!isset($_POST['tipo'])) {
-    redirect();
-}
+
 
 $dao = new ProdutoDAO();
 
@@ -74,7 +78,7 @@ switch ($_POST['tipo']) {
         } else {
             echo 'Erro!';
         }
-
+    
         break;
 
     case 'Deletar':
@@ -92,4 +96,5 @@ switch ($_POST['tipo']) {
     default:
         break;
 }
+redirect()
 ?>
