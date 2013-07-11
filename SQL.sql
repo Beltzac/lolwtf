@@ -66,7 +66,7 @@ CREATE TABLE IF NOT EXISTS `endereco` (
   `complemento` varchar(500) DEFAULT NULL,
   `cidade` varchar(30) NOT NULL,
   `estado` varchar(2) NOT NULL,
-  `cep` int(8) NOT NULL,
+  `cep` varchar(50) NOT NULL,
   `cod_end` int(10) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`cod_end`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
