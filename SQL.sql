@@ -45,15 +45,13 @@ CREATE TABLE IF NOT EXISTS `contem` (
   CONSTRAINT `contem_ibfk_2` FOREIGN KEY (`cod_ped`) REFERENCES `pedido` (`cod_pedido`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela lolwtf2.contem: ~9 rows (aproximadamente)
+-- Copiando dados para a tabela lolwtf2.contem: ~11 rows (aproximadamente)
 /*!40000 ALTER TABLE `contem` DISABLE KEYS */;
 INSERT INTO `contem` (`quantidade`, `preco`, `cod_prod`, `cod_ped`) VALUES
 	(4, 4545.00, 11, 2),
 	(1, 4545.00, 12, 2),
 	(1, 54.00, 14, 2),
-	(1, 54.00, 14, 6),
-	(7, 545.00, 19, 6),
-	(3, 545.00, 23, 6),
+	(1, 545.00, 20, 6),
 	(1, 112.00, 25, 2),
 	(1, 545.00, 27, 8),
 	(5, 10.00, 28, 2);
@@ -76,7 +74,7 @@ CREATE TABLE IF NOT EXISTS `endereco` (
 -- Copiando dados para a tabela lolwtf2.endereco: ~1 rows (aproximadamente)
 /*!40000 ALTER TABLE `endereco` DISABLE KEYS */;
 INSERT INTO `endereco` (`rua`, `num`, `complemento`, `cidade`, `estado`, `cep`, `cod_end`) VALUES
-	('Aristides Cooper', '30', 'casa', 'Curitiba', 'Pa', 82210370, 1);
+	('Aristides Cooper', '55', 'casa', 'Curitiba', 'Pr', 82, 1);
 /*!40000 ALTER TABLE `endereco` ENABLE KEYS */;
 
 
@@ -133,11 +131,11 @@ INSERT INTO `pedido` (`situacao`, `cod_pedido`, `forma_d_entreg`, `forma_d_pag`,
 DROP TABLE IF EXISTS `pessoa`;
 CREATE TABLE IF NOT EXISTS `pessoa` (
   `nome` varchar(30) NOT NULL,
-  `telefone` int(11) NOT NULL,
-  `senha` varchar(15) NOT NULL,
+  `telefone` varchar(20) NOT NULL,
+  `senha` varchar(100) NOT NULL,
   `email` varchar(30) NOT NULL,
-  `rg` int(8) NOT NULL,
-  `cpf` int(11) NOT NULL,
+  `rg` varchar(50) NOT NULL,
+  `cpf` varchar(50) NOT NULL,
   `nivel_d_aces` int(5) NOT NULL,
   `cod_end` int(8) NOT NULL,
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -150,8 +148,8 @@ CREATE TABLE IF NOT EXISTS `pessoa` (
 -- Copiando dados para a tabela lolwtf2.pessoa: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `pessoa` DISABLE KEYS */;
 INSERT INTO `pessoa` (`nome`, `telefone`, `senha`, `email`, `rg`, `cpf`, `nivel_d_aces`, `cod_end`, `id`, `nascimento`) VALUES
-	('adm', 0, '123456', 'rafael_kozar@hotmail.com', 87654321, 2147483647, 5, 1, 1, '0000-00-00'),
-	('Alexandre Beltzac', 32551632, '123456', 'lol2@gmail.com', 655465499, 989989999, 0, 1, 4, '1993-08-11');
+	('admin', '33521454', 'e10adc3949ba59abbe56e057f20f883e', 'rafael_kozar@hotmail.com', '87654321', '2147483647', 0, 1, 1, '0000-00-00'),
+	('Alexandre Beltzac 2', '0', '123456', 'lol2@gmail.com', '65546', '111111', 0, 1, 4, '1993-08-11');
 /*!40000 ALTER TABLE `pessoa` ENABLE KEYS */;
 
 
