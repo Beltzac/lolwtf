@@ -2,167 +2,214 @@
 include 'session_start.php';
 ?>
 <html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<title>Minha conta - Lolwtf Mobile</title>
-		<link rel="stylesheet" type="text/css" href="style.css" />
-		<script type="text/javascript" src="js/boxOver.js"></script>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Minha conta - Lolwtf Mobile</title>
+        <link rel="stylesheet" type="text/css" href="style.css" />
+        <script type="text/javascript" src="js/boxOver.js"></script>
 
-		<link rel="stylesheet" href="jquery-ui.min.css" />
-		<script src="js/jquery-2.0.2.min.js"></script>
-		<script src="js/jquery-ui.min.js"></script>
-		<script src="js/jquery.maskedinput.js"></script>
-                
-		<script>
-			$(function() {
-				$("#accordion").accordion();
+        <link rel="stylesheet" href="jquery-ui.min.css" />
+        <script src="js/jquery-2.0.2.min.js"></script>
+        <script src="js/jquery-ui.min.js"></script>
+        <script src="js/jquery.maskedinput.js"></script>
 
-				$("#datepicker").datepicker({
-					dateFormat : "dd/mm/yy",
-					dayNames : ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"],
-					dayNamesMin : ["D", "S", "T", "Q", "Q", "S", "S"],
-					dayNamesShort : ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"],
-					monthNames : ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
-					monthNamesShort : ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
-					nextText : "Próximo",
-					prevText : "Anterior",
-					weekHeader : "Semana",
-					changeMonth : true,
-					changeYear : true
-				});
+        <script>
+            $(function() {
+                $("#accordion").accordion();
 
-			});
-		</script>
-                <script type="text/javascript">
-$(document).ready(function(){
-        $("#detcpf").mask("999.999.999-99");
-        $("#endcep").mask("99.999-999");
-		$("#dettel").mask("(99)9999-9999");
-		$("#detrg").mask("99.999.999-9");
-});
-</script>
+                $("#datepicker").datepicker({
+                    dateFormat: "dd/mm/yy",
+                    dayNames: ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"],
+                    dayNamesMin: ["D", "S", "T", "Q", "Q", "S", "S"],
+                    dayNamesShort: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"],
+                    monthNames: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
+                    monthNamesShort: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
+                    nextText: "Próximo",
+                    prevText: "Anterior",
+                    weekHeader: "Semana",
+                    changeMonth: true,
+                    changeYear: true
+                });
 
-	</head>
-	<body>
+            });
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $("#detcpf").mask("999.999.999-99");
+                $("#endcep").mask("99.999-999");
+                $("#dettel").mask("(99)9999-9999");
+                $("#detrg").mask("99.999.999-9");
+            });
+        </script>
 
-		<div id="main_container">
+        
+        <?php
+        
+        require_once 'DAO/PessoaDAO.php';
+        require_once 'DAO/EnderecoDAO.php';
+        
+        $pessoa = new Pessoa();
+        $endereco = new Endereco();
 
-			<?php
-			include ('header.php');
-			?>
+        
+   
+                    if (isset($_SESSION['id'])) {
+                        $pessoaDAO = new PessoaDAO();
+                        $select = $pessoaDAO->selectByCod($_SESSION['id']);
+                        if ($select) {
+                            $pessoa = $select;
+                            
+                            $enderecoDAO = new EnderecoDAO();
+                            $select2 = $enderecoDAO->selectByCod($pessoa->get('cod_end'));
+                            if ($select2) {
+                                $endereco = $select2;
+                            } else {
+                                header('Location: index.php');
+                            }
+                        } else {
+                           header('Location: index.php');
+                        }
+                    } else {
+                       header('Location: index.php');
+                    }
+                                  
+       
+        ?>     
+    </head>
+    <body>
 
-			<div id="main_content">
+        <div id="main_container">
 
-				<?php
-				include ('menu.php');
-				include ('menuEsquerda.php');
-				?>
+            <?php
+            include ('header.php');
+            ?>
 
-				<div class="center_content">
+            <div id="main_content">
 
-					<div id="accordion">
+                <?php
+                include ('menu.php');
+                include ('menuEsquerda.php');
+                ?>
 
-						<h3>Detalhes da minha conta</h3>
+                <div class="center_content">
 
-						<div>
-                                                    <form action="#" id="detalhe" method="post">
-							<div class="contact_form">
+                    <div id="accordion">
 
-								<div class="form_row">
-									<label class="contact"><strong>Nome completo:</strong></label>
-									<input type="text" class="contact_input" />
-								</div>
+                        <h3>Detalhes da minha conta</h3>
 
-								<div class="form_row">
-									<label class="contact"><strong>Email:</strong></label>
-									<input type="text" class="contact_input" />
-								</div>
+                        <div>
+                            <form action="dao/pessoaAction.php" id="pessoa" method="post">
+                                <div class="contact_form">
+                                    
+                                    <input type="hidden" name="acao" value="AtualizarPessoa">
+                                     <input type="hidden" name="id" value="<?php echo $_SESSION['id'] ?>">
+                                     <input type="hidden" name="cod_end" value="<?php echo $endereco->get('cod_end') ?>">
 
-								<div class="form_row">
-									<label class="contact"><strong>Telefone:</strong></label>
-									<input type="text" id="dettel" class="contact_input" />
-								</div>
+                                    <div class="form_row">
+                                        <label class="contact"><strong>Nome completo:</strong></label>
+                                        <input type="text" name="nome" class="contact_input" value="<?php echo $pessoa->get('nome') ?>"/>
+                                    </div>
 
-								<div class="form_row">
-									<label class="contact"><strong>RG:</strong></label>
-									<input type="text" id="detrg" class="contact_input" />
-								</div>
+                                    <div class="form_row">
+                                        <label class="contact"><strong>Email:</strong></label>
+                                        <input type="text" name="email" class="contact_input" value="<?php echo $pessoa->get('email') ?>"/>
+                                    </div>
 
-								<div class="form_row">
-									<label class="contact"><strong>CPF:</strong></label>
-									<input type="text" id="detcpf" class="contact_input" />
-								</div>
+                                    <div class="form_row">
+                                        <label class="contact"><strong>Telefone:</strong></label>
+                                        <input type="text" name="telefone" id="clitelefone" class="contact_input" value="<?php echo $pessoa->get('telefone') ?>"/>
+                                    </div>
 
-								<div class="form_row">
-									<label class="contact"><strong>Data de nascimento:</strong></label>
-									<input type="text" class="contact_input" id="datepicker" />
-								</div>
-								
-									<div class="form_row">
-									<label class="contact"><strong>Senha antiga:</strong></label>
-									<input type="password" class="contact_input" />
-								</div>
+                                    <div class="form_row">
+                                        <label class="contact"><strong>RG:</strong></label>
+                                        <input type="text" name="rg" id="clirg" class="contact_input" value="<?php echo $pessoa->get('rg') ?>"/>
+                                    </div>
 
-                                                                <div class="form_row">
-									<label class="contact"><strong>Senha nova:</strong></label>
-									<input type="password" class="contact_input" />
-								</div>
+                                    <div class="form_row">
+                                        <label class="contact"><strong>CPF:</strong></label>
+                                        <input type="text" name="cpf" id="clicpf" class="contact_input" value="<?php echo $pessoa->get('cpf') ?>"/>
+                                    </div>
+
+                                    <div class="form_row">
+                                        <label class="contact"><strong>Data de nascimento:</strong></label>
+                                        <input type="text" name="nascimento" class="contact_input" id="datepicker" value="<?php echo $pessoa->get('nascimento') ?>"/>
+                                    </div>
+                                 
+                                    <div class="form_row">
+                                        <label class="contact"><strong>Nova senha:</strong></label>
+                                        <input type="password" class="contact_input" name="senha" />
+                                    </div>
 
 
-								<div class="form_row">
-									<a href="#" class="prod_details">Atualizar</a>
-								</div>
-							</div>
-                                                     </form>
+                                    <div class="form_row">
+                                        <input class="submit" type="submit" value="Atualizar" name=""/>
 
-						</div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
 
-						<h3> Endereços</h3>
+                        <h3> Endereços</h3>
 
-						<div>
-                                                    <form method="post" id="endereco" action="#">
-							<div class="contact_form">
+                        <div>
+                            <form method="post" id="endereco" action="dao/pessoaAction.php" >
+                                <div class="contact_form">
+                                    
+                                     <input type="hidden" name="acao" value="AtualizarEndereco">
 
-								<div class="form_row">
-									<label class="contact"><strong>Rua:</strong></label>
-									<input type="text" class="contact_input" />
-								</div>
+                                    <input type="hidden" name="cod_end" value="<?php echo $endereco->get('cod_end') ?>">
 
-								<div class="form_row">
-									<label class="contact"><strong>CEP:</strong></label>
-									<input type="text" id="endcep" class="contact_input" />
-								</div>
+                                    <div class="form_row">
+                                        <label class="contact"><strong>Rua:</strong></label>
+                                        <input type="text" name="rua" class="contact_input" value="<?php echo $endereco->get('rua') ?>"/>
+                                    </div>
 
-								<div class="form_row">
-									<label class="contact"><strong>Número:</strong></label>
-									<input type="text" class="contact_input" />
-								</div>
+                                    <div class="form_row">
+                                        <label class="contact"><strong>CEP:</strong></label>
+                                        <input type="text" name="cep" id="endcep" class="contact_input" value="<?php echo $endereco->get('cep') ?>"/>
+                                    </div>
 
-								<div class="form_row">
-									<label class="contact"><strong>Complemento:</strong></label>
-									<input type="text" class="contact_input" />
-								</div>
+                                    <div class="form_row">
+                                        <label class="contact"><strong>Número:</strong></label>
+                                        <input type="text" name="num" class="contact_input" value="<?php echo $endereco->get('num') ?>"/>
+                                    </div>
 
-								<div class="form_row">
-									<a href="#" class="prod_details">Atualizar</a><a href="#" class="prod_details">Excluir</a>
-								</div>
+                                    <div class="form_row">
+                                        <label class="contact"><strong>Complemento:</strong></label>
+                                        <input type="text" name="complemento"class="contact_input" value="<?php echo $endereco->get('complemento') ?>"/>
+                                    </div>
 
-							</div>
-                                                    </form>
-						</div>
+                                    <div class="form_row">
+                                        <label class="contact"><strong>Cidade:</strong></label>
+                                        <input type="text" name="cidade" class="contact_input" value="<?php echo $endereco->get('cidade') ?>"/>
+                                    </div>
 
-					</div>
+                                    <div class="form_row">
+                                        <label class="contact"><strong>Estado:</strong></label>
+                                        <input type="text" name="estado" class="contact_input" value="<?php echo $endereco->get('estado') ?>"/>
+                                    </div>
 
-				</div><!-- center -->
+                                    <div class="form_row">
+                                        <input class="submit" type="submit" value="Atualizar" name=""/>
 
-				<?php
-				include ('menuDireita.php');
-				?>
-			</div><!-- main index -->
+                                    </div>
 
-			<?php
-			include ('footer.html');
-			?>
-		</div>
-	</body>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+
+                </div><!-- center -->
+
+                <?php
+                include ('menuDireita.php');
+                ?>
+            </div><!-- main index -->
+
+            <?php
+            include ('footer.html');
+            ?>
+        </div>
+    </body>
 </html>

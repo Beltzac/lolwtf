@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 require_once 'PessoaDAO.php';
 require_once 'enderecoDAO.php';
 
@@ -38,19 +38,23 @@ switch ($_POST['acao']) {
 
             $p->set('nome', $_POST['campoNome']);
             $p->set('telefone', $_POST['campoTelefone']);
-            $p->set('senha', $_POST['campoSenha']);
             $p->set('email', $_POST['campoEmail']);
             $p->set('rg', $_POST['campoRg']);
             $p->set('cpf', $_POST['campoCpf']);
             $p->set('nivel_d_aces', 0);
             $p->set('cod_end', $last);
             $p->set('nascimento', $_POST['campoNascimento']);
+            
+           $err = $pdao->insert($p);           
 
-
-            $pdao->insert($p);
+            if(strlen($_POST['senha']) >= 6  && !$err){
+            $last = $pdao->lastID();
+            $pdao->updateSenha($last, $_POST['campoSenha']);            
+        }
+        
         }
 
-        
+
 
         break;
 
@@ -72,16 +76,60 @@ switch ($_POST['acao']) {
 
         $p->set('nome', $_POST['nome']);
         $p->set('telefone', $_POST['telefone']);
-        $p->set('senha', $_POST['senha']);
         $p->set('email', $_POST['email']);
         $p->set('rg', $_POST['rg']);
-        $p->set('cpf', $_POST['cpf']);
-        $p->set('nivel_d_aces', $_POST['nivel_d_aces']);
+        $p->set('cpf', $_POST['cpf']);        
         $p->set('nascimento', $_POST['nascimento']);
         $p->set('cod_end', $_POST['cod_end']);
+        $p->set('id', $_POST['id']);
 
 
         $pdao->update($p);
+        $pdao ->updateNivel($_POST['id'], $_POST['nivel_d_aces']);
+        if(strlen($_POST['senha']) >= 6){
+            $pdao->updateSenha($_POST['id'], $_POST['senha']);            
+        }
+
+        break;
+
+    case 'AtualizarPessoa':
+
+
+        $p = new Pessoa();
+
+        $p->set('nome', $_POST['nome']);
+        $p->set('telefone', $_POST['telefone']);
+        $p->set('email', $_POST['email']);
+        $p->set('rg', $_POST['rg']);
+        $p->set('cpf', $_POST['cpf']);
+        $p->set('nascimento', $_POST['nascimento']);
+        $p->set('cod_end', $_POST['cod_end']);
+        $p->set('id', $_POST['id']);
+
+
+        $pdao->update($p);
+        
+        if(strlen($_POST['senha']) >= 6){
+            $pdao->updateSenha($_SESSION['id'], $_POST['senha']);            
+        }
+
+        break;
+
+    case 'AtualizarEndereco':
+
+        $e = new Endereco;
+
+        $e->set('rua', $_POST['rua']);
+        $e->set('cep', $_POST['cep']);
+        $e->set('cidade', $_POST['cidade']);
+        $e->set('estado', $_POST['estado']);
+        $e->set('num', $_POST['num']);
+        $e->set('complemento', $_POST['complemento']);
+        $e->set('cod_end', $_POST['cod_end']);
+
+        $edao->update($e);
+
+
 
         break;
 

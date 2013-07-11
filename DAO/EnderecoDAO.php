@@ -134,12 +134,12 @@ class EnderecoDAO extends DAO {
          return $err;
     }
     
-        function insert(Endereco $endereco) {
+        function update(Endereco $endereco) {
 
 
         $stmt = $this->con->stmt_init();
 
-        $stmt->prepare("update set endereco rua = ?, num = ?, complemento = ?, cidade = ?, estado = ?, cep = ? where cod_end = ?");
+        $stmt->prepare("update endereco set rua = ?, num = ?, complemento = ?, cidade = ?, estado = ?, cep = ? where cod_end = ?");
         if ($stmt) {
 
 

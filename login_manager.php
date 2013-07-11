@@ -26,17 +26,10 @@ $senha = $_POST['senha'];
 $pdao = new PessoaDAO();
 $pedidodao = new PedidoDAO();
 
-$res = $pdao->selectByEmail($email);
-
-if (isset($res[0])) {
-    $p = $res[0];
+$p = $pdao->selectByEmail($email,$senha);
 
 
-    $senhadb = $p->get('senha');
-
-    var_dump($res);
-
-    if ($senha == $senhadb) {
+    if ($p != null) {
         //inicializa dados da sessão
         $_SESSION['logado'] = TRUE;
         $_SESSION['id'] = $p->get('id');
@@ -59,9 +52,5 @@ if (isset($res[0])) {
         session_destroy();
         redirect();
     }
-} else {
-    //email não existe
-    session_destroy();
-    redirect();
-}
+
 ?>

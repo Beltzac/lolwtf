@@ -22,7 +22,12 @@ if (!$_SESSION['admin']) {
 
         <script>
             $(function() {
-                $("#accordion").accordion();
+                $("#accordion").accordion(
+    <?php      
+    if(isset($_GET['action']) && $_GET['action'] == 'pessoa' )
+            echo '{active: 1}';
+         ?>   
+    );
 
                 $("#datepicker").datepicker({
                     dateFormat: "dd/mm/yy",
@@ -190,10 +195,7 @@ if (!$_SESSION['admin']) {
             });
         </script>
 
-    </head>
-    <body>
-
-        <?php
+         <?php
         require_once 'DAO/ProdutoDAO.php';
         require_once 'DAO/PessoaDAO.php';
         require_once 'DAO/EnderecoDAO.php';
@@ -203,10 +205,9 @@ if (!$_SESSION['admin']) {
 
         if (isset($_GET['action'])) {
             switch ($_GET['action']) {
-                case 'produto':
-                    if (isset($_GET['cod'])) {
+                case 'produto':     
+                     if (isset($_GET['cod'])) {                  
                         $pdao = new ProdutoDAO();
-
                         $select = $pdao->selectByCod($_GET['cod']);
                         if ($select) {
                             $produto = $select;
@@ -219,6 +220,8 @@ if (!$_SESSION['admin']) {
                     break;
 
                 case 'pessoa':
+                    
+   
                     if (isset($_GET['cod'])) {
                         $pessoaDAO = new PessoaDAO();
                         $select = $pessoaDAO->selectByCod($_GET['cod']);
@@ -245,6 +248,9 @@ if (!$_SESSION['admin']) {
             }
         }
         ?>     
+        
+    </head>
+    <body>     
 
 
         <div id="main_container">
@@ -368,7 +374,13 @@ foreach ($categoria as $value) {
 
                         <div>
                             <div class="contact_form">
-                                <form id="cliente" method="post" action="#">
+                                
+                                 <form action="pesquisa.php" method="get">
+		<input type="text" name="pesquisa" class="newsletter_input" value=""/>
+		  <input class="submit" type="submit" value="Pesquisar" name="tipo"/>
+                </form>
+                                
+                                <form id="cliente" method="post" action="dao/pessoaAction.php">
                                     
                                     <input type="hidden" name="id" value="<?php echo $pessoa->get('id') ?>">
 
@@ -401,15 +413,15 @@ foreach ($categoria as $value) {
                                         <label class="contact"><strong>Data de nascimento:</strong></label>
                                         <input type="text" name="nascimento" class="contact_input" id="datepicker" value="<?php echo $pessoa->get('nascimento') ?>"/>
                                     </div>
-
+                                                                     
                                     <div class="form_row">
-                                        <label class="contact"><strong>Senha:</strong></label>
-                                        <input type="password" name="senha" class="contact_input" value="<?php echo $pessoa->get('senha') ?>"/>
-                                    </div>
-                                    
-                                     <div class="form_row">
                                         <label class="contact"><strong>Nivel de Acesso:</strong></label>
                                         <input type="text" name="nivel_d_aces" class="contact_input" value="<?php echo $pessoa->get('nivel_d_aces') ?>"/>
+                                    </div>
+                                    
+                                    <div class="form_row">
+                                        <label class="contact"><strong>Nova senha:</strong></label>
+                                        <input type="text" class="contact_input" name="senha" />
                                     </div>
                                     
                                     <input type="hidden" name="cod_end" value="<?php echo $endereco->get('cod_end') ?>">
