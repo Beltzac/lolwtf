@@ -114,7 +114,47 @@ class EnderecoDAO extends DAO {
     }
 
     
+     function Delete($cod) {
+
+
+        $stmt = $this->con->stmt_init();
+
+        $stmt->prepare("DELETE FROM endereco where cod_end = ?");
+        
+        
+        if ($stmt) {
+
+
+           $stmt->bind_param("i", $cod);
+
+            $stmt->execute();
+            $err = $stmt->errno;
+            $stmt->close();           
+        }
+         return $err;
+    }
     
+        function insert(Endereco $endereco) {
+
+
+        $stmt = $this->con->stmt_init();
+
+        $stmt->prepare("update set endereco rua = ?, num = ?, complemento = ?, cidade = ?, estado = ?, cep = ? where cod_end = ?");
+        if ($stmt) {
+
+
+            $stmt->bind_param("sissssi", $endereco->get('rua'), $endereco->get('num'), $endereco->get('complemento'), $endereco->get('cidade'), $endereco->get('estado'), $endereco->get('cep'),$endereco->get('cod_end'));
+
+            $stmt->execute();
+            
+            echo $stmt->error;
+            
+            $err = $stmt->errno;
+            $stmt->close();
+
+            return $err;
+        }
+    }
     
 }
 

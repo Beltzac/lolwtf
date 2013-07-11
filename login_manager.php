@@ -37,7 +37,7 @@ if (isset($res[0])) {
     var_dump($res);
 
     if ($senha == $senhadb) {
-        
+        //inicializa dados da sessão
         $_SESSION['logado'] = TRUE;
         $_SESSION['id'] = $p->get('id');
         $_SESSION['nome'] = $p->get('nome');

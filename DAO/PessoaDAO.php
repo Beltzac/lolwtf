@@ -141,7 +141,44 @@ class PessoaDAO extends DAO  {
         return $result;
     }
 
+ function Delete($cod) {
 
+
+        $stmt = $this->con->stmt_init();
+
+        $stmt->prepare("DELETE FROM pessoa where id = ?");
+        
+        
+        if ($stmt) {
+
+
+           $stmt->bind_param("i", $cod);
+
+            $stmt->execute();
+            $err = $stmt->errno;
+            $stmt->close();           
+        }
+         return $err;
+    }
     
+    function update( Pessoa $pessoa) {
+
+
+        $stmt = $this->con->stmt_init();
+
+        $stmt->prepare("update pessoa set nome = ?, telefone = ?, senha = ?, email = ?, rg = ?, cpf = ?, nivel_d_aces = ?, cod_end = ?, nascimento = ? where id = ?");
+        if ($stmt) {
+
+
+            $stmt->bind_param("ssssssssss",$pessoa->get('nome'),$pessoa->get('telefone'),$pessoa->get('senha'),$pessoa->get('email'),$pessoa->get('rg'),$pessoa->get('cpf'),$pessoa->get('nivel_d_aces'),$pessoa->get('cod_end'),$pessoa->get('nascimento'),$pessoa->get('id'));
+
+            $stmt->execute();
+            echo $stmt->error;
+            $err = $stmt->errno;
+            $stmt->close();
+
+            return $err;
+        }
+    }
     
 }

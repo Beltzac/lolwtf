@@ -7,7 +7,7 @@ private static $connection = NULL;
 function conecta() {
 
 	
-	$conexao = new mysqli("127.0.0.1", "root", "root","lolwtf2") or die("Problem connecting: ".mysqli_error());
+	$conexao = new mysqli("127.0.0.1", "root", "","lolwtf2") or die("Problem connecting: ".mysqli_error());
 
         
 	return $conexao;

@@ -185,7 +185,7 @@ $(document).ready(function(){
 						<div class="center_prod_box_big">
 
 							<div class="contact_form">
-                                                            <form id="cliente" method="post" action="DAO/novacontaAction.php">
+                                                            <form id="cliente" method="post" action="DAO/pessoaAction.php">
 									
 									<input type="hidden" name="acao" value="novaConta">
 

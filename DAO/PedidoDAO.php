@@ -135,7 +135,7 @@ class PedidoDAO extends DAO {
     
    
     
-    function Update(Pedido $produto) {
+    function Update(Pedido $pedido) {
 
 
         $stmt = $this->con->stmt_init();

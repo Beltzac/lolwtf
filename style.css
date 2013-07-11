@@ -640,3 +640,10 @@ table
         color:#000;
         background-color:#D6EDFF;
       }
+      .img
+      {
+        width: auto;
+        max-width: 100px;
+        height: auto;
+        max-height: 70px;
+      }

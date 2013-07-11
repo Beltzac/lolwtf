@@ -45,6 +45,8 @@ include 'session_start.php';
                     </div>
 
                     <?php
+                    
+                    //Procura produtos para preencher a pagina inicial, utiliza cache
                         require_once 'DAO/ProdutoDAO.php';
                         include_once 'php_fast_cache.php';
                                                                       

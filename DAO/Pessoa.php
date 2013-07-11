@@ -11,6 +11,7 @@ class Pessoa {
     private $nivel_d_aces = null;
     private $cod_end = null;
     private $id = null;
+    private $nascimento = null;
 
     function set($campo, $valor) {
         $this->$campo = $valor;

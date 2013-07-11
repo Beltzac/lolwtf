@@ -7,10 +7,12 @@ require_once 'ContemDAO.php';
 require_once 'PessoaDAO.php';
 require_once 'carrinhoDAO.php';
 
+//Não deixa acessar a pagina se não estiver logado
 if (!$_SESSION['logado']) {
     header('Location: ../index.php');
 }
 
+//Redireciona para a pagina anterior, atualiza o valor e quantidade de produtos no carrinho
 function redirect() {
     if (isset($_SERVER['HTTP_REFERER'])) {
         header("Location:" . $_SERVER['HTTP_REFERER']);
@@ -39,54 +41,8 @@ $pedido = $peddao->selectAtual($_SESSION['id']);
 
 
 switch ($_GET['tipo']) {
-    case 'adicionarProduto':
-
-        $c = new contem();
-
-        $c->set('cod_prod', $_GET['cod_prod']);
-        $c->set('cod_ped', $pedido->get('cod_pedido'));
-
-        $c->set('quantidade', 1);
-
-        $produto = $pdao->selectByCod($_GET['cod_prod']);
-
-        $c->set('preco', $produto->get('preco'));
-
-        $cdao->insert($c);
-
-        redirect();
-        break;
-
-    case 'removerProduto':
-
-        $cdao->Delete($_GET['cod_prod'], $pedido->get('cod_pedido'));
-        redirect();
-
-        break;
-
-    case 'atualizarQuantidade':
-
-        $c = new contem();
-
-        $c->set('cod_prod', $_GET['cod_prod']);
-        $c->set('cod_ped', $pedido->get('cod_pedido'));
-
-        $c->set('quantidade', $_GET['quantidade']);
-
-        $produto = $pdao->selectByCod($_GET['cod_prod']);
-
-        $c->set('preco', $produto->get('preco'));
-
-        $cdao->Update($c);
-
-        redirect();
-        break;
-
-    case 'finalizar':
-
-        redirect();
-        break;
-
+    
+    //Inicializa o carrinho se ele não existir
     case 'iniciar':
         
         $_SESSION['carrinho'] = $pdao->selectAtual($_SESSION['id']);
@@ -106,11 +62,62 @@ switch ($_GET['tipo']) {
         }
       
 
-        redirect();
+      
+        
+        break;
+        
+    //adiciona um produto no carrinho do usuário
+    case 'adicionarProduto':
+
+        $c = new contem();
+
+        $c->set('cod_prod', $_GET['cod_prod']);
+        $c->set('cod_ped', $pedido->get('cod_pedido'));
+
+        $c->set('quantidade', 1);
+
+        $produto = $pdao->selectByCod($_GET['cod_prod']);
+
+        $c->set('preco', $produto->get('preco'));
+
+        $cdao->insert($c);
+
+       
+        break;
+    //Remove um produto do carrinho
+    case 'removerProduto':
+
+        $cdao->Delete($_GET['cod_prod'], $pedido->get('cod_pedido'));
+        
+
+        break;
+    //Atualiza a quantidade do produto no carrinho 
+    case 'atualizarQuantidade':
+
+        $c = new contem();
+
+        $c->set('cod_prod', $_GET['cod_prod']);
+        $c->set('cod_ped', $pedido->get('cod_pedido'));
+
+        $c->set('quantidade', $_GET['quantidade']);
+
+        $produto = $pdao->selectByCod($_GET['cod_prod']);
+
+        $c->set('preco', $produto->get('preco'));
+
+        $cdao->Update($c);
+
         
         break;
 
+    //Finaliza o carrinho
+    case 'finalizar':
+
+        redirect();
+        break;
+    
     default:
         break;
 }
+redirect();
 ?>

@@ -8,6 +8,7 @@ function imagem($cod) {
     }
 }
 
+//desenha os dados do produto e sua imagem, links
 function caixaProduto(Produto $produto) {
 
     $codigo = $produto->get('cod_prod');
@@ -22,7 +23,7 @@ function caixaProduto(Produto $produto) {
                 <a href="details.php?cod=<?php echo $codigo ?>"><?php echo $nome ?></a>
             </div>
             <div class="product_img">
-                <a href="details.php?cod=<?php echo $codigo ?>"><img src="<?php echo imagem($codigo) ?>" alt="" title="" border="0" width="100"/></a>
+                <a href="details.php?cod=<?php echo $codigo ?>"><img src="<?php echo imagem($codigo) ?>" alt="" title="" border="0" class="img"/></a>
             </div>
             <div class="prod_price">
                 <span class="price">R$ <?php echo $preco ?></span>
@@ -45,6 +46,7 @@ function caixaProduto(Produto $produto) {
     <?php
 }
 
+//desenha os dados do produto e sua imagem, links no formato de lista
 function carrinhoProduto(Produto $produto, $quantidade) {
 
     $codigo = $produto->get('cod_prod');
@@ -66,7 +68,7 @@ function carrinhoProduto(Produto $produto, $quantidade) {
 
         <div class="carrinho_center_prod_box2">
             <div class="product_img2">
-                <a href="details.php?cod=<?php echo $codigo ?>"><img src="<?php echo imagem($codigo) ?>" alt="" title="" border="0"  width="100"/></a>
+                <a href="details.php?cod=<?php echo $codigo ?>"><img src="<?php echo imagem($codigo) ?>" alt="" title="" border="0"  class="img"/></a>
             </div>
             <div class="product_title2">
                 <a href="details.php?cod=<?php echo $codigo ?>"><?php echo $nome ?></a>

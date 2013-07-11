@@ -39,7 +39,7 @@
                     
                     require_once 'DAO/carrinhoDAO.php';
                     
-                                
+                    //inicializa o carrinho se necessario            
                     if(!$_SESSION['carrinho'] || !isset($_SESSION['carrinho'])){
                         header('Location: dao/carrinhoAction.php?tipo=iniciar');
                     }
