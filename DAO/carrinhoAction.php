@@ -8,8 +8,8 @@ require_once 'PessoaDAO.php';
 require_once 'carrinhoDAO.php';
 
 //Não deixa acessar a pagina se não estiver logado
-if (!$_SESSION['logado']) {
-    header('Location: ../index.php');
+if (!$_SESSION['logado'] || !isset($_SESSION['logado'])) {
+    header('Location: ../novaconta.php');
 }
 
 //Redireciona para a pagina anterior, atualiza o valor e quantidade de produtos no carrinho
@@ -61,9 +61,6 @@ switch ($_GET['tipo']) {
         $_SESSION['carrinho'] = $pdao->selectAtual($_SESSION['id']);
         }
       
-
-      
-        
         break;
         
     //adiciona um produto no carrinho do usuário
@@ -113,7 +110,7 @@ switch ($_GET['tipo']) {
     //Finaliza o carrinho
     case 'finalizar':
 
-        redirect();
+    
         break;
     
     default:

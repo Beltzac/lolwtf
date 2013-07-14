@@ -61,6 +61,43 @@ class PessoaDAO extends DAO {
         return $result;
     }
 
+     function selectLike($pesquisa,$limite = 50) {
+        $stmt = $this->con->stmt_init();
+        $stmt->prepare("SELECT * FROM pessoa p WHERE concat_ws(' ',nome,telefone,email,rg,cpf,nivel_d_aces,id ,(select rua from endereco e where e.cod_end = p.cod_end)) LIKE ? LIMIT ?");
+        $param = "%".$pesquisa."%";
+        $stmt->bind_param("si", $param,$limite);
+        $stmt->execute();
+        echo $stmt->error;
+        $stmt->bind_result($nome, $telefone, $senha, $email, $rg, $cpf, $nivel_d_aces, $cod_end, $id, $nascimento);
+
+        $result = array();
+
+
+        while ($stmt->fetch()) {
+
+            $p = new Pessoa();
+
+
+            $p->set('nome', $nome);
+            $p->set('telefone', $telefone);
+            $p->set('senha', $senha);
+            $p->set('email', $email);
+            $p->set('rg', $rg);
+            $p->set('cpf', $cpf);
+            $p->set('nivel_d_aces', $nivel_d_aces);
+            $p->set('cod_end', $cod_end);
+            $p->set('id', $id);
+            $p->set('nascimento', $nascimento);
+
+            $result[] = $p;
+        }
+
+
+        $stmt->close();
+
+        return $result;
+    }
+    
     function selectByCod($cod) {
         $stmt = $this->con->stmt_init();
         $stmt->prepare("SELECT * FROM pessoa where id = ?");
