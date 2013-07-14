@@ -15,6 +15,9 @@ include 'session_start.php';
         <link rel="stylesheet" type="text/css" href="iecss.css" />
         <![endif]-->
         <script type="text/javascript" src="js/boxOver.js"></script>
+        <script src="js/jquery-2.0.2.min.js"></script>
+        <script src="js/jquery-ui.min.js"></script>
+        <link rel="stylesheet" href="jquery-ui.min.css" />
         <script>
             PositionX = 100;
             PositionY = 100;
@@ -62,7 +65,14 @@ include 'session_start.php';
                     close();
                 }
             }
-
+            $(function() {
+                $("#spinner").spinner({
+                    step: 1,
+                    numberFormat: "n",
+                    min: 1,
+                    max: 20
+                });
+            });
         </script>
     </head>
     <body>
@@ -109,7 +119,7 @@ include 'session_start.php';
                         <div class="center_prod_box_big">
 
                             <div class="product_img_big">
-                                <a href="javascript:popImage('<?php echo str_replace('\\','/', $imagem )?>','<?php echo $nome; ?>')" title="header=[Zoom] body=[&nbsp;] fade=[on]"><img src="<?php echo $imagem; ?>" alt="" title="" border="0" width ="180" /></a>
+                                <a href="javascript:popImage('<?php echo str_replace('\\', '/', $imagem) ?>','<?php echo $nome; ?>')" title="header=[Zoom] body=[&nbsp;] fade=[on]"><img src="<?php echo $imagem; ?>" alt="" title="" border="0" width ="180" /></a>
                                 <div class="thumbs">
                                     <a href="#" title="header=[Thumb1] body=[&nbsp;] fade=[on]"><img src="<?php echo $imagem; ?>" alt="" title="" border="0" height ="40"/></a>
                                     <a href="#" title="header=[Thumb2] body=[&nbsp;] fade=[on]"><img src="<?php echo $imagem; ?>" alt="" title="" border="0" height ="40"/></a>
@@ -139,35 +149,42 @@ include 'session_start.php';
                                     <span class="price">R$<?php echo $preco; ?></span>
                                 </div>
 
-                                 <a href="DAO/carrinhoAction.php?tipo=adicionarProduto&cod_prod=<?php echo $cod ?>" class="prod_buy">Comprar</a>
-                                
-                                
-                               <?php
-                               
-                               if(isset($_SESSION['admin']) && $_SESSION['admin']){
-                                   
-                                  echo  '<a href = admin.php?action=produto&cod=' . $p->get('cod_prod') .' class="prod_buy" style="color:red">Modificar</a>';
-                                   
-                               }
-                               ?>
+                                <form action="dao/carrinhoAction.php" method="get">
+                                    <div class="prod_price2">
+                                        <p>                         
+                                            <input id="spinner" name="quantidade" value="1" />
+                                        </p>
+                                    </div>
+                                    <input type="hidden" name="tipo" value="adicionarProduto">
+                                        <input type="hidden" name="cod_prod" value="<?php echo $cod ?>">
+                                            <input type="submit" id="but" style="display:none;">                                      
+                                                <a href="#" onclick="document.getElementById('but').click();" class="prod_buy">Comprar</a>
+                                                </form>
 
-                            </div>
-                        </div>
+                                                <?php
+                                                if (isset($_SESSION['admin']) && $_SESSION['admin']) {
 
-                    </div>
+                                                    echo '<a href = admin.php?action=produto&cod=' . $p->get('cod_prod') . ' class="prod_buy" style="color:red">Modificar</a>';
+                                                }
+                                                ?>
 
-                </div><!-- end of center content -->
+                                                </div>
+                                                </div>
 
-                <?php
-                include ('menuDireita.php');
-                ?>
-            </div><!-- end of main content -->
+                                                </div>
 
-            <?php
-            include ('footer.html');
-            ?>
+                                                </div><!-- end of center content -->
 
-        </div>
-        <!-- end of main_container -->
-    </body>
-</html>
+                                                <?php
+                                                include ('menuDireita.php');
+                                                ?>
+                                                </div><!-- end of main content -->
+
+                                                <?php
+                                                include ('footer.html');
+                                                ?>
+
+                                                </div>
+                                                <!-- end of main_container -->
+                                                </body>
+                                                </html>
