@@ -213,7 +213,7 @@ class PessoaDAO extends DAO {
         if ($stmt) {
 
 
-            $stmt->bind_param("is", $senha, $id);
+            $stmt->bind_param("si", $senha, $id);
 
             $stmt->execute();
             echo $stmt->error;
