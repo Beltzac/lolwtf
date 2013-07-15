@@ -40,6 +40,7 @@ include 'session_start.php';
                 $("#clitelefone").mask("(99)9999-9999");
                 $("#clirg").mask("99.999.999-9");
                 $("#clicpf").mask("999.999.999-99");
+                //Comment teste
             });
         </script>
         <script>
