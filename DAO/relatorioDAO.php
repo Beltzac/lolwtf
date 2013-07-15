@@ -1,7 +1,9 @@
 <?php
 require_once 'DAO.PHP';
 require_once 'connection.php';
-require_once 'pessoaDAO.php';
+require_once 'marcaDAO.php';
+require_once 'relat.php';
+
 class relatorioDAO extends DAO {
     function  selectByCiente() {
         $stmt = $this->con->stmt_init();
@@ -10,7 +12,7 @@ class relatorioDAO extends DAO {
         $stmt->bind_result($nome);//, $telefone, $senha, $email, $rg, $cpf, $nivel_d_aces, $cod_end,$id,$nascimento);
         $result = array();
         while ($stmt->fetch()) {
-            $p = new Pessoa();
+            $p = new Marca();
             $p->set('nome', $nome);
             /*$p->set('telefone', $telefone);
             $p->set('senha', $senha);

@@ -12,11 +12,16 @@ and open the template in the editor.
         <table>
         <?php
         require_once 'DAO/relatorioDAO.php';
+        //require_once 'funcoes.php';
         $dao = new relatorioDAO();
         $lista = $dao->selectByCiente();
-       // while($lista)
+        foreach ($lista as $value) 
+            echo $value->get('nome');  
+
+
+      // while($lista)
         //{
-            echo "<tr><td>".$lista['nome']."</td></tr>";
+        //    echo "<tr><td>".$lista['nome']."</td></tr>";
         //}        
         // put your code here
         ?>
