@@ -482,7 +482,7 @@ foreach ($categoria as $value) {
                                 <br/>
                                 <br/>
 
-                                <form method='post' action='admin.php'>
+                                <form method='post' action='relatorios.php'>
                                     <input type='radio' name='op' value='op1'>
                                     Clientes
                                     <br/>

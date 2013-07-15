@@ -56,17 +56,12 @@ include 'session_start.php';
             $pdao = new ProdutoDAO();   
             $data = $pdao->selectAll(9);
             phpFastCache::set("index",$data,300);
-        }    
-                   
-                       
-                  
-                    foreach ($data as $value) {
-                     
-                        
-                        caixaProduto($value);
-                        
-                    }
-                    ?>
+        }        
+        foreach ($data as $value) 
+        {               
+           caixaProduto($value);
+        }
+                       ?>
 
                     <div class="center_title_bar">
                         Produtos Recomendados

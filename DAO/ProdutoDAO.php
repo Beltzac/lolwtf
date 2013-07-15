@@ -1,31 +1,13 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of DAO_Produto
- *
- * @author Codification
- */
 require_once 'connection.php';
 require_once 'Produto.php';
 require_once 'DAO.php';
-
 class ProdutoDAO  extends DAO {
-
-
     function insert($produto) {
-
-
         $stmt = $this->con->stmt_init();
 
         $stmt->prepare("INSERT INTO PRODUTO (nome, descricao, estoque, peso, cod_marc, preco, categoria,dimensoes) VALUES (?,?,?,?,?,?,?,?)");
         if ($stmt) {
-
-
             $stmt->bind_param("ssiiisis", $produto->get('nome'), $produto->get('descricao'), $produto->get('estoque'), $produto->get('peso'), $produto->get('cod_marc'), $produto->get('preco'), $produto->get('categoria'),$produto->get('dimensoes'));
             
             $stmt->execute();
@@ -40,19 +22,12 @@ class ProdutoDAO  extends DAO {
     function  selectAll($limite) {
         $stmt = $this->con->stmt_init();
         $stmt->prepare("SELECT * FROM produto LIMIT ?");
-         $stmt->bind_param("i", $limite);
+        $stmt->bind_param("i", $limite);
         $stmt->execute();
         $stmt->bind_result($nome, $descricao, $cod_prod,$categoria, $estoque, $peso, $cod_marc, $preco, $dimensoes);
-
         $result = array();
-
-
-
         while ($stmt->fetch()) {
-
             $p = new Produto();
-
-
             $p->set('nome', $nome);
             $p->set('descricao', $descricao);
             $p->set('cod_prod', $cod_prod);
@@ -61,19 +36,12 @@ class ProdutoDAO  extends DAO {
             $p->set('cod_marc', $cod_marc);
             $p->set('preco', $preco);
             $p->set('dimensoes', $dimensoes);
-             $p->set('categoria', $categoria);
-
+            $p->set('categoria', $categoria);
             $result[] = $p;
-
         }
-
-
         $stmt->close();
-
         return $result;
-    }
-    
-    
+    }     
     function  selectByCod($cod) {
         $stmt = $this->con->stmt_init();
         $stmt->prepare("SELECT * FROM produto WHERE cod_prod = ?");

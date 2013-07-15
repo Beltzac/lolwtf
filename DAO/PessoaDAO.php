@@ -3,20 +3,12 @@
 require_once 'connection.php';
 require_once 'Pessoa.php';
 require_once 'DAO.php';
-
 class PessoaDAO extends DAO {
-
     function insert(Pessoa $pessoa) {
-
-
         $stmt = $this->con->stmt_init();
-
         $stmt->prepare("INSERT INTO pessoa (nome, telefone, senha, email, rg, cpf, nivel_d_aces, cod_end, nascimento) VALUES (?,?,md5(?),?,?,?,?,?,?)");
         if ($stmt) {
-
-
             $stmt->bind_param("sssssssss", $pessoa->get('nome'), $pessoa->get('telefone'), $pessoa->get('senha'), $pessoa->get('email'), $pessoa->get('rg'), $pessoa->get('cpf'), $pessoa->get('nivel_d_aces'), $pessoa->get('cod_end'), $pessoa->get('nascimento'));
-
             $stmt->execute();
             $err = $stmt->errno;
             $stmt->close();

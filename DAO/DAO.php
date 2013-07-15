@@ -27,9 +27,7 @@ class DAO {
 
         $stmt->execute();
 
-        $stmt->bind_result($id);
-
-      
+        $stmt->bind_result($id);     
 
 
         while ($stmt->fetch()) {
