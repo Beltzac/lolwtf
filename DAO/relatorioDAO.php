@@ -22,7 +22,7 @@ class relatorioDAO extends DAO {
         $stmt->close();
         return $result;
     }       
-     function selecByMarca()
+     function selectByMarca()
     {
         $stmt = $this->con->stmt_init();
         $stmt->prepare("SELECT * FROM marca");
