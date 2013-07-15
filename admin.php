@@ -2,7 +2,7 @@
 <?php
 include 'session_start.php';
 if (!$_SESSION['admin']) {
-        header('Location: index.php');
+    header('Location: index.php');
 }
 ?>
 <html>
@@ -22,11 +22,13 @@ if (!$_SESSION['admin']) {
         <script>
             $(function() {
                 $("#accordion").accordion(
-    <?php      
-    if(isset($_GET['action']) && $_GET['action'] == 'pessoa' )
-            echo '{active: 1}';
-         ?>   
-    );
+<?php
+if (isset($_GET['action']) && $_GET['action'] == 'pessoa')
+    echo '{active: 1}';
+if (isset($_GET['action']) && $_GET['action'] == 'fabricante')
+    echo '{active: 2}';
+?>
+                );
 
                 $("#datepicker").datepicker({
                     dateFormat: "dd/mm/yy",
@@ -194,18 +196,20 @@ if (!$_SESSION['admin']) {
             });
         </script>
 
-         <?php
+        <?php
         require_once 'DAO/ProdutoDAO.php';
         require_once 'DAO/PessoaDAO.php';
         require_once 'DAO/EnderecoDAO.php';
+        require_once 'DAO/MarcaDAO.php';
         $produto = new Produto();
         $pessoa = new Pessoa();
         $endereco = new Endereco();
+        $fabricante = new Marca();
 
         if (isset($_GET['action'])) {
             switch ($_GET['action']) {
-                case 'produto':     
-                     if (isset($_GET['cod'])) {                  
+                case 'produto':
+                    if (isset($_GET['cod'])) {
                         $pdao = new ProdutoDAO();
                         $select = $pdao->selectByCod($_GET['cod']);
                         if ($select) {
@@ -219,14 +223,14 @@ if (!$_SESSION['admin']) {
                     break;
 
                 case 'pessoa':
-                    
-   
+
+
                     if (isset($_GET['cod'])) {
                         $pessoaDAO = new PessoaDAO();
                         $select = $pessoaDAO->selectByCod($_GET['cod']);
                         if ($select) {
                             $pessoa = $select;
-                            
+
                             $enderecoDAO = new EnderecoDAO();
                             $select2 = $enderecoDAO->selectByCod($pessoa->get('cod_end'));
                             if ($select2) {
@@ -241,35 +245,50 @@ if (!$_SESSION['admin']) {
                         header('Location: admin.php');
                     }
                     break;
+
+                     case 'fabricante':
+                    if (isset($_GET['cod'])) {
+                        $marcaDao = new MarcaDAO();
+                        $select = $marcaDao->selectByCod($_GET['cod']);
+                        if ($select) {
+                            $fabricante = $select;
+                        } else {
+                            header('Location: admin.php');
+                        }
+                    } else {
+                        header('Location: admin.php');
+                    }
+                    break;
                     
                 default:
+                     header('Location: admin.php');
                     break;
             }
         }
         ?>     
-        
+
     </head>
     <body>     
 
 
         <div id="main_container">
 
-<?php
-include ('header.php');
-?>
+            <?php
+            include ('header.php');
+            ?>
 
             <div id="main_content">
 
-<?php
-include ('menu.php');
-include ('menuEsquerda.php');
-?>
+                <?php
+                include ('menu.php');
+                include ('menuEsquerda.php');
+                ?>
 
                 <div class="center_content">
 
                     <div id="accordion">
 
-                        <h3>Administrar Produtos</h3>
+                        <h3>Produtos</h3>
                         <div>
                             <div class="contact_form">
                                 <form id="produto" method="post" action="DAO/produtoAction.php" enctype="multipart/form-data">
@@ -285,19 +304,19 @@ include ('menuEsquerda.php');
                                         <label class="contact"><strong>Fabricante:</strong></label>
 
                                         <select name="cod_marc" class="contact_input">
-<?php
-require_once 'DAO/MarcaDAO.php';
-$mdao = new MarcaDAO();
+                                            <?php
+                                            require_once 'DAO/MarcaDAO.php';
+                                            $mdao = new MarcaDAO();
 
-$marcas = $mdao->selectAll();
+                                            $marcas = $mdao->selectAll();
 
-foreach ($marcas as $value) {
-    if ($value->get('codmarc') == $produto->get('cod_marc'))
-        echo "<option selected value='" . $value->get('codmarc') . "'>" . $value->get('nome') . "</option>";
-    else
-        echo "<option value='" . $value->get('codmarc') . "'>" . $value->get('nome') . "</option>";
-}
-?>
+                                            foreach ($marcas as $value) {
+                                                if ($value->get('codmarc') == $produto->get('cod_marc'))
+                                                    echo "<option selected value='" . $value->get('codmarc') . "'>" . $value->get('nome') . "</option>";
+                                                else
+                                                    echo "<option value='" . $value->get('codmarc') . "'>" . $value->get('nome') . "</option>";
+                                            }
+                                            ?>
                                         </select>
 
 
@@ -307,20 +326,20 @@ foreach ($marcas as $value) {
                                         <label class="contact"><strong>Categoria:</strong></label>
 
                                         <select name="categoria" class="contact_input" >
-<?php
-require_once 'DAO/CategoriaDAO.php';
-$cdao = new CategoriaDAO();
+                                            <?php
+                                            require_once 'DAO/CategoriaDAO.php';
+                                            $cdao = new CategoriaDAO();
 
-$categoria = $cdao->selectAll();
+                                            $categoria = $cdao->selectAll();
 
-foreach ($categoria as $value) {
+                                            foreach ($categoria as $value) {
 
-    if ($value->get('cod') == $produto->get('categoria'))
-        echo "<option selected value='" . $value->get('cod') . "'>" . $value->get('nome') . "</option>";
-    else
-        echo "<option value='" . $value->get('cod') . "'>" . $value->get('nome') . "</option>";
-}
-?>
+                                                if ($value->get('cod') == $produto->get('categoria'))
+                                                    echo "<option selected value='" . $value->get('cod') . "'>" . $value->get('nome') . "</option>";
+                                                else
+                                                    echo "<option value='" . $value->get('cod') . "'>" . $value->get('nome') . "</option>";
+                                            }
+                                            ?>
                                         </select>
 
 
@@ -369,18 +388,18 @@ foreach ($categoria as $value) {
 
                             </div>
                         </div>
-                        <h3>Administrar clientes</h3>
+                        <h3>Clientes</h3>
 
                         <div>
                             <div class="contact_form">
-                                
-                                 <form action="pesquisaPessoa.php" method="get">
-		<input type="text" name="pesquisa" class="newsletter_input" value=""/>
-		  <input class="submit" type="submit" value="Pesquisar" name="tipo"/>
-                </form>
-                                
+
+                                <form action="pesquisaPessoa.php" method="get">
+                                    <input type="text" name="pesquisa" class="newsletter_input" value=""/>
+                                    <input class="submit" type="submit" value="Pesquisar" name="tipo"/>
+                                </form>
+
                                 <form id="cliente" method="post" action="dao/pessoaAction.php">
-                                    
+
                                     <input type="hidden" name="id" value="<?php echo $pessoa->get('id') ?>">
 
                                     <div class="form_row">
@@ -412,17 +431,17 @@ foreach ($categoria as $value) {
                                         <label class="contact"><strong>Data de nascimento:</strong></label>
                                         <input type="text" name="nascimento" class="contact_input" id="datepicker" value="<?php echo $pessoa->get('nascimento') ?>"/>
                                     </div>
-                                                                     
+
                                     <div class="form_row">
                                         <label class="contact"><strong>Nivel de Acesso:</strong></label>
                                         <input type="text" name="nivel_d_aces" class="contact_input" value="<?php echo $pessoa->get('nivel_d_aces') ?>"/>
                                     </div>
-                                    
+
                                     <div class="form_row">
                                         <label class="contact"><strong>Nova senha:</strong></label>
                                         <input type="text" class="contact_input" name="senha" />
                                     </div>
-                                    
+
                                     <input type="hidden" name="cod_end" value="<?php echo $endereco->get('cod_end') ?>">
 
                                     <div class="form_row">
@@ -444,17 +463,17 @@ foreach ($categoria as $value) {
                                         <label class="contact"><strong>Complemento:</strong></label>
                                         <input type="text" name="complemento"class="contact_input" value="<?php echo $endereco->get('complemento') ?>"/>
                                     </div>
-                                    
+
                                     <div class="form_row">
                                         <label class="contact"><strong>Cidade:</strong></label>
                                         <input type="text" name="cidade" class="contact_input" value="<?php echo $endereco->get('cidade') ?>"/>
                                     </div>
-                                    
+
                                     <div class="form_row">
                                         <label class="contact"><strong>Estado:</strong></label>
                                         <input type="text" name="estado" class="contact_input" value="<?php echo $endereco->get('estado') ?>"/>
                                     </div>
-                                   
+
 
                                     <div class="form_row">
                                         <input class="submit" type="submit" value="Atualizar" name="acao"/>
@@ -462,6 +481,43 @@ foreach ($categoria as $value) {
                                     </div>
                                 </form> 
 
+                            </div>
+                        </div>
+
+                        <h3>Fabricantes</h3>
+
+                        <div>
+                            <div class="contact_form">
+                                <table>
+                                    <?php
+                                    foreach ($marcas as $value) {
+                                        ?>
+
+                                        <tr><td><?php echo $value->get('codmarc') ?> </td><td><?php echo $value->get('nome') ?> </td><td><a href="admin.php?action=fabricante&cod=<?php echo $value->get('codmarc') ?>">Editar</a></td></tr>
+
+                                        <?php
+                                    }
+                                    ?>    
+                                </table>
+                                
+                                <form id="fabricante" method="post" action="dao/marcaAction.php">
+
+                                    <input type="hidden" name="codmarc" value="<?php echo $fabricante->get('codmarc') ?>">
+
+                                    <div class="form_row">
+                                        <label class="contact"><strong>Nome:</strong></label>
+                                        <input type="text" name="nome" class="contact_input" value="<?php echo $fabricante->get('nome') ?>"/>
+                                    </div>
+
+                               
+
+                                    <div class="form_row">
+                                        <input class="submit" type="submit" value="Novo" name="tipo"/>
+                                        <input class="submit" type="submit" value="Atualizar" name="tipo"/>
+                                        <input class="submit" type="submit" value="Deletar" name="tipo"/>
+                                    </div>
+                                </form> 
+                                
                             </div>
                         </div>
 
@@ -481,7 +537,7 @@ foreach ($categoria as $value) {
                                 <br/>
                                 <br/>
 
-                                <form method='post' action='relatorios.php'>
+                                <form method='post' action='admin.php'>
                                     <input type='radio' name='op' value='op1'>
                                     Clientes
                                     <br/>

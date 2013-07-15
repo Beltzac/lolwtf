@@ -16,6 +16,31 @@ class MarcaDAO  extends DAO {
         }
     }
 
+        function update(Marca $marca) {
+        $stmt = $this->con->stmt_init();
+        $stmt->prepare("update MARCA set nome = ? where codmarc = ?");
+        if ($stmt) {
+            $stmt->bind_param("si", $marca->get('nome'), $marca->get('codmarc'));
+            $stmt->execute();
+            $err = $stmt->errno;
+            $stmt->close();
+            return $err;
+        }
+    }
+    
+       function delete($cod) {
+        $stmt = $this->con->stmt_init();
+        $stmt->prepare("delete from MARCA where codmarc = ?");
+        if ($stmt) {
+            $stmt->bind_param("i", $cod);
+            $stmt->execute();
+            $err = $stmt->errno;
+            $stmt->close();
+            return $err;
+        }
+    }
+    
+    
     function  selectAll() {
         $stmt = $this->con->stmt_init();
         $stmt->prepare("SELECT * FROM marca");
@@ -49,8 +74,6 @@ $stmt->bind_param("i", $cod);
             $p->set('nome', $nome);
             $p->set('codmarc', $codmarc);
        
-
-            $result[] = $p;
 
         }
 
