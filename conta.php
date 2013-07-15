@@ -11,6 +11,7 @@ include 'session_start.php';
         <link rel="stylesheet" href="jquery-ui.min.css" />
         <script src="js/jquery-2.0.2.min.js"></script>
         <script src="js/jquery-ui.min.js"></script>
+         <script src="js/jquery.validate.min.js"></script>
         <script src="js/jquery.maskedinput.js"></script>
 
         <script>
@@ -35,13 +36,43 @@ include 'session_start.php';
         </script>
         <script type="text/javascript">
             $(document).ready(function() {
-                $("#detcpf").mask("999.999.999-99");
                 $("#endcep").mask("99.999-999");
-                $("#dettel").mask("(99)9999-9999");
-                $("#detrg").mask("99.999.999-9");
+                $("#clitelefone").mask("(99)9999-9999");
+                $("#clirg").mask("99.999.999-9");
+                $("#clicpf").mask("999.999.999-99");
             });
         </script>
+        <script>
+            $(document).ready(function() {
+                $("#pessoa").validate({
+                    // Define as regras
+                    rules: {
+                        nome: {
+                            // campoNome será obrigatório (required) e terá tamanho mínimo (minLength)
+                            required: true,
+                            minlength: 3
+                        },
+                        email: {
+                            required: true,
+                            email: true
+                        },
+                    },
+                    // Define as mensagens de erro para cada regra
+                    messages: {
+                        nome: {
+                            required: "Digite o seu nome",
+                            minlength: "O nome deve ter pelo menos 3 caracteres"
+                        },
+                        email: {
+                            required: "Digite o seu e-mail para contato",
+                            email: "Digite um e-mail v&aacutelido"
+                        }
 
+                    }
+                });
+            });
+
+        </script>
         
         <?php
         
