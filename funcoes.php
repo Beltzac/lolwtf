@@ -34,11 +34,10 @@ function caixaProduto(Produto $produto) {
             <a href="DAO/carrinhoAction.php?tipo=adicionarProduto&cod_prod=<?php echo $codigo ?>" class="prod_buy">+ Carrinho</a>
             <a href="details.php?cod=<?php echo $codigo ?>" class="prod_details">Detalhes</a>
             <?php
-            if(isset($_SESSION['admin']) && $_SESSION['admin']){                                   
-              
-                echo  '<a href = admin.php?action=produto&cod=' . $produto->get('cod_prod') .' class="prod_buy" style="color:red">Modificar</a>';
-                                  
-             }
+            if (isset($_SESSION['admin']) && $_SESSION['admin']) {
+
+                echo '<a href = admin.php?action=produto&cod=' . $produto->get('cod_prod') . ' class="prod_buy" style="color:red">Modificar</a>';
+            }
             ?>
         </div>
     </div>
@@ -78,35 +77,64 @@ function carrinhoProduto(Produto $produto, $quantidade) {
                 <span class="price">R$ <?php echo $preco ?></span>
             </div>
             <form action="DAO/carrinhoAction.php" method="get" id="<?php echo $codigo ?>">
-                
-            <input type="hidden" value="atualizarQuantidade" name="tipo" />
-            <input type="hidden" value="<?php echo $codigo ?>" name="cod_prod" />
-            
-            <div class="prod_price2">
-                <p>
-                    <label for="<?php echo "spinner$codigo"; ?>">Quantidade:</label>
-                    <input id="<?php echo "spinner$codigo"; ?>" name="quantidade" value="<?php echo $quantidade ?>" />
-                </p>
-            </div>
-              
-           
-            
-            <div class="carrinho_prod_details_tab2">
-                 <a href="details.php?cod=<?php echo $codigo ?>" class="prod_details">Detalhes</a>
-                 
-                <a href="dao/carrinhoAction.php?tipo=removerProduto&cod_prod=<?php echo $codigo ?>" class="prod_buy">Remover</a>
-                
-                	
-                <input type="submit" id="<?php echo 'but'.$codigo ?>" style="display:none;">
-               
-                <a href="#" onclick="document.getElementById('<?php echo 'but'.$codigo ?>').click();" class="prod_buy">Atualizar</a>
-            </div>
-             </form>
+
+                <input type="hidden" value="atualizarQuantidade" name="tipo" />
+                <input type="hidden" value="<?php echo $codigo ?>" name="cod_prod" />
+
+                <div class="prod_price2">
+                    <p>
+                        <label for="<?php echo "spinner$codigo"; ?>">Quantidade:</label>
+                        <input id="<?php echo "spinner$codigo"; ?>" name="quantidade" value="<?php echo $quantidade ?>" />
+                    </p>
+                </div>
+
+
+
+                <div class="carrinho_prod_details_tab2">
+                    <a href="details.php?cod=<?php echo $codigo ?>" class="prod_details">Detalhes</a>
+
+                    <a href="dao/carrinhoAction.php?tipo=removerProduto&cod_prod=<?php echo $codigo ?>" class="prod_buy">Remover</a>
+
+
+                    <input type="submit" id="<?php echo 'but' . $codigo ?>" style="display:none;">
+
+                    <a href="#" onclick="document.getElementById('<?php echo 'but' . $codigo ?>').click();" class="prod_buy">Atualizar</a>
+                </div>
+            </form>
         </div>
         <br/>
 
     </div>
     <br/>
+
+    <?php
+}
+
+function caixaPessoa(Pessoa $pessoa) {
+    ?>
+
+
+    <div class="carrinho_box">
+
+        <div class="carrinho_center_prod_box2">
+
+            <div class="product_title2">
+                <?php echo $pessoa->get('nome') ?>
+            </div>        
+
+            <div class="prod_price2">
+                Id: <?php echo $pessoa->get('id') ?>  <br/>
+                Telefone: <?php echo $pessoa->get('telefone') ?>  <br/>
+                Email: <?php echo $pessoa->get('email') ?>  <br/>
+            </div>
+            <?php
+            echo '<a href = admin.php?action=pessoa&cod=' . $pessoa->get('id') . ' class="prod_buy" style="color:red">Modificar</a>';
+            ?>
+        </div>
+
+    </div>
+
+
 
     <?php
 }

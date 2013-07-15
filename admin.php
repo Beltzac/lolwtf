@@ -2,8 +2,7 @@
 <?php
 include 'session_start.php';
 if (!$_SESSION['admin']) {
-    //FSJHAKKKKFS
-    header('Location: index.php');
+        header('Location: index.php');
 }
 ?>
 <html>
@@ -375,7 +374,7 @@ foreach ($categoria as $value) {
                         <div>
                             <div class="contact_form">
                                 
-                                 <form action="pesquisa.php" method="get">
+                                 <form action="pesquisaPessoa.php" method="get">
 		<input type="text" name="pesquisa" class="newsletter_input" value=""/>
 		  <input class="submit" type="submit" value="Pesquisar" name="tipo"/>
                 </form>
