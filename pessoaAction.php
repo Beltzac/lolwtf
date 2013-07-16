@@ -95,7 +95,11 @@ switch ($_POST['acao']) {
     case 'AtualizarPessoa':
         
         $p = new Pessoa();
-
+        $pessoaDAO = new PessoaDAO();
+        $select = $pessoaDAO->selectByCod($_SESSION['id']);
+        if($select){
+            $pw=$select;
+        }
         $p->set('nome', $_POST['nome']);
         $p->set('telefone', $_POST['telefone']);
         $p->set('email', $_POST['email']);
@@ -108,7 +112,7 @@ switch ($_POST['acao']) {
 
         $pdao->update($p);
         
-        if(strlen($_POST['senha']) >= 6&&$_POST['senha']==$_POST['senha2']){
+        if(strlen($_POST['senha']) >= 6&&$_POST['senha']==$_POST['senha2']&&$pw->get('senha')==$_POST['senhaatual']){
             $pdao->updateSenha($_SESSION['id'], $_POST['senha']);  
         }
 

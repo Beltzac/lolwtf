@@ -186,7 +186,7 @@ include 'session_start.php';
                                         <label class="contact"><strong>Nova senha:</strong></label>
                                         <input type="password" class="contact_input" name="senha" />
                                     </div>
-                                    //asfasf
+                                    
                                      <div class="form_row">
                                         <label class="contact"><strong>Confirme senha:</strong></label>
                                         <input type="password" class="contact_input" name="senha2" />
