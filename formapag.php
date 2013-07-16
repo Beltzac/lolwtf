@@ -1,4 +1,4 @@
-<?php
+ <?php
 include 'session_start.php';
 ?>
 <html>
@@ -33,8 +33,8 @@ include 'session_start.php';
 					<?php
 						if(empty($_POST['OP'])){?>
 						<form method='post' action='formapag.php'>
-							<INPUT TYPE='RADIO' NAME='OP' VALUE='op1' >Cartao de Credito<br/>
-							<INPUT TYPE='RADIO' NAME='OP' VALUE='op2' > Boleto Bancario<br/>
+							<INPUT TYPE='RADIO' NAME='OP' VALUE='credito' >Cartao de Credito<br/>
+							<INPUT TYPE='RADIO' NAME='OP' VALUE='boleto' > Boleto Bancario<br/>
 							<input type='submit' value='Continuar'>
 						</form>
 						<?php }
@@ -45,20 +45,20 @@ include 'session_start.php';
 					<?php
 						if(!empty($_POST['OP'])){
 						$form=$_POST['OP'];
-						if($form=="op1"){ ?>
-							<form action='pedido.php' method='post'>
-								<select name='sel'> <option value='v1'>Visa</option> 
-								<option value='v2'>Mastercard</option> 
-								<option value='v3'>Hipercard</option> 
-								<option value='v4'>Diners</option> </select> 
+						if($form=="credito"){ ?>
+							<form action='statusPedido.php' method='post'>
+								<select name='sel'> <option value='visa'>Visa</option> 
+								<option value='master'>Mastercard</option> 
+								<option value='hiper'>Hipercard</option> 
+								<option value='diners'>Diners</option> </select> 
 								<input type='submit' value='Continuar'> 
 							</form>
 						<?php }
 						else { ?>
-							<form action='pedido.php' method='post'>
+							<form action='statusPedido.php' method='post'>
 								<select name='sel'> 
-									<option value='v5'>HSBC</option> 
-									<option value='v6'>Itau</option> 
+									<option value='hsbc'>HSBC</option> 
+									<option value='itau'>Itau</option> 
 								</select> 
 								<input type='submit' value='Continuar'>
 							</form>

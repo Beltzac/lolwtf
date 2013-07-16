@@ -28,34 +28,36 @@ include 'session_start.php';
 					<div class="center_title_bar">
 						Status do Pedido
 					</div>
-
+                                
+                                        <table border='1'>
 					<?php
 					$form = $_POST['sel'];
-					if ($form == 'v1') {
-						echo "<table border='1'><tr><td>Pagamento</td><td>Visa</td></tr>";
-						echo "<tr><td>Status</td><td>Aguardando pagamento</td></tr></table>";
+					if ($form == 'visa') { 
+						echo "<tr><td>Pagamento</td><td>Visa</td></tr>";
+						echo "<tr><td>Status</td><td>Aguardando pagamento</td></tr>";
 					}
-					if ($form == 'v2') {
-						echo "<table border='1'><tr><td>Pagamento</td><td>Mastercard</td></tr>";
-						echo "<tr><td>Status</td><td>Aguardando pagamento</td></tr></table>";
+					if ($form == 'master') { 
+						echo "<tr><td>Pagamento</td><td>Mastercard</td></tr>";
+						echo "<tr><td>Status</td><td>Aguardando pagamento</td></tr>";
 					}
-					if ($form == 'v3') {
-						echo "<table border='1'><tr><td>Pagamento</td><td>Hipercard</td></tr>";
-						echo "<tr><td>Status</td><td>Aguardando pagamento</td></tr></table>";
+					if ($form == 'hiper') { 
+						echo "<tr><td>Pagamento</td><td>Hipercard</td></tr>";
+						echo "<tr><td>Status</td><td>Aguardando pagamento</td></tr>";
 					}
-					if ($form == 'v4') {
-						echo "<table border='1'><tr><td>Pagamento</td><td>Diners</td></tr>";
-						echo "<tr><td>Status</td><td>Aguardando pagamento</td></tr></table>";
+					if ($form == 'diners') { 
+                                            echo "<tr><td>Pagamento</td><td>Diners</td></tr>";
+                                            echo "<tr><td>Status</td><td>Aguardando pagamento</td></tr>";
 					}
-					if ($form == 'v5') {
-						echo "<table border='1'><tr><td>Pagamento</td><td>Boleto HSBC</td></tr>";
-						echo "<tr><td>Status</td><td>Aguardando pagamento</td></tr></table>";
+					if ($form == 'hsbc') { 
+						echo "<tr><td>Pagamento</td><td>Boleto HSBC</td></tr>";
+						echo "<tr><td>Status</td><td>Aguardando pagamento</td></tr>";
 					}
-					if ($form == 'v6') {
-						echo "<table border='1'><tr><td>Pagamento</td><td>Boleto Itau</td></tr>";
-						echo "<tr><td>Status</td><td>Aguardando pagamento</td></tr></table>";
+					if ($form == 'itau') { 
+						echo "<tr><td>Pagamento</td><td>Boleto Itau</td></tr>";
+						echo "<tr><td>Status</td><td>Aguardando pagamento</td></tr>";
 					}
 					?>
+                                        </table>
 				</div><!-- center -->
 
 				<?php
