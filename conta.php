@@ -58,6 +58,16 @@ include 'session_start.php';
                             required: false,
                             minlength: 6
                         },
+                         senha2: {
+                            // campoNome será obrigatório (required) e terá tamanho mínimo (minLength)
+                            required: false,
+                            minlength: 6
+                        },
+                         senhaatual: {
+                            // campoNome será obrigatório (required) e terá tamanho mínimo (minLength)
+                            required: false,
+                            minlength: 6
+                        },
                         email: {
                             required: true,
                             email: true
@@ -70,6 +80,16 @@ include 'session_start.php';
                             minlength: "O nome deve ter pelo menos 3 caracteres"
                         },
                        senha: {
+                            // campoNome será obrigatório (required) e terá tamanho mínimo (minLength)
+                            required: " ",
+                            minlength: "Sua senha deve ter pelo menos 6 caracteres"
+                        },
+                        senha2: {
+                            // campoNome será obrigatório (required) e terá tamanho mínimo (minLength)
+                            required: " ",
+                            minlength: "Sua senha deve ter pelo menos 6 caracteres"
+                        },
+                        senhaatual: {
                             // campoNome será obrigatório (required) e terá tamanho mínimo (minLength)
                             required: " ",
                             minlength: "Sua senha deve ter pelo menos 6 caracteres"
