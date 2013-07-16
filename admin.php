@@ -537,7 +537,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'fabricante')
                                 <br/>
                                 <br/>
 
-                                <form method='post' action='admin.php'>
+                                <form method='post' action='relatorios.php'>
                                     <input type='radio' name='op' value='op1'>
                                     Clientes
                                     <br/>
@@ -545,12 +545,14 @@ if (isset($_GET['action']) && $_GET['action'] == 'fabricante')
                                     Fabricantes
                                     <select name="cod_marc" class="contact_input">
 <?php
-foreach ($marcas as $value) {
-    if ($value->get('codmarc') == $produto->get('cod_marc'))
-        echo "<option selected value='" . $value->get('codmarc') . "'>" . $value->get('nome') . "</option>";
-    else
-        echo "<option value='" . $value->get('codmarc') . "'>" . $value->get('nome') . "</option>";
-}
+foreach ($marcas as $value) 
+    //if ($value->get('codmarc') == $produto->get('cod_marc'))
+       echo "<option selected value='" . $value->get('codmarc') . "'>" . $value->get('nome') . "</option>";
+       
+      // $valor = value->get('codmarc');
+    //else
+      // echo "<option value='" . $value->get('codmarc') . "' >" . $value->get('nome') . "</option>";
+
 ?>
                                     </select>
                                     <br/>

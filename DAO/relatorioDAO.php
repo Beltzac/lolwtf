@@ -3,6 +3,8 @@ require_once 'DAO.PHP';
 require_once 'connection.php';
 require_once 'marca.php';
 require_once 'pessoaDAO.php';
+require_once 'produtoDAO.php';
+require_once 'contem.php';
 
 class relatorioDAO extends DAO {
     function  selectByCiente() {
@@ -22,18 +24,31 @@ class relatorioDAO extends DAO {
         $stmt->close();
         return $result;
     }       
-     function selectByMarca()
+     function selectByMarca($cod)
     {
         $stmt = $this->con->stmt_init();
-        $stmt->prepare("SELECT * FROM marca");
+        $stmt->prepare("SELECT marca.nome, produto.nome, produto.preco, contem.quantidade 
+            FROM marca, produto, contem WHERE contem.cod_prod = produto.cod_prod 
+            AND produto.cod_marc = marca.codmarc AND marca.codmarc = ?");
+        $stmt->bind_param('i', $cod);
         $stmt->execute();
-        $stmt->bind_result($codmarc, $nome);
-        $result = array();
+        $stmt->bind_result($marcanome, $produtonome, $produtopreco, $contemquantidade);
+        $result = array("marca"=>array(), "produto"=>array(), "contem"=>array());
         while ($stmt->fetch()) {
-            $p = new marca();
-            $p->set('nome', $nome);
-            $p->set('codmarc', $codmarc);
-            $result[] = $p;
+            $m = new marca();
+            $p = new Produto();
+            $c = new contem();
+            $m->set('nome', $marcanome);
+            echo $marcanome."<br>";
+            $p->set('nome', $produtonome);
+            echo $produtonome."<br>";
+            $p->set('preco', $produtopreco);
+            echo $produtopreco."<br>";
+            $c->set('quantidade', $contemquantidade);
+            echo $contemquantidade."<br>";
+            $result["marca"] = $m;
+            $result["produto"] = $p;
+            $result["contem"] = $c;
         }
         $stmt->close();
         return $result;

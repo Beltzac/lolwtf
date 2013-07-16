@@ -45,8 +45,7 @@ class ProdutoDAO  extends DAO {
     function  selectByCod($cod) {
         $stmt = $this->con->stmt_init();
         $stmt->prepare("SELECT * FROM produto WHERE cod_prod = ?");
-        $stmt->bind_param("i", $cod);
-        
+        $stmt->bind_param("i", $cod);        
         $stmt->execute();
         echo $stmt->error;
         $stmt->bind_result($nome, $descricao, $cod_prod,$categoria, $estoque, $peso, $cod_marc, $preco, $dimensoes);
