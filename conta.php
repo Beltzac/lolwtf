@@ -90,7 +90,7 @@ include 'session_start.php';
                             minlength: "Sua senha deve ter pelo menos 6 caracteres"
                         },
                         senhaatual: {
-                            // campoNome será obrigatório (required) e terá tamanho mínimo (minLength)
+                            // campoNome será obrigatório (required) e terá tamanho mínimo (minLength)sfasf
                             required: " ",
                             minlength: "Sua senha deve ter pelo menos 6 caracteres"
                         },
