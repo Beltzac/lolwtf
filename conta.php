@@ -53,6 +53,11 @@ include 'session_start.php';
                             required: true,
                             minlength: 3
                         },
+                        senha: {
+                            // campoNome será obrigatório (required) e terá tamanho mínimo (minLength)
+                            required: false,
+                            minlength: 6
+                        },
                         email: {
                             required: true,
                             email: true
@@ -63,6 +68,11 @@ include 'session_start.php';
                         nome: {
                             required: "Digite o seu nome",
                             minlength: "O nome deve ter pelo menos 3 caracteres"
+                        },
+                       senha: {
+                            // campoNome será obrigatório (required) e terá tamanho mínimo (minLength)
+                            required: " ",
+                            minlength: "Sua senha deve ter pelo menos 6 caracteres"
                         },
                         email: {
                             required: "Digite o seu e-mail para contato",
@@ -168,8 +178,18 @@ include 'session_start.php';
                                     </div>
                                  
                                     <div class="form_row">
+                                        <label class="contact"><strong>Senha atual:</strong></label>
+                                        <input type="password" class="contact_input" name="senhaatual" />
+                                    </div>
+                                     
+                                    <div class="form_row">
                                         <label class="contact"><strong>Nova senha:</strong></label>
                                         <input type="password" class="contact_input" name="senha" />
+                                    </div>
+                                    //asfasf
+                                     <div class="form_row">
+                                        <label class="contact"><strong>Confirme senha:</strong></label>
+                                        <input type="password" class="contact_input" name="senha2" />
                                     </div>
 
 
