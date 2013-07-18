@@ -86,9 +86,7 @@
 			
 
 		</form>
-		<a href="novaconta.php" class="join">Criar uma conta</a>
-
-	</div>
+</div>
 
 <?php } ?>
 

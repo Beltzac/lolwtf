@@ -18,6 +18,7 @@ if (!isset($_POST['email']) || !isset($_POST['senha'])) {
     session_destroy();
 
     redirect();
+    exit();
 }
 
 $email = $_POST['email'];
@@ -50,7 +51,7 @@ $p = $pdao->selectByEmail($email,$senha);
 
         // senha incorreta
         session_destroy();
-        redirect();
+        header('Location: novaconta.php');
     }
 
 ?>
