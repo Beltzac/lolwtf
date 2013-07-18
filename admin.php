@@ -141,7 +141,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'fabricante')
                         nascimento: {
                             required: true,
                             minlength: 8
-                        }                     
+                        }
                     },
                     // Define as mensagens de erro para cada regra
                     messages: {
@@ -168,7 +168,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'fabricante')
                         cpf: {
                             required: "Digite seu CPF",
                             minlength: ""
-                        }                        
+                        }
                     }
                 });
             });
@@ -196,38 +196,38 @@ if (isset($_GET['action']) && $_GET['action'] == 'fabricante')
         $pessoa = new Pessoa();
         $endereco = new Endereco();
         $fabricante = new Marca();
-        
-        
-        $estados = [       
-    "AC"=>"Acre",
-    "AL"=>"Alagoas",
-    "AM"=>"Amazonas",
-    "AP"=>"Amapá",
-    "BA"=>"Bahia",
-    "CE"=>"Ceará",
-    "DF"=>"Distrito Federal",
-    "ES"=>"Espirito Santo",
-    "GO"=>"Goiás",
-    "MA"=>"Maranhão",
-    "MG"=>"Minas Gerais",
-    "MS"=>"Mato Grosso do Sul",
-    "MT"=>"Mato Grosso",
-    "PA"=>"Pará",
-    "PB"=>"Paraíba",
-    "PE"=>"Pernambuco",
-    "PI"=>"Piauí",
-    "PR"=>"Paraná",
-    "RJ"=>"Rio de Janeiro",
-    "RN"=>"Rio Grande do Norte",
-    "RO"=>"Rondônia",
-    "RR"=>"Roraima",
-    "RS"=>"Rio Grande do Sul",
-    "SC"=>"Santa Catarina",
-    "SE"=>"Sergipe",
-    "SP"=>"São Paulo",
-    "TO"=>"Tocantins"          
-              ];
-        
+
+
+        $estados = [
+            "AC" => "Acre",
+            "AL" => "Alagoas",
+            "AM" => "Amazonas",
+            "AP" => "Amapá",
+            "BA" => "Bahia",
+            "CE" => "Ceará",
+            "DF" => "Distrito Federal",
+            "ES" => "Espirito Santo",
+            "GO" => "Goiás",
+            "MA" => "Maranhão",
+            "MG" => "Minas Gerais",
+            "MS" => "Mato Grosso do Sul",
+            "MT" => "Mato Grosso",
+            "PA" => "Pará",
+            "PB" => "Paraíba",
+            "PE" => "Pernambuco",
+            "PI" => "Piauí",
+            "PR" => "Paraná",
+            "RJ" => "Rio de Janeiro",
+            "RN" => "Rio Grande do Norte",
+            "RO" => "Rondônia",
+            "RR" => "Roraima",
+            "RS" => "Rio Grande do Sul",
+            "SC" => "Santa Catarina",
+            "SE" => "Sergipe",
+            "SP" => "São Paulo",
+            "TO" => "Tocantins"
+        ];
+
 
         if (isset($_GET['action'])) {
             switch ($_GET['action']) {
@@ -269,7 +269,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'fabricante')
                     }
                     break;
 
-                     case 'fabricante':
+                case 'fabricante':
                     if (isset($_GET['cod'])) {
                         $marcaDao = new MarcaDAO();
                         $select = $marcaDao->selectByCod($_GET['cod']);
@@ -282,9 +282,9 @@ if (isset($_GET['action']) && $_GET['action'] == 'fabricante')
                         header('Location: admin.php');
                     }
                     break;
-                    
+
                 default:
-                     header('Location: admin.php');
+                    header('Location: admin.php');
                     break;
             }
         }
@@ -492,11 +492,10 @@ if (isset($_GET['action']) && $_GET['action'] == 'fabricante')
                                         <input type="text" name="cidade" class="contact_input" value="<?php echo $endereco->get('cidade') ?>"/>
                                     </div>
 
-                                       
-                                    <label class="contact"><strong>Estado:</strong></label>                                 
-                                      <select name="estado" class="contact_input" >
+                                    <div class="form_row">
+                                        <label class="contact"><strong>Estado:</strong></label>                                 
+                                        <select name="estado" class="contact_input" >
                                             <?php
-                                          
                                             foreach ($estados as $key => $value) {
 
                                                 if ($key == $endereco->get('estado'))
@@ -506,9 +505,8 @@ if (isset($_GET['action']) && $_GET['action'] == 'fabricante')
                                             }
                                             ?>
                                         </select>
+                                    </div>
                                     
-                                   
-
                                     <div class="form_row">
                                         <input class="submit" type="submit" value="Atualizar" name="acao"/>
                                         <input class="submit" type="submit" value="Deletar" name="acao"/>
@@ -533,7 +531,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'fabricante')
                                     }
                                     ?>    
                                 </table>
-                                
+
                                 <form id="fabricante" method="post" action="dao/marcaAction.php">
 
                                     <input type="hidden" name="codmarc" value="<?php echo $fabricante->get('codmarc') ?>">
@@ -543,7 +541,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'fabricante')
                                         <input type="text" name="nome" class="contact_input" value="<?php echo $fabricante->get('nome') ?>"/>
                                     </div>
 
-                               
+
 
                                     <div class="form_row">
                                         <input class="submit" type="submit" value="Novo" name="tipo"/>
@@ -551,7 +549,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'fabricante')
                                         <input class="submit" type="submit" value="Deletar" name="tipo"/>
                                     </div>
                                 </form> 
-                                
+
                             </div>
                         </div>
 
@@ -578,11 +576,10 @@ if (isset($_GET['action']) && $_GET['action'] == 'fabricante')
                                     <input type='radio' name='op' value='op2'>
                                     Fabricantes
                                     <select name="cod_marc" class="contact_input">
-<?php
-foreach ($marcas as $value)    
-       echo "<option selected value='" . $value->get('codmarc') . "'>" . $value->get('nome') . "</option>";       
-
-?>
+                                        <?php
+                                        foreach ($marcas as $value)
+                                            echo "<option selected value='" . $value->get('codmarc') . "'>" . $value->get('nome') . "</option>";
+                                        ?>
                                     </select>
                                     <br/>
                                     <input type='radio' name='op' value='op3'>

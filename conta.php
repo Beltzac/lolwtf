@@ -11,7 +11,7 @@ include 'session_start.php';
         <link rel="stylesheet" href="jquery-ui.min.css" />
         <script src="js/jquery-2.0.2.min.js"></script>
         <script src="js/jquery-ui.min.js"></script>
-         <script src="js/jquery.validate.min.js"></script>
+        <script src="js/jquery.validate.min.js"></script>
         <script src="js/jquery.maskedinput.js"></script>
 
         <script>
@@ -58,12 +58,12 @@ include 'session_start.php';
                             required: false,
                             minlength: 6
                         },
-                         senha2: {
+                        senha2: {
                             // campoNome será obrigatório (required) e terá tamanho mínimo (minLength)
                             required: false,
                             minlength: 6
                         },
-                         senhaatual: {
+                        senhaatual: {
                             // campoNome será obrigatório (required) e terá tamanho mínimo (minLength)
                             required: false,
                             minlength: 6
@@ -79,7 +79,7 @@ include 'session_start.php';
                             required: "Digite o seu nome",
                             minlength: "O nome deve ter pelo menos 3 caracteres"
                         },
-                       senha: {
+                        senha: {
                             // campoNome será obrigatório (required) e terá tamanho mínimo (minLength)
                             required: " ",
                             minlength: "Sua senha deve ter pelo menos 6 caracteres"
@@ -104,65 +104,64 @@ include 'session_start.php';
             });
 
         </script>
-        
+
         <?php
-           $estados = [       
-    "AC"=>"Acre",
-    "AL"=>"Alagoas",
-    "AM"=>"Amazonas",
-    "AP"=>"Amapá",
-    "BA"=>"Bahia",
-    "CE"=>"Ceará",
-    "DF"=>"Distrito Federal",
-    "ES"=>"Espirito Santo",
-    "GO"=>"Goiás",
-    "MA"=>"Maranhão",
-    "MG"=>"Minas Gerais",
-    "MS"=>"Mato Grosso do Sul",
-    "MT"=>"Mato Grosso",
-    "PA"=>"Pará",
-    "PB"=>"Paraíba",
-    "PE"=>"Pernambuco",
-    "PI"=>"Piauí",
-    "PR"=>"Paraná",
-    "RJ"=>"Rio de Janeiro",
-    "RN"=>"Rio Grande do Norte",
-    "RO"=>"Rondônia",
-    "RR"=>"Roraima",
-    "RS"=>"Rio Grande do Sul",
-    "SC"=>"Santa Catarina",
-    "SE"=>"Sergipe",
-    "SP"=>"São Paulo",
-    "TO"=>"Tocantins"          
-              ];
+        $estados = [
+            "AC" => "Acre",
+            "AL" => "Alagoas",
+            "AM" => "Amazonas",
+            "AP" => "Amapá",
+            "BA" => "Bahia",
+            "CE" => "Ceará",
+            "DF" => "Distrito Federal",
+            "ES" => "Espirito Santo",
+            "GO" => "Goiás",
+            "MA" => "Maranhão",
+            "MG" => "Minas Gerais",
+            "MS" => "Mato Grosso do Sul",
+            "MT" => "Mato Grosso",
+            "PA" => "Pará",
+            "PB" => "Paraíba",
+            "PE" => "Pernambuco",
+            "PI" => "Piauí",
+            "PR" => "Paraná",
+            "RJ" => "Rio de Janeiro",
+            "RN" => "Rio Grande do Norte",
+            "RO" => "Rondônia",
+            "RR" => "Roraima",
+            "RS" => "Rio Grande do Sul",
+            "SC" => "Santa Catarina",
+            "SE" => "Sergipe",
+            "SP" => "São Paulo",
+            "TO" => "Tocantins"
+        ];
         require_once 'DAO/PessoaDAO.php';
         require_once 'DAO/EnderecoDAO.php';
-        
+
         $pessoa = new Pessoa();
         $endereco = new Endereco();
 
-        
-   
-                    if (isset($_SESSION['id'])) {
-                        $pessoaDAO = new PessoaDAO();
-                        $select = $pessoaDAO->selectByCod($_SESSION['id']);
-                        if ($select) {
-                            $pessoa = $select;
-                            
-                            $enderecoDAO = new EnderecoDAO();
-                            $select2 = $enderecoDAO->selectByCod($pessoa->get('cod_end'));
-                            if ($select2) {
-                                $endereco = $select2;
-                            } else {
-                                header('Location: index.php');
-                            }
-                        } else {
-                           header('Location: index.php');
-                        }
-                    } else {
-                       header('Location: index.php');
-                    }                                
-       
+
+
+        if (isset($_SESSION['id'])) {
+            $pessoaDAO = new PessoaDAO();
+            $select = $pessoaDAO->selectByCod($_SESSION['id']);
+            if ($select) {
+                $pessoa = $select;
+
+                $enderecoDAO = new EnderecoDAO();
+                $select2 = $enderecoDAO->selectByCod($pessoa->get('cod_end'));
+                if ($select2) {
+                    $endereco = $select2;
+                } else {
+                    header('Location: index.php');
+                }
+            } else {
+                header('Location: index.php');
+            }
+        } else {
+            header('Location: index.php');
+        }
         ?>     
     </head>
     <body>
@@ -189,10 +188,10 @@ include 'session_start.php';
                         <div>
                             <form action="dao/pessoaAction.php" id="pessoa" method="post">
                                 <div class="contact_form">
-                                    
+
                                     <input type="hidden" name="acao" value="AtualizarPessoa">
-                                     <input type="hidden" name="id" value="<?php echo $_SESSION['id'] ?>">
-                                     <input type="hidden" name="cod_end" value="<?php echo $endereco->get('cod_end') ?>">
+                                    <input type="hidden" name="id" value="<?php echo $_SESSION['id'] ?>">
+                                    <input type="hidden" name="cod_end" value="<?php echo $endereco->get('cod_end') ?>">
 
                                     <div class="form_row">
                                         <label class="contact"><strong>Nome completo:</strong></label>
@@ -223,18 +222,18 @@ include 'session_start.php';
                                         <label class="contact"><strong>Data de nascimento:</strong></label>
                                         <input type="text" name="nascimento" class="contact_input" id="datepicker" value="<?php echo $pessoa->get('nascimento') ?>"/>
                                     </div>
-                                 
+
                                     <div class="form_row">
                                         <label class="contact"><strong>Senha atual:</strong></label>
                                         <input type="password" class="contact_input" name="senhaatual" />
                                     </div>
-                                     
+
                                     <div class="form_row">
                                         <label class="contact"><strong>Nova senha:</strong></label>
                                         <input type="password" class="contact_input" name="senha" />
                                     </div>
-                                    
-                                     <div class="form_row">
+
+                                    <div class="form_row">
                                         <label class="contact"><strong>Confirme senha:</strong></label>
                                         <input type="password" class="contact_input" name="senha2" />
                                     </div>
@@ -253,8 +252,8 @@ include 'session_start.php';
                         <div>
                             <form method="post" id="endereco" action="dao/pessoaAction.php" >
                                 <div class="contact_form">
-                                    
-                                     <input type="hidden" name="acao" value="AtualizarEndereco">
+
+                                    <input type="hidden" name="acao" value="AtualizarEndereco">
 
                                     <input type="hidden" name="cod_end" value="<?php echo $endereco->get('cod_end') ?>">
 
@@ -282,11 +281,11 @@ include 'session_start.php';
                                         <label class="contact"><strong>Cidade:</strong></label>
                                         <input type="text" name="cidade" class="contact_input" value="<?php echo $endereco->get('cidade') ?>"/>
                                     </div>
-
-                                     <label class="contact"><strong>Estado:</strong></label>                                 
-                                      <select name="estado" class="contact_input" >
+                                    
+                                    <div class="form_row">
+                                        <label class="contact"><strong>Estado:</strong></label>                                 
+                                        <select name="estado" class="contact_input" >
                                             <?php
-                                          
                                             foreach ($estados as $key => $value) {
 
                                                 if ($key == $endereco->get('estado'))
@@ -296,7 +295,8 @@ include 'session_start.php';
                                             }
                                             ?>
                                         </select>                                    
-
+                                    </div>
+                                    
                                     <div class="form_row">
                                         <input class="submit" type="submit" value="Atualizar" name=""/>
 
@@ -310,14 +310,14 @@ include 'session_start.php';
 
                 </div><!-- center -->
 
-                <?php
-                include ('menuDireita.php');
-                ?>
+<?php
+include ('menuDireita.php');
+?>
             </div><!-- main index -->
 
-            <?php
-            include ('footer.html');
-            ?>
+<?php
+include ('footer.html');
+?>
         </div>
     </body>
 </html>

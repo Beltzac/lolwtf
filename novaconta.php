@@ -150,45 +150,45 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
 
         <div id="main_container">
 
-<?php
-include ('header.php');
-?>
+            <?php
+            include ('header.php');
+            ?>
 
             <div id="main_content">
 
-<?php
-include ('menu.php');
-include ('menuEsquerda.php');
-$estados = [
-    "AC" => "Acre",
-    "AL" => "Alagoas",
-    "AM" => "Amazonas",
-    "AP" => "Amapá",
-    "BA" => "Bahia",
-    "CE" => "Ceará",
-    "DF" => "Distrito Federal",
-    "ES" => "Espirito Santo",
-    "GO" => "Goiás",
-    "MA" => "Maranhão",
-    "MG" => "Minas Gerais",
-    "MS" => "Mato Grosso do Sul",
-    "MT" => "Mato Grosso",
-    "PA" => "Pará",
-    "PB" => "Paraíba",
-    "PE" => "Pernambuco",
-    "PI" => "Piauí",
-    "PR" => "Paraná",
-    "RJ" => "Rio de Janeiro",
-    "RN" => "Rio Grande do Norte",
-    "RO" => "Rondônia",
-    "RR" => "Roraima",
-    "RS" => "Rio Grande do Sul",
-    "SC" => "Santa Catarina",
-    "SE" => "Sergipe",
-    "SP" => "São Paulo",
-    "TO" => "Tocantins"
-];
-?>
+                <?php
+                include ('menu.php');
+                include ('menuEsquerda.php');
+                $estados = [
+                    "AC" => "Acre",
+                    "AL" => "Alagoas",
+                    "AM" => "Amazonas",
+                    "AP" => "Amapá",
+                    "BA" => "Bahia",
+                    "CE" => "Ceará",
+                    "DF" => "Distrito Federal",
+                    "ES" => "Espirito Santo",
+                    "GO" => "Goiás",
+                    "MA" => "Maranhão",
+                    "MG" => "Minas Gerais",
+                    "MS" => "Mato Grosso do Sul",
+                    "MT" => "Mato Grosso",
+                    "PA" => "Pará",
+                    "PB" => "Paraíba",
+                    "PE" => "Pernambuco",
+                    "PI" => "Piauí",
+                    "PR" => "Paraná",
+                    "RJ" => "Rio de Janeiro",
+                    "RN" => "Rio Grande do Norte",
+                    "RO" => "Rondônia",
+                    "RR" => "Roraima",
+                    "RS" => "Rio Grande do Sul",
+                    "SC" => "Santa Catarina",
+                    "SE" => "Sergipe",
+                    "SP" => "São Paulo",
+                    "TO" => "Tocantins"
+                ];
+                ?>
 
                 <div class="center_content">
                     <div class="center_title_bar">
@@ -259,32 +259,33 @@ $estados = [
                                         <label class="contact"><strong>CEP:</strong></label>
                                         <input type="text" id="campoCep" class="contact_input" name="campoCep"/>
                                     </div>
-                                    
+
                                     <div class="form_row">
                                         <label class="contact"><strong>Cidade:</strong></label>
                                         <input type="text" class="contact_input" name="campoCidade"/>
                                     </div>
-                                     <div class="form_row">
+                                    
+                                    <div class="form_row">
                                         <label class="contact"><strong>Estado:</strong></label>  
-                                         
                                         <select name="campoEstado" class="contact_input" >                                            
-<?php
-foreach ($estados as $key => $value) {
+                                            <?php
+                                            foreach ($estados as $key => $value) {
 
-        echo "<option value='" . $key . "'>" . $value . "</option>";
-}
-?>                                        </select>
- </div>
+                                                echo "<option value='" . $key . "'>" . $value . "</option>";
+                                            }
+                                            ?>                                   
+                                        </select>
+                                    </div>
 
-                                        <div class="form_row">
-                                            <label class="contact"><strong>Complemento:</strong></label>
-                                            <input type="text" class="contact_input" name="campoComplemento"/>
-                                        </div>
+                                    <div class="form_row">
+                                        <label class="contact"><strong>Complemento:</strong></label>
+                                        <input type="text" class="contact_input" name="campoComplemento"/>
+                                    </div>
 
-                                        <div class="form_row">
-                                            <input class="submit" type="submit" value="Criar" />
+                                    <div class="form_row">
+                                        <input class="submit" type="submit" value="Criar" />
 
-                                        </div>
+                                    </div>
 
                                 </form>
                             </div>
@@ -295,14 +296,14 @@ foreach ($estados as $key => $value) {
 
                 </div><!-- center -->
 
-<?php
-include ('menuDireita.php');
-?>
+                <?php
+                include ('menuDireita.php');
+                ?>
             </div><!-- main index -->
 
-<?php
-include ('footer.html');
-?>
+            <?php
+            include ('footer.html');
+            ?>
         </div>
     </body>
 </html>
