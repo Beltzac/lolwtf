@@ -28,17 +28,25 @@
           $dao2 = new relatorioDAO();
           $lista2 = $dao2->selectByMarca($cod);
           //$nome_marc = $lista2['marca'];
-          echo $nome_marc->get('nome')."<br>";
+          /*echo $nome_marc->get('nome')."<br>";
           $contem = $lista2['contem'];
-          echo $contem->get('quantida')."<br>";
+          echo $contem->get('quantida')."<br>";*/
          
-          foreach ($lista2 as $value2){   
+          /*foreach ($lista2 as $value2){   
             //list($nome_marc, $prod_nome, $preco, $quant) = $value2;
-            echo "<tr><td>nome_marc:</td><td>".$value2->get('nome')."</td></tr>"; 
-            echo "<tr><td>nome_prod:</td><td>".$value2->get('nome')."</td></tr>";
-            echo "<tr><td>preco:</td><td>".$value2->get('preco')."</td></tr>";
-            echo "<tr><td>quantidade:</td><td>".$value2->get('quantidade')."</td></tr>";
-          }          
+            echo "<tr><td>nome_marc:</td><td>".$value2["marca"]->get('nome')."</td></tr>"; 
+            echo "<tr><td>nome_prod:</td><td>".$value2["produto"]->get('nome')."</td></tr>";
+            echo "<tr><td>preco:</td><td>".$value2["produto"]->get('preco')."</td></tr>";
+            echo "<tr><td>quantidade:</td><td>".$value2["contem"]->get('quantidade')."</td></tr>";
+          } */
+          foreach ($lista2 as $value=>$key){
+              echo "<tr><td>nome_marc:</td><td>".$key->get('nome')."k</td></tr>";
+              echo "<tr><td>nome_prod:</td><td>".$key->get('nome')."</td></tr>";
+              echo "<tr><td>preco:</tppd><tdp>".$key->get('preco')."</ktd></tr>";
+              echo "<tr><td>quantidade:</td><td>".$key->get('quantidade')."</td></tr>";  
+                            
+          }
+              
         }     
         ?>  
         </table>

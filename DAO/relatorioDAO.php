@@ -27,13 +27,15 @@ class relatorioDAO extends DAO {
      function selectByMarca($cod)
     {
         $stmt = $this->con->stmt_init();
-        $stmt->prepare("SELECT marca.nome, produto.nome, produto.preco, contem.quantidade 
-            FROM marca, produto, contem WHERE contem.cod_prod = produto.cod_prod 
-            AND produto.cod_marc = marca.codmarc AND marca.codmarc = ?");
+        $stmt->prepare("SELECT marca.nome, produto.nome,  (produto.preco * contem.quantidade) AS total,
+            produto.preco, contem.quantidade FROM marca, produto, contem WHERE contem.cod_prod = produto.cod_prod 
+            AND produto.cod_marc = marca.codmarc AND marca.codmarc = ? ORDER BY total");
         $stmt->bind_param('i', $cod);
         $stmt->execute();
-        $stmt->bind_result($marcanome, $produtonome, $produtopreco, $contemquantidade);
+        $stmt->bind_result($marcanome, $produtonome, $total, $produtopreco, $contemquantidade);
         $result = array("marca"=>array(), "produto"=>array(), "contem"=>array());
+        //$row = $stmt->num_rows;
+        //echo $row."<br>";
         while ($stmt->fetch()) {
             $m = new marca();
             $p = new Produto();
@@ -43,9 +45,10 @@ class relatorioDAO extends DAO {
             $p->set('nome', $produtonome);
             echo $produtonome."<br>";
             $p->set('preco', $produtopreco);
-            echo $produtopreco."<br>";
+            echo $total."<br>";
+           // echo $produtopreco."<br>";
             $c->set('quantidade', $contemquantidade);
-            echo $contemquantidade."<br>";
+            //echo $contemquantidade."<br>";
             $result["marca"] = $m;
             $result["produto"] = $p;
             $result["contem"] = $c;
