@@ -106,7 +106,35 @@ include 'session_start.php';
         </script>
         
         <?php
-        
+           $estados = [       
+    "AC"=>"Acre",
+    "AL"=>"Alagoas",
+    "AM"=>"Amazonas",
+    "AP"=>"Amapá",
+    "BA"=>"Bahia",
+    "CE"=>"Ceará",
+    "DF"=>"Distrito Federal",
+    "ES"=>"Espirito Santo",
+    "GO"=>"Goiás",
+    "MA"=>"Maranhão",
+    "MG"=>"Minas Gerais",
+    "MS"=>"Mato Grosso do Sul",
+    "MT"=>"Mato Grosso",
+    "PA"=>"Pará",
+    "PB"=>"Paraíba",
+    "PE"=>"Pernambuco",
+    "PI"=>"Piauí",
+    "PR"=>"Paraná",
+    "RJ"=>"Rio de Janeiro",
+    "RN"=>"Rio Grande do Norte",
+    "RO"=>"Rondônia",
+    "RR"=>"Roraima",
+    "RS"=>"Rio Grande do Sul",
+    "SC"=>"Santa Catarina",
+    "SE"=>"Sergipe",
+    "SP"=>"São Paulo",
+    "TO"=>"Tocantins"          
+              ];
         require_once 'DAO/PessoaDAO.php';
         require_once 'DAO/EnderecoDAO.php';
         
@@ -133,8 +161,7 @@ include 'session_start.php';
                         }
                     } else {
                        header('Location: index.php');
-                    }
-                                  
+                    }                                
        
         ?>     
     </head>
@@ -256,10 +283,19 @@ include 'session_start.php';
                                         <input type="text" name="cidade" class="contact_input" value="<?php echo $endereco->get('cidade') ?>"/>
                                     </div>
 
-                                    <div class="form_row">
-                                        <label class="contact"><strong>Estado:</strong></label>
-                                        <input type="text" name="estado" class="contact_input" value="<?php echo $endereco->get('estado') ?>"/>
-                                    </div>
+                                     <label class="contact"><strong>Estado:</strong></label>                                 
+                                      <select name="estado" class="contact_input" >
+                                            <?php
+                                          
+                                            foreach ($estados as $key => $value) {
+
+                                                if ($key == $endereco->get('estado'))
+                                                    echo "<option selected value='" . $key . "'>" . $value . "</option>";
+                                                else
+                                                    echo "<option value='" . $key . "'>" . $value . "</option>";
+                                            }
+                                            ?>
+                                        </select>                                    
 
                                     <div class="form_row">
                                         <input class="submit" type="submit" value="Atualizar" name=""/>

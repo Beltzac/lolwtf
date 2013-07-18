@@ -141,11 +141,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'fabricante')
                         nascimento: {
                             required: true,
                             minlength: 8
-                        },
-                        senha: {
-                            required: true,
-                            minlength: 6
-                        },
+                        }                     
                     },
                     // Define as mensagens de erro para cada regra
                     messages: {
@@ -172,12 +168,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'fabricante')
                         cpf: {
                             required: "Digite seu CPF",
                             minlength: ""
-                        },
-                        senha: {
-                            required: "Digite sua senha",
-                            minlength: "A sua senha deve conter, no m&iacutenimo, 6 caracteres"
-                        }
-
+                        }                        
                     }
                 });
             });
@@ -205,6 +196,38 @@ if (isset($_GET['action']) && $_GET['action'] == 'fabricante')
         $pessoa = new Pessoa();
         $endereco = new Endereco();
         $fabricante = new Marca();
+        
+        
+        $estados = [       
+    "AC"=>"Acre",
+    "AL"=>"Alagoas",
+    "AM"=>"Amazonas",
+    "AP"=>"Amapá",
+    "BA"=>"Bahia",
+    "CE"=>"Ceará",
+    "DF"=>"Distrito Federal",
+    "ES"=>"Espirito Santo",
+    "GO"=>"Goiás",
+    "MA"=>"Maranhão",
+    "MG"=>"Minas Gerais",
+    "MS"=>"Mato Grosso do Sul",
+    "MT"=>"Mato Grosso",
+    "PA"=>"Pará",
+    "PB"=>"Paraíba",
+    "PE"=>"Pernambuco",
+    "PI"=>"Piauí",
+    "PR"=>"Paraná",
+    "RJ"=>"Rio de Janeiro",
+    "RN"=>"Rio Grande do Norte",
+    "RO"=>"Rondônia",
+    "RR"=>"Roraima",
+    "RS"=>"Rio Grande do Sul",
+    "SC"=>"Santa Catarina",
+    "SE"=>"Sergipe",
+    "SP"=>"São Paulo",
+    "TO"=>"Tocantins"          
+              ];
+        
 
         if (isset($_GET['action'])) {
             switch ($_GET['action']) {
@@ -469,11 +492,22 @@ if (isset($_GET['action']) && $_GET['action'] == 'fabricante')
                                         <input type="text" name="cidade" class="contact_input" value="<?php echo $endereco->get('cidade') ?>"/>
                                     </div>
 
-                                    <div class="form_row">
-                                        <label class="contact"><strong>Estado:</strong></label>
-                                        <input type="text" name="estado" class="contact_input" value="<?php echo $endereco->get('estado') ?>"/>
-                                    </div>
+                                       
+                                    <label class="contact"><strong>Estado:</strong></label>                                 
+                                      <select name="estado" class="contact_input" >
+                                            <?php
+                                          
+                                            foreach ($estados as $key => $value) {
 
+                                                if ($key == $endereco->get('estado'))
+                                                    echo "<option selected value='" . $key . "'>" . $value . "</option>";
+                                                else
+                                                    echo "<option value='" . $key . "'>" . $value . "</option>";
+                                            }
+                                            ?>
+                                        </select>
+                                    
+                                   
 
                                     <div class="form_row">
                                         <input class="submit" type="submit" value="Atualizar" name="acao"/>
@@ -545,13 +579,8 @@ if (isset($_GET['action']) && $_GET['action'] == 'fabricante')
                                     Fabricantes
                                     <select name="cod_marc" class="contact_input">
 <?php
-foreach ($marcas as $value) 
-    //if ($value->get('codmarc') == $produto->get('cod_marc'))
-       echo "<option selected value='" . $value->get('codmarc') . "'>" . $value->get('nome') . "</option>";
-       
-      // $valor = value->get('codmarc');
-    //else
-      // echo "<option value='" . $value->get('codmarc') . "' >" . $value->get('nome') . "</option>";
+foreach ($marcas as $value)    
+       echo "<option selected value='" . $value->get('codmarc') . "'>" . $value->get('nome') . "</option>";       
 
 ?>
                                     </select>
