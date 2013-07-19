@@ -142,7 +142,7 @@ class PedidoDAO extends DAO {
 
         $stmt->prepare("UPDATE PEDIDO set situacao = ?,forma_d_entreg = ?, forma_d_pag = ?,id_p = ?,cod_end = ? where cod_pedido = ?");
         if ($stmt) {
-
+                //
 
             $stmt->bind_param("sssiii", $pedido->get('situacao'), $pedido->get('forma_d_entreg'), $pedido->get('forma_d_pag'), $pedido->get('id_p'), $pedido->get('cod_end'), $pedido->get('cod_pedido'));
             
