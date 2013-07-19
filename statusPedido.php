@@ -18,7 +18,8 @@ include 'session_start.php';
 
 			<div id="main_content">
 
-				<?php
+				<?php 
+                                //testesd
 				include ('menu.php');
 				include ('menuEsquerda.php');
 				?>
