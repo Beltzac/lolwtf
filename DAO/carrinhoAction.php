@@ -44,20 +44,17 @@ switch ($_GET['tipo']) {
     //Inicializa o carrinho se ele não existir
     case 'iniciar':
 
-        $_SESSION['carrinho'] = $pdao->selectAtual($_SESSION['id']);
+        //$_SESSION['carrinho'] = $peddao->selectAtual($_SESSION['id']);
 
         if (!$_SESSION['carrinho']) {
-            $pesdao = new PessoaDAO();
             $pedido = new Pedido();
-            $pessoa = new Pessoa();
-            $pessoa = $pesdao->selectByCod($_SESSION['id']);
 
             $pedido->set('situacao', 'carrinho');
             $pedido->set('id_p', $_SESSION['id']);
-            $pedido->set('cod_end', $pessoa->get('cod_end'));
+            $pedido->set('cod_end', $_SESSION['cod_end']);
 
-            $pdao->insert($pedido);
-            $_SESSION['carrinho'] = $pdao->selectAtual($_SESSION['id']);
+            $peddao->insert($pedido);
+            $_SESSION['carrinho'] = $peddao->selectAtual($_SESSION['id']);
         }
 
         break;

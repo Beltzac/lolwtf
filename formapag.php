@@ -70,7 +70,7 @@ include 'session_start.php';
                                         if(!empty($_POST['pagamento2'])){
                                             $forma=$_POST['pagamento2'];
                                             ?>
-                                    <form action='statusPedido.php' method='post'>
+                                    <form action='dao/pedidoAction.php' method='post'>
                                         <input type='hidden' name='pagamento' value='<?php echo $forma; ?>'>
                                         <select name='envio'>
                                             <option value='pac'>PAC</option>

@@ -9,6 +9,23 @@ function redirect() {
         header('Location: index.php');
     }
 }
-//commen
+
+$peddao= new PedidoDAO();
+$p = new Pedido();
+
+$p->set('cod_pedido', $_SESSION['carrinho']);
+$p->set('id_p', $_SESSION['id']);
+$p->set('cod_end',$_SESSION['cod_end']);
+$p->set('situacao','a enviar');
+$p->set('forma_d_entreg', $_POST['envio']);
+$p->set('forma_d_pag', $_POST['pagamento']);
+
+$err = $peddao->Update($p);
+echo $err;
+$_SESSION['carrinho']=NULL;
+header('Location: ../statusPedido.php');
+
+
+
 
 ?>

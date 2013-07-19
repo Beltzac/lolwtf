@@ -142,6 +142,7 @@ class ProdutoDAO  extends DAO {
            $stmt->bind_param("i", $cod);
 
             $stmt->execute();
+            echo $stmt->error;
             $err = $stmt->errno;
             $stmt->close();           
         }
