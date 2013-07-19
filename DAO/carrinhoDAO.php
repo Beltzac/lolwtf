@@ -23,7 +23,7 @@ class carrinhoDAO extends DAO {
         
         $stmt->execute();
         echo $stmt->error;
-
+        
         $stmt->bind_result($total,$count);
 
         while ($stmt->fetch()) {      

@@ -66,7 +66,7 @@ include 'session_start.php';
 					?>
                                     
                                     <?php 
-                                    //scsa
+                                    //scsasdasd
                                         if(!empty($_POST['pagamento2'])){
                                             $forma=$_POST['pagamento2'];
                                             ?>

@@ -12,7 +12,7 @@ function redirect() {
 
 $peddao= new PedidoDAO();
 $p = new Pedido();
-
+//teste
 $p->set('cod_pedido', $_SESSION['carrinho']);
 $p->set('id_p', $_SESSION['id']);
 $p->set('cod_end',$_SESSION['cod_end']);

@@ -36,6 +36,7 @@ $p = $pdao->selectByEmail($email,$senha);
         $_SESSION['id'] = $p->get('id');
         $_SESSION['nome'] = $p->get('nome');
         $_SESSION['cod_end']=$p->get('cod_end');
+        //
         
         $carrinho = $pedidodao->selectAtual($_SESSION['id']);
         

@@ -29,6 +29,7 @@ function redirect() {
 
 if (!isset($_GET['tipo'])) {
     redirect();
+    //
 }
 
 

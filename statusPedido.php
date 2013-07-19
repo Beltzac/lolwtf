@@ -32,6 +32,7 @@ include 'session_start.php';
                                 
                                         <table border='1'>
 					<?php
+                                        //teste
 					$form = $_POST['pagamento'];
 					if ($form == 'visa') { 
 						echo "<tr><td>Pagamento</td><td>Visa</td></tr>";
