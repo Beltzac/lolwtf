@@ -27,11 +27,11 @@ include 'session_start.php';
 
 					<div class="center_title_bar">
 						Status do Pedido
-					</div>
+					</div><br/>
                                 
                                         <table border='1'>
 					<?php
-					$form = $_POST['sel'];
+					$form = $_POST['pagamento'];
 					if ($form == 'visa') { 
 						echo "<tr><td>Pagamento</td><td>Visa</td></tr>";
 						echo "<tr><td>Status</td><td>Aguardando pagamento</td></tr>";
@@ -57,6 +57,18 @@ include 'session_start.php';
 						echo "<tr><td>Status</td><td>Aguardando pagamento</td></tr>";
 					}
 					?>
+                                        <?php
+                                        $env=$_POST['envio'];
+                                        if($env=='pac'){
+                                            echo "<tr><td>Forma de Envio</td><td>Correios via PAC</td></tr>";
+                                        }
+                                        else if ($env=='sedex'){
+                                            echo "<tr><td>Forma de Envio</td><td>Correios via Sedex</td></tr>";
+                                        }
+                                        else{
+                                            echo "<tr><td>Forma de Envio</td><td>Frete via Cometa Express</td></tr>";
+                                        }
+                                        ?>
                                         </table>
 				</div><!-- center -->
 

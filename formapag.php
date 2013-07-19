@@ -31,10 +31,10 @@ include 'session_start.php';
 					</div>
 					
 					<?php
-						if(empty($_POST['OP'])){?>
+						if(empty($_POST['pagamento'])&&empty($_POST['pagamento2'])){?>
 						<form method='post' action='formapag.php'>
-							<INPUT TYPE='RADIO' NAME='OP' VALUE='credito' >Cartao de Credito<br/>
-							<INPUT TYPE='RADIO' NAME='OP' VALUE='boleto' > Boleto Bancario<br/>
+							<INPUT TYPE='RADIO' NAME='pagamento' VALUE='credito' >Cartao de Credito<br/>
+							<INPUT TYPE='RADIO' NAME='pagamento' VALUE='boleto' > Boleto Bancario<br/>
 							<input type='submit' value='Continuar'>
 						</form>
 						<?php }
@@ -43,11 +43,11 @@ include 'session_start.php';
 					
 					
 					<?php
-						if(!empty($_POST['OP'])){
-						$form=$_POST['OP'];
+						if(!empty($_POST['pagamento'])&&empty($_POST['pagamento2'])){
+						$form=$_POST['pagamento'];
 						if($form=="credito"){ ?>
-							<form action='statusPedido.php' method='post'>
-								<select name='sel'> <option value='visa'>Visa</option> 
+							<form action='formapag.php' method='post'>
+								<select name='pagamento2'> <option value='visa'>Visa</option> 
 								<option value='master'>Mastercard</option> 
 								<option value='hiper'>Hipercard</option> 
 								<option value='diners'>Diners</option> </select> 
@@ -55,8 +55,8 @@ include 'session_start.php';
 							</form>
 						<?php }
 						else { ?>
-							<form action='statusPedido.php' method='post'>
-								<select name='sel'> 
+							<form action='formapag.php' method='post'>
+								<select name='pagamento2'> 
 									<option value='hsbc'>HSBC</option> 
 									<option value='itau'>Itau</option> 
 								</select> 
@@ -64,6 +64,23 @@ include 'session_start.php';
 							</form>
 						<?php }	}					
 					?>
+                                    
+                                    <?php
+                                        if(!empty($_POST['pagamento2'])){
+                                            $forma=$_POST['pagamento2'];
+                                            ?>
+                                    <form action='statusPedido.php' method='post'>
+                                        <input type='hidden' name='pagamento' value='<?php echo $forma; ?>'>
+                                        <select name='envio'>
+                                            <option value='pac'>PAC</option>
+                                            <option value='sedex'>Sedex</option>
+                                            <option value='freteiro'>Cometa Express</option>
+                                        </select>
+                                        <input type='submit' value='Finalizar'>
+                                    </form>
+                                            
+                                       <?php }
+                                    ?>
 					
 
 					
