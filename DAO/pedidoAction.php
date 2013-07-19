@@ -9,6 +9,6 @@ function redirect() {
         header('Location: index.php');
     }
 }
-
+//commen
 
 ?>
