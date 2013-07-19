@@ -65,7 +65,8 @@ include 'session_start.php';
 						<?php }	}					
 					?>
                                     
-                                    <?php
+                                    <?php 
+                                    //scsa
                                         if(!empty($_POST['pagamento2'])){
                                             $forma=$_POST['pagamento2'];
                                             ?>
