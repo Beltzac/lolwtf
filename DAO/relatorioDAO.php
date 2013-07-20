@@ -27,35 +27,23 @@ class relatorioDAO extends DAO {
      function selectByMarca($cod)
     {
         $stmt = $this->con->stmt_init();
-        $stmt->prepare("SELECT marca.nome, produto.nome,  (produto.preco * contem.quantidade) AS total,
-            produto.preco, contem.quantidade FROM marca, produto, contem WHERE contem.cod_prod = produto.cod_prod 
-            AND produto.cod_marc = marca.codmarc AND marca.codmarc = ? ORDER BY total");
+        $stmt->prepare("SELECT produto.nome, SUM(contem.quantidade) AS quant_vend, SUM(contem.quantidade * produto.preco) AS total,
+            produto.preco FROM marca, produto, contem WHERE contem.cod_prod = produto.cod_prod 
+            AND produto.cod_marc = marca.codmarc AND marca.codmarc = ? GROUP BY produto.nome  ORDER BY total");
         $stmt->bind_param('i', $cod);
         $stmt->execute();
-        $stmt->bind_result($marcanome, $produtonome, $total, $produtopreco, $contemquantidade);
-        $result = array("marca"=>array(), "produto"=>array(), "contem"=>array());
-        //$row = $stmt->num_rows;
-        //echo $row."<br>";
+        $stmt->bind_result($produtonome, $quant_vend, $total, $produtopreco);// string, string, string, integer
         while ($stmt->fetch()) {
-            $m = new marca();
-            $p = new Produto();
-            $c = new contem();
-            $m->set('nome', $marcanome);
-            echo $marcanome."<br>";
-            $p->set('nome', $produtonome);
-            echo $produtonome."<br>";
-            $p->set('preco', $produtopreco);
-            echo $total."<br>";
-           // echo $produtopreco."<br>";
-            $c->set('quantidade', $contemquantidade);
-            //echo $contemquantidade."<br>";
-            $result["marca"] = $m;
-            $result["produto"] = $p;
-            $result["contem"] = $c;
-        }
-        $stmt->close();
+           $p = new Produto();                    
+           $p->set('nome', $produtonome);   
+           $p->set('quant_vend', $quant_vend);
+           $p->set('arrecadacao', $total);
+           echo $produtonome.":  quantidade: ".$quant_vend." total: ".$total."<br>";
+           $p->set('preco', $produtopreco);                          
+           $result[]=$p;
+        }       
+        $stmt->close();        
         return $result;
-    }
-    
+    }    
 }
 ?>

@@ -18,6 +18,8 @@ if (!$_SESSION['admin']) {
         <script src="js/jquery-ui.min.js"></script>
         <script src="js/jquery.validate.min.js"></script>
         <script src="js/jquery.maskedinput.js"></script>
+        <script src="js/boxOver.js"></script>
+        
 
         <script>
             $(function() {
@@ -29,6 +31,12 @@ if (isset($_GET['action']) && $_GET['action'] == 'fabricante')
     echo '{active: 2}';
 ?>
                 );
+                    $(document).ready(function(){
+    $("#datepicker").datepicker({
+ onSelect: function(dateText, inst) { alert(dateText);document.getElementById('datepicker2').value=dateText; }
+}
+);
+  });
 
                 $("#datepicker").datepicker({
                     dateFormat: "dd/mm/yy",
@@ -71,8 +79,19 @@ if (isset($_GET['action']) && $_GET['action'] == 'fabricante')
                     changeMonth: true,
                     changeYear: true
                 });
+                $(function() {
+		$('#datepicker2').datepicker({
+			autoSize: true,
+			onSelect: function (dateText, inst) {
+				$(this).parent('form').submit();
+			}
+		     });
+	        });
 
             });
+            var currentDate = $( ".selector" ).datepicker( "getDate" );
+            document.write(currentDate);
+            //document.getElementsByName()
         </script>
 
         <script>
@@ -106,7 +125,8 @@ if (isset($_GET['action']) && $_GET['action'] == 'fabricante')
             });
 
         </script>
-
+ 
+        
         <script>
             $(document).ready(function() {
                 $("#cliente").validate({
@@ -198,7 +218,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'fabricante')
         $fabricante = new Marca();
 
 
-        $estados = [
+        $estados = array(
             "AC" => "Acre",
             "AL" => "Alagoas",
             "AM" => "Amazonas",
@@ -226,7 +246,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'fabricante')
             "SE" => "Sergipe",
             "SP" => "São Paulo",
             "TO" => "Tocantins"
-        ];
+        );
 
 
         if (isset($_GET['action'])) {
@@ -557,19 +577,19 @@ if (isset($_GET['action']) && $_GET['action'] == 'fabricante')
 
                         <div>
                             <div>
-
+                           <form method='post' action='relatorios.php'>
                                 <div class='form_row'>
                                     <label class='contact'><strong>De: </strong></label>
-                                    <input type="text" class="contact_input" id="datepicker2" />
+                                    <input type="text" class="contact_input" id="datepicker2" name="datepicker2" value="date"/>
                                 </div>
                                 <div class='form_row'>
                                     <label class='contact'><strong>At&eacute: </strong></label>
-                                    <input type="text" class="contact_input" id="datepicker3" />
+                                    <input type="text" class="contact_input" id="datepicker3" name="data2" value="date"/>
                                 </div>
                                 <br/>
                                 <br/>
 
-                                <form method='post' action='relatorios.php'>
+                               
                                     <input type='radio' name='op' value='op1'>
                                     Clientes
                                     <br/>
