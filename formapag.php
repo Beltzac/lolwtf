@@ -48,17 +48,17 @@ include 'session_start.php';
 						if($form=="credito"){ ?>
 							<form action='formapag.php' method='post'>
 								<select name='pagamento2'> <option value='visa'>Visa</option> 
-								<option value='master'>Mastercard</option> 
-								<option value='hiper'>Hipercard</option> 
-								<option value='diners'>Diners</option> </select> 
+								<option value='Mastercard'>Mastercard</option> 
+								<option value='Hipercard'>Hipercard</option> 
+								<option value='Diners'>Diners</option> </select> 
 								<input type='submit' value='Continuar'> 
 							</form>
 						<?php }
 						else { ?>
 							<form action='formapag.php' method='post'>
 								<select name='pagamento2'> 
-									<option value='hsbc'>HSBC</option> 
-									<option value='itau'>Itau</option> 
+									<option value='HSBC'>HSBC</option> 
+									<option value='Itau'>Itau</option> 
 								</select> 
 								<input type='submit' value='Continuar'>
 							</form>
@@ -73,9 +73,9 @@ include 'session_start.php';
                                     <form action='dao/pedidoAction.php' method='post'>
                                         <input type='hidden' name='pagamento' value='<?php echo $forma; ?>'>
                                         <select name='envio'>
-                                            <option value='pac'>PAC</option>
-                                            <option value='sedex'>Sedex</option>
-                                            <option value='freteiro'>Cometa Express</option>
+                                            <option value='PAC'>PAC</option>
+                                            <option value='Sedex'>Sedex</option>
+                                            <option value='Frete via Cometa'>Cometa Express</option>
                                         </select>
                                         <input type='submit' value='Finalizar'>
                                     </form>
