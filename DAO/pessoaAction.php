@@ -11,9 +11,9 @@ function redirect() {
     }
 }
 
-$data_nasc=$_POST['nascimento'];
+$data_nasc=$_POST['campoNascimento'];
 if(!$data_nasc){
-    $data_nasc=$_POST['campoNascimento'];
+    $data_nasc=$_POST['nascimento'];
 }
 //converteData($data_nasc,'/','-');
 $data_nasc = implode('-',array_reverse(explode('/',$data_nasc)));
@@ -57,7 +57,7 @@ switch ($_POST['acao']) {
             
            $err = $pdao->insert($p);           
 
-            if(strlen($_POST['senha']) >= 6  && !$err){
+            if(strlen($_POST['campoSenha']) >= 6  && !$err){
             $last = $pdao->lastID();
             $pdao->updateSenha($last, $_POST['campoSenha']);            
         }
