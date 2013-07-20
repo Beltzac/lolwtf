@@ -1,5 +1,9 @@
 <?php
     include 'session_start.php';    
+    if (!$_SESSION['logado']) {
+    header('Location: index.php');
+    exit();
+}
 ?>
 <html>
     <head>
