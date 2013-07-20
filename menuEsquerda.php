@@ -9,7 +9,7 @@
         
         if(!$p){
             $pdao = new ProdutoDAO();   
-            $p = $pdao->selectByCod(11);
+            $p = $pdao->selectByCod(33);
             phpFastCache::set("produtoEsquerdo",$p,600);
         }
         
