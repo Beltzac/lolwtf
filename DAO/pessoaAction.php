@@ -11,6 +11,16 @@ function redirect() {
     }
 }
 
+$data_nasc=$_POST['nascimento'];
+if(!$data_nasc){
+    $data_nasc=$_POST['campoNascimento'];
+}
+//converteData($data_nasc,'/','-');
+$data_nasc = implode('-',array_reverse(explode('/',$data_nasc)));
+//echo $data_nasc;
+$data_nasc=date('Y-m-d',strtotime($data_nasc));
+echo $data_nasc;
+
 $edao = new EnderecoDAO();
 $pdao = new PessoaDAO();
 switch ($_POST['acao']) {
@@ -43,7 +53,7 @@ switch ($_POST['acao']) {
             $p->set('cpf', $_POST['campoCpf']);
             $p->set('nivel_d_aces', 0);
             $p->set('cod_end', $last);
-            $p->set('nascimento', $_POST['campoNascimento']);
+            $p->set('nascimento', $data_nasc);
             
            $err = $pdao->insert($p);           
 
@@ -79,7 +89,7 @@ switch ($_POST['acao']) {
         $p->set('email', $_POST['email']);
         $p->set('rg', $_POST['rg']);
         $p->set('cpf', $_POST['cpf']);        
-        $p->set('nascimento', $_POST['nascimento']);
+        $p->set('nascimento', $data_nasc);
         $p->set('cod_end', $_POST['cod_end']);
         $p->set('id', $_POST['id']);
 
@@ -102,7 +112,7 @@ switch ($_POST['acao']) {
         $p->set('email', $_POST['email']);
         $p->set('rg', $_POST['rg']);
         $p->set('cpf', $_POST['cpf']);
-        $p->set('nascimento', $_POST['nascimento']);
+        $p->set('nascimento', $data_nasc);
         $p->set('cod_end', $_POST['cod_end']);
         $p->set('id', $_POST['id']);
 

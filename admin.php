@@ -449,7 +449,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'fabricante')
                                         <label class="contact"><strong>CPF:</strong></label>
                                         <input type="text" name="cpf" id="clicpf" class="contact_input" value="<?php echo $pessoa->get('cpf') ?>"/>
                                     </div>
-
+                                    
                                     <div class="form_row">
                                         <label class="contact"><strong>Data de nascimento:</strong></label>
                                         <input type="text" name="nascimento" class="contact_input" id="datepicker" value="<?php echo $pessoa->get('nascimento') ?>"/>
