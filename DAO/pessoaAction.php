@@ -52,6 +52,7 @@ switch ($_POST['acao']) {
             $p->set('rg', $_POST['campoRg']);
             $p->set('cpf', $_POST['campoCpf']);
             $p->set('nivel_d_aces', 0);
+            $p->set('senha', '000000');
             $p->set('cod_end', $last);
             $p->set('nascimento', $data_nasc);
             
@@ -63,9 +64,8 @@ switch ($_POST['acao']) {
         }
         
         }
-
-
-
+        header('Location: index.php');
+        exit();
         break;
 
     case 'Atualizar':

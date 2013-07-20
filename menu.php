@@ -44,7 +44,7 @@
                 ?>
         <li class="divider"></li>
         <li>
-            <a href="login_manager.php" class="nav" style = " font-size: 15 ; color: tomato; ">Logout ( <?php echo $_SESSION['nome'] ?> )</a>
+            <a href="login_manager.php?logout=1" class="nav" style = " font-size: 15 ; color: tomato; ">Logout ( <?php echo $_SESSION['nome'] ?> )</a>
         </li>
 
                 <?php 

@@ -45,19 +45,19 @@ switch ($_GET['tipo']) {
     //Inicializa o carrinho se ele não existir
     case 'iniciar':
 
-        //$_SESSION['carrinho'] = $peddao->selectAtual($_SESSION['id']);
+        $pedido = new Pedido();
 
-        if (!$_SESSION['carrinho']) {
-            $pedido = new Pedido();
+        $pedido->set('situacao', 'carrinho');
+        $pedido->set('id_p', $_SESSION['id']);
+        $pedido->set('cod_end', $_SESSION['cod_end']);
 
-            $pedido->set('situacao', 'carrinho');
-            $pedido->set('id_p', $_SESSION['id']);
-            $pedido->set('cod_end', $_SESSION['cod_end']);
-
-            $peddao->insert($pedido);
-            $_SESSION['carrinho'] = $peddao->selectAtual($_SESSION['id']);
+        $peddao->insert($pedido);
+        $carrinho = $peddao->selectAtual($_SESSION['id']);
+        $_SESSION['carrinho'] = $carrinho->get('cod_pedido');
+        if (isset($_GET['goto'])) {
+            header('Location:' . $_GET['goto']);
+            exit();
         }
-
         break;
 
     //adiciona um produto no carrinho do usuário

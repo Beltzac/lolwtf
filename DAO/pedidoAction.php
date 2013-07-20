@@ -22,10 +22,9 @@ $p->set('forma_d_pag', $_POST['pagamento']);
 
 $err = $peddao->Update($p);
 echo $err;
-$_SESSION['carrinho']=NULL;
-header('Location: ../statusPedido.php');
+unset($_SESSION['carrinho']);
 
-
-
-
+$_SESSION['valorTotal'] = 0;
+$_SESSION['quantidadeProdutos'] = 0;
+redirect();
 ?>
