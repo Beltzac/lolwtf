@@ -8,11 +8,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>Carrinho - Lolwtf Mobile</title>
+        <title>Pedido <?php echo $_GET['cod'] ?> - Lolwtf Mobile</title>
         <link rel="stylesheet" type="text/css" href="style.css" />
         <script type="text/javascript" src="js/boxOver.js"></script>
-        <script src="js/jquery-2.0.2.min.js"></script>
-        <script src="js/jquery-ui.min.js"></script>
         <link rel="stylesheet" href="jquery-ui.min.css" />
     </head>
     <body>
@@ -35,34 +33,27 @@
                 <div class="center_content">
 
                     <div class="center_title_bar">
-                        Meu carrinho
+                        Pedido <?php echo $_GET['cod'] ?>
                     </div>
 
                     
                     <?php
                     
-                    require_once 'DAO/carrinhoDAO.php';
-                    
-                    //inicializa o carrinho se necessario            
-                    if(!$_SESSION['carrinho'] || !isset($_SESSION['carrinho'])){
-                        header('Location: dao/carrinhoAction.php?tipo=iniciar');
-                    }
-                    
+                    require_once 'DAO/carrinhoDAO.php';                    
+             
                                                           
                     $cardao = new carrinhoDAO();                    
-                    $produtos = $cardao->selectProdutosPedido($_SESSION['carrinho']);
+                    $produtos = $cardao->selectProdutosPedido($_GET['cod']);
                                                           
                     foreach ($produtos as $value){                        
-                        carrinhoProduto($value[0],$value[1]);                    
+                        detalhePedidoProduto($value[0],$value[1]);                    
                     }
                     
-                    $t = $cardao->total($_SESSION['carrinho']);
-                    echo 'Total:'.$t[0];
+                    $t = $cardao->total($_GET['cod']);
+                    echo 'Total do pedido:'.$t[0];
                     ?>
 
-                    <div class="form_row">
-                        <a href="formapag.php" class="prod_buy">Finalizar</a>
-                    </div>
+                 
                 </div><!-- center -->
 
 <?php

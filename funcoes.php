@@ -45,6 +45,46 @@ function caixaProduto(Produto $produto) {
     <?php
 }
 
+function detalhePedidoProduto(Produto $produto, $quantidade) {
+
+    $codigo = $produto->get('cod_prod');
+    $nome = $produto->get('nome');
+    $preco = $produto->get('preco');
+    ?>
+
+    <div class="carrinho_box">
+
+        <div class="carrinho_center_prod_box2">
+            <div class="product_img2">
+                <a href="details.php?cod=<?php echo $codigo ?>"><img src="<?php echo imagem($codigo) ?>" alt="" title="" border="0"  class="img"/></a>
+            </div>
+            <div class="product_title2">
+                <a href="details.php?cod=<?php echo $codigo ?>"><?php echo $nome ?></a>
+            </div>
+
+            <div class="prod_price2">
+                Valor unitário:
+                <span class="price">R$ <?php echo $preco ?></span><br/>     
+                Quantidade:
+                <span class="price"><?php echo $quantidade ?></span><br/>                    
+                Total:
+                <span class="price">R$ <?php echo $quantidade * $preco ?></span>
+                </p>
+            </div>
+
+            <div class="carrinho_prod_details_tab2">
+                <a href="details.php?cod=<?php echo $codigo ?>" class="prod_details">Detalhes</a>
+            </div>
+
+        </div>
+        <br/>
+
+    </div>
+    <br/>
+
+    <?php
+}
+
 //desenha os dados do produto e sua imagem, links no formato de lista
 function carrinhoProduto(Produto $produto, $quantidade) {
 

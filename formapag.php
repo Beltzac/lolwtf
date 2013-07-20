@@ -31,10 +31,10 @@ include 'session_start.php';
 					</div>
 					
 					<?php
-						if(empty($_POST['OP'])){?>
+						if(empty($_POST['pagamento'])&&empty($_POST['pagamento2'])){?>
 						<form method='post' action='formapag.php'>
-							<INPUT TYPE='RADIO' NAME='OP' VALUE='credito' >Cartao de Credito<br/>
-							<INPUT TYPE='RADIO' NAME='OP' VALUE='boleto' > Boleto Bancario<br/>
+							<INPUT TYPE='RADIO' NAME='pagamento' VALUE='credito' >Cartao de Credito<br/>
+							<INPUT TYPE='RADIO' NAME='pagamento' VALUE='boleto' > Boleto Bancario<br/>
 							<input type='submit' value='Continuar'>
 						</form>
 						<?php }
@@ -43,27 +43,45 @@ include 'session_start.php';
 					
 					
 					<?php
-						if(!empty($_POST['OP'])){
-						$form=$_POST['OP'];
+						if(!empty($_POST['pagamento'])&&empty($_POST['pagamento2'])){
+						$form=$_POST['pagamento'];
 						if($form=="credito"){ ?>
-							<form action='statusPedido.php' method='post'>
-								<select name='sel'> <option value='visa'>Visa</option> 
-								<option value='master'>Mastercard</option> 
-								<option value='hiper'>Hipercard</option> 
-								<option value='diners'>Diners</option> </select> 
+							<form action='formapag.php' method='post'>
+								<select name='pagamento2'> <option value='visa'>Visa</option> 
+								<option value='Mastercard'>Mastercard</option> 
+								<option value='Hipercard'>Hipercard</option> 
+								<option value='Diners'>Diners</option> </select> 
 								<input type='submit' value='Continuar'> 
 							</form>
 						<?php }
 						else { ?>
-							<form action='statusPedido.php' method='post'>
-								<select name='sel'> 
-									<option value='hsbc'>HSBC</option> 
-									<option value='itau'>Itau</option> 
+							<form action='formapag.php' method='post'>
+								<select name='pagamento2'> 
+									<option value='HSBC'>HSBC</option> 
+									<option value='Itau'>Itau</option> 
 								</select> 
 								<input type='submit' value='Continuar'>
 							</form>
 						<?php }	}					
 					?>
+                                    
+                                    <?php 
+                                    //scsasdasd
+                                        if(!empty($_POST['pagamento2'])){
+                                            $forma=$_POST['pagamento2'];
+                                            ?>
+                                    <form action='dao/pedidoAction.php' method='post'>
+                                        <input type='hidden' name='pagamento' value='<?php echo $forma; ?>'>
+                                        <select name='envio'>
+                                            <option value='PAC'>PAC</option>
+                                            <option value='Sedex'>Sedex</option>
+                                            <option value='Frete via Cometa'>Cometa Express</option>
+                                        </select>
+                                        <input type='submit' value='Finalizar'>
+                                    </form>
+                                            
+                                       <?php }
+                                    ?>
 					
 
 					

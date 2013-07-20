@@ -29,6 +29,7 @@ function redirect() {
 
 if (!isset($_GET['tipo'])) {
     redirect();
+    //
 }
 
 
@@ -44,22 +45,19 @@ switch ($_GET['tipo']) {
     //Inicializa o carrinho se ele não existir
     case 'iniciar':
 
-        $_SESSION['carrinho'] = $pdao->selectAtual($_SESSION['id']);
+        $pedido = new Pedido();
 
-        if (!$_SESSION['carrinho']) {
-            $pesdao = new PessoaDAO();
-            $pedido = new Pedido();
-            $pessoa = new Pessoa();
-            $pessoa = $pesdao->selectByCod($_SESSION['id']);
+        $pedido->set('situacao', 'carrinho');
+        $pedido->set('id_p', $_SESSION['id']);
+        $pedido->set('cod_end', $_SESSION['cod_end']);
 
-            $pedido->set('situacao', 'carrinho');
-            $pedido->set('id_p', $_SESSION['id']);
-            $pedido->set('cod_end', $pessoa->get('cod_end'));
-
-            $pdao->insert($pedido);
-            $_SESSION['carrinho'] = $pdao->selectAtual($_SESSION['id']);
+        $peddao->insert($pedido);
+        $carrinho = $peddao->selectAtual($_SESSION['id']);
+        $_SESSION['carrinho'] = $carrinho->get('cod_pedido');
+        if (isset($_GET['goto'])) {
+            header('Location:' . $_GET['goto']);
+            exit();
         }
-
         break;
 
     //adiciona um produto no carrinho do usuário

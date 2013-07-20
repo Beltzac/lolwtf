@@ -1,5 +1,9 @@
 <?php
 include 'session_start.php';
+if (!$_SESSION['logado']) {
+    header('Location: index.php');
+    exit();
+}
 ?>
 <html>
     <head>
@@ -137,6 +141,7 @@ include 'session_start.php';
         ];
         require_once 'DAO/PessoaDAO.php';
         require_once 'DAO/EnderecoDAO.php';
+        require_once 'DAO/PedidoDAO.php';
 
         $pessoa = new Pessoa();
         $endereco = new Endereco();
@@ -182,6 +187,26 @@ include 'session_start.php';
                 <div class="center_content">
 
                     <div id="accordion">
+                        <h3>Status dos meus pedidos</h3>
+
+                        <div>
+
+
+                            <table border='1'>
+                                <tr><td>Código</td><td>Status</td><td>Pagamento</td><td>Forma de Envio</td><td>Visualizar</td></tr>
+
+                                <?php
+                                $peddao = new PedidoDAO();
+                                $form = $peddao->selectAllPessoa($_SESSION['id']);
+
+                                foreach ($form as $value) {
+                                    echo "<tr><td>" . $value->get('cod_pedido') . "</td><td>" . $value->get('situacao') . "</td><td>" . $value->get('forma_d_pag') . "</td><td>" . $value->get('forma_d_entreg') . "</td><td><a href='detalhePedido.php?cod=" . $value->get('cod_pedido') . "'>Link</a></td></tr>";
+                                }
+                                ?>
+
+                            </table>
+
+                        </div>
 
                         <h3>Detalhes da minha conta</h3>
 
@@ -281,7 +306,7 @@ include 'session_start.php';
                                         <label class="contact"><strong>Cidade:</strong></label>
                                         <input type="text" name="cidade" class="contact_input" value="<?php echo $endereco->get('cidade') ?>"/>
                                     </div>
-                                    
+
                                     <div class="form_row">
                                         <label class="contact"><strong>Estado:</strong></label>                                 
                                         <select name="estado" class="contact_input" >
@@ -296,7 +321,7 @@ include 'session_start.php';
                                             ?>
                                         </select>                                    
                                     </div>
-                                    
+
                                     <div class="form_row">
                                         <input class="submit" type="submit" value="Atualizar" name=""/>
 
@@ -310,14 +335,14 @@ include 'session_start.php';
 
                 </div><!-- center -->
 
-<?php
-include ('menuDireita.php');
-?>
+                <?php
+                include ('menuDireita.php');
+                ?>
             </div><!-- main index -->
 
-<?php
-include ('footer.html');
-?>
+            <?php
+            include ('footer.html');
+            ?>
         </div>
     </body>
 </html>

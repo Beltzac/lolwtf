@@ -10,7 +10,9 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
         <title>Cadastro - Lolwtf Mobile</title>
         <link rel="stylesheet" type="text/css" href="style.css" />
         <script type="text/javascript" src="js/boxOver.js"></script>
+        <link rel="stylesheet" href="jquery-ui.min.css" />
         <script src="js/jquery-2.0.2.min.js"></script>
+        <script src="js/jquery-ui.min.js"></script>
         <script src="js/jquery.validate.min.js"></script>
         <script src="js/jquery.maskedinput.js"></script>
 
@@ -138,11 +140,31 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
         </script>
         <script type="text/javascript">
             $(document).ready(function() {
-                $("#campoNascimento").mask("99/99/9999");
+                //$("#campoNascimento").mask("99/99/9999");
                 $("#campoCpf").mask("999.999.999-99");
                 $("#campoCep").mask("99.999-999");
                 $("#campoTelefone").mask("(99)9999-9999");
                 $("#campoRg").mask("99.999.999-9");
+            });
+        </script>
+        
+        <script>
+            $(function() {
+
+                $("#datepicker").datepicker({
+                    dateFormat: "dd/mm/yy",
+                    dayNames: ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"],
+                    dayNamesMin: ["D", "S", "T", "Q", "Q", "S", "S"],
+                    dayNamesShort: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"],
+                    monthNames: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
+                    monthNamesShort: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
+                    nextText: "Próximo",
+                    prevText: "Anterior",
+                    weekHeader: "Semana",
+                    changeMonth: true,
+                    changeYear: true
+                });
+
             });
         </script>
     </head>
@@ -237,7 +259,7 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
 
                                     <div class="form_row">
                                         <label class="contact"><strong>Data de nascimento:</strong></label>
-                                        <input type="text" id="campoNascimento" class="contact_input" name="campoNascimento"/>
+                                        <input type="text" id="datepicker" class="contact_input" name="campoNascimento"/>
                                     </div>
 
                                     <div class="form_row">
@@ -275,11 +297,6 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
                                             }
                                             ?>                                   
                                         </select>
-                                    </div>
-
-                                    <div class="form_row">
-                                        <label class="contact"><strong>Complemento:</strong></label>
-                                        <input type="text" class="contact_input" name="campoComplemento"/>
                                     </div>
 
                                     <div class="form_row">

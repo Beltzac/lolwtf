@@ -3,6 +3,12 @@
 require_once 'connection.php';
 require_once 'Pessoa.php';
 require_once 'DAO.php';
+
+function converteData($data, $se, $ss){
+    return implode($ss, array_reverse(explode($se, $data)));
+}
+
+
 class PessoaDAO extends DAO {
     function insert(Pessoa $pessoa) {
         $stmt = $this->con->stmt_init();
@@ -17,6 +23,8 @@ class PessoaDAO extends DAO {
         }
     }
 
+
+    
     function selectAll() {
         $stmt = $this->con->stmt_init();
         $stmt->prepare("SELECT * FROM pessoa");
@@ -42,7 +50,7 @@ class PessoaDAO extends DAO {
             $p->set('nivel_d_aces', $nivel_d_aces);
             $p->set('cod_end', $cod_end);
             $p->set('id', $id);
-            $p->set('nascimento', $nascimento);
+            $p->set('nascimento', converteData($nascimento, '-', '/'));
 
             $result[] = $p;
         }
@@ -79,7 +87,7 @@ class PessoaDAO extends DAO {
             $p->set('nivel_d_aces', $nivel_d_aces);
             $p->set('cod_end', $cod_end);
             $p->set('id', $id);
-            $p->set('nascimento', $nascimento);
+            $p->set('nascimento',$nascimento);
 
             $result[] = $p;
         }
@@ -116,7 +124,7 @@ class PessoaDAO extends DAO {
             $p->set('nivel_d_aces', $nivel_d_aces);
             $p->set('cod_end', $cod_end);
             $p->set('id', $id);
-            $p->set('nascimento', $nascimento);
+            $p->set('nascimento', converteData($nascimento, '-', '/'));
         }
 
 
@@ -153,7 +161,7 @@ class PessoaDAO extends DAO {
             $p->set('nivel_d_aces', $nivel_d_aces);
             $p->set('cod_end', $cod_end);
             $p->set('id', $id);
-            $p->set('nascimento', $nascimento);
+            $p->set('nascimento', converteData($nascimento, '-', '/'));
 
             
         }
