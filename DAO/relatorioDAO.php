@@ -11,11 +11,12 @@ class relatorioDAO extends DAO {
     function  selectByCiente() {
         $stmt = $this->con->stmt_init();
         $stmt->prepare("SELECT pessoa.nome, produto.nome, (contem.quantidade * produto.preco)AS arrecadacao 
-            FROM pessoa, produto, contem WHERE pedido.id_p = pessoa.id AND pedido.cod_pedido = contem.cod_ped
+            FROM pessoa, produto, contem, pedido WHERE pedido.id_p = pessoa.id AND pedido.cod_pedido = contem.cod_ped and
              contem.cod_prod = produto.cod_prod");
         $stmt->execute();
+        echo $stmt->error;
         $stmt->bind_result($nome, $produto, $arrecadacao);
-        //$result = array();
+        $result = array();
         while ($stmt->fetch()) {
             $p = new Relatorio();
             $p->set('nome_pessoa', $nome);            
