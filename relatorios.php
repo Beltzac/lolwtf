@@ -34,11 +34,13 @@
           var_dump($data2pas);
           $lista2 = $dao2->selectByMarca($cod, $data1, $data2); //$data1, $data2);
                  
-          echo $data1."<br>";
+          /*echo $data1."<br>";
           echo $data2; 
           echo gettype($data2)."<br>";
-          echo var_dump($data2);
-          foreach ($lista2 as $key){                   
+          echo var_dump($data2);*/
+         // var_dump($lista2);
+          foreach ($lista2 as $key){
+           //   var_dump($key);
                echo "<tr><td>nome_produto:</td><td>".$key->get('nome')."</td></tr>";
                echo "<tr><td>preco:</td><td>".$key->get('preco')."</td></tr>";
                echo "<tr><td>quantidade vendida</td><td>".$key->get('quant_vend')."</td></tr>";

@@ -16,6 +16,7 @@ class contem {
     private $preco = null;
     private $cod_prod = null;
     private $cod_ped = null;
+    //private $data = null;
 
        function set($campo, $valor) {
         $this->$campo = $valor;
