@@ -11,8 +11,11 @@
         //require_once 'funcoes.php';
         //convertendo o codmarc para int
         $str = $_POST['cod_marc'];
+        $data1 = $_POST['datepicker2'];
+        $data2 = $_POST['thedate'];  
         $cod = (int)$str;        
-        
+        $data1pas = strtotime($data1);
+        $data2pas = strtotime($data2);        
         $opcao = $_POST['op'];
         if($opcao == "op1"){
          $dao = new relatorioDAO();
@@ -26,18 +29,22 @@
         }
          if($opcao == "op2"){          
           $dao2 = new relatorioDAO();
-          $lista2 = $dao2->selectByMarca($cod);
-          $data = $_POST['datepicker2'];
-          $amanha = mktime(0, 0, 0, date("m"), date("d") + 1, date("Y"));
-           echo "Amanhã é ".date("Y/m/d", $amanha)."<br>"; echo gettype($amanha)."<br>";
-          echo $data."<br>";
-         echo gettype($data);
-         var_dump($data);         
+          echo $data1pas."<br>";
+          echo $data2pas."<br>";
+          var_dump($data2pas);
+          $lista2 = $dao2->selectByMarca($cod, $data1, $data2); //$data1, $data2);
+                 
+          echo $data1."<br>";
+          echo $data2; 
+          echo gettype($data2)."<br>";
+          echo var_dump($data2);
           foreach ($lista2 as $key){                   
                echo "<tr><td>nome_produto:</td><td>".$key->get('nome')."</td></tr>";
                echo "<tr><td>preco:</td><td>".$key->get('preco')."</td></tr>";
                echo "<tr><td>quantidade vendida</td><td>".$key->get('quant_vend')."</td></tr>";
-               echo "<tr><td>arrecadação</td><td>".$key->get('arrecadacao')."</td></tr>";                           
+               echo "<tr><td>arrecadação</td><td>".$key->get('arrecadacao')."</td></tr>"; 
+               echo "<tr><td>data: </td><td>".$key->get('data')."</td></tr>";
+             //  echo "<tr><td>data: </td><td>".gettype($key->get('data'))."</td></tr>";
           }
          }         
         ?>  

@@ -32,11 +32,21 @@ if (isset($_GET['action']) && $_GET['action'] == 'fabricante')
 ?>
                 );
                     $(document).ready(function(){
-    $("#datepicker").datepicker({
- onSelect: function(dateText, inst) { alert(dateText);document.getElementById('datepicker2').value=dateText; }
-}
-);
-  });
+                    $("#datepicker2").datepicker({
+                    onSelect: function(dateText, inst) {
+                    alert(dateText);
+                    document.getElementById('datepicker2').value=dateText; 
+                }
+            });
+            });
+                    $(document).ready(function(){
+                    $("#thedate").datepicker({
+                    onSelect: function(dateText, diferente) { 
+                    alert(dateText);
+                    document.getElementById('thedate').value=dateText; 
+                }
+            });
+            });
 
                 $("#datepicker").datepicker({
                     dateFormat: "dd/mm/yy",
@@ -66,7 +76,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'fabricante')
                     changeYear: true
                 });
 
-                $("#datepicker3").datepicker({
+                $("#thedate").datepicker({
                     dateFormat: "dd/mm/yy",
                     dayNames: ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"],
                     dayNamesMin: ["D", "S", "T", "Q", "Q", "S", "S"],
@@ -79,14 +89,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'fabricante')
                     changeMonth: true,
                     changeYear: true
                 });
-                $(function() {
-		$('#datepicker2').datepicker({
-			autoSize: true,
-			onSelect: function (dateText, inst) {
-				$(this).parent('form').submit();
-			}
-		     });
-	        });
+              
 
             });
             var currentDate = $( ".selector" ).datepicker( "getDate" );
@@ -580,11 +583,11 @@ if (isset($_GET['action']) && $_GET['action'] == 'fabricante')
                            <form method='post' action='relatorios.php'>
                                 <div class='form_row'>
                                     <label class='contact'><strong>De: </strong></label>
-                                    <input type="text" class="contact_input" id="datepicker2" name="datepicker2" value="date"/>
+                                  <div type="text" id="datepicker22"> <input type="text" class="contact_input" id="datepicker2" name="datepicker2" value="date"/></div>
                                 </div>
                                 <div class='form_row'>
                                     <label class='contact'><strong>At&eacute: </strong></label>
-                                    <input type="text" class="contact_input" id="datepicker3" name="data2" value="date"/>
+                                    <div type="hidden" id="thedate1"><input type="text" class="contact_input" id="thedate" name="thedate" value="date"/></div>
                                 </div>
                                 <br/>
                                 <br/>

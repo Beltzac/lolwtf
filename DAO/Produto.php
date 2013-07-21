@@ -13,6 +13,7 @@ private $categoria= null;
 private $dimensoes= null;
 private $quant_vend = null;
 private $arrecadacao = null;
+private $data = null;
 
 function set($campo, $valor)
 {

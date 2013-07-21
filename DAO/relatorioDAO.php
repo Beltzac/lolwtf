@@ -24,17 +24,20 @@ class relatorioDAO extends DAO {
         $stmt->close();
         return $result;
     }       
-     function selectByMarca($cod)
+     function selectByMarca($cod, $data1, $data2)
     {
         $stmt = $this->con->stmt_init();
-        $stmt->prepare("SELECT produto.nome, SUM(contem.quantidade) AS quant_vend, SUM(contem.quantidade * produto.preco) AS total,
-            produto.preco FROM marca, produto, contem WHERE contem.cod_prod = produto.cod_prod 
-            AND produto.cod_marc = marca.codmarc AND marca.codmarc = ? GROUP BY produto.nome  ORDER BY total");
-        $stmt->bind_param('i', $cod);
+        $stmt->prepare("SELECT contem.data, produto.nome, SUM(contem.quantidade) AS quant, SUM(contem.quantidade * produto.preco) AS total,
+            produto.preco FROM  marca, produto, contem  WHERE contem.cod_prod = produto.cod_prod 
+            AND produto.cod_marc = marca.codmarc AND marca.codmarc = ? AND contem.data BETWEEN ? AND  ?  GROUP BY produto.nome 
+            ORDER BY total");
+        $stmt->bind_param('iss', $cod);
         $stmt->execute();
-        $stmt->bind_result($produtonome, $quant_vend, $total, $produtopreco);// string, string, string, integer
+        $stmt->bind_result($tempo, $produtonome, $quant_vend, $total, $produtopreco);// string, string, string, integer
         while ($stmt->fetch()) {
-           $p = new Produto();                    
+           $p = new Produto(); 
+           echo "data".$data1.$data2;
+           //$p->set('data', $data);
            $p->set('nome', $produtonome);   
            $p->set('quant_vend', $quant_vend);
            $p->set('arrecadacao', $total);
