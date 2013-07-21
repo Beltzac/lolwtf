@@ -5,20 +5,22 @@ require_once 'marca.php';
 require_once 'pessoaDAO.php';
 require_once 'produtoDAO.php';
 require_once 'contem.php';
+require_once 'relatorio.php';
 
 class relatorioDAO extends DAO {
     function  selectByCiente() {
         $stmt = $this->con->stmt_init();
-        $stmt->prepare("SELECT nome, rg, cpf, id FROM pessoa");
+        $stmt->prepare("SELECT pessoa.nome, produto.nome, (contem.quantidade * produto.preco)AS arrecadacao 
+            FROM pessoa, produto, contem WHERE pedido.id_p = pessoa.id AND pedido.cod_pedido = contem.cod_ped
+             contem.cod_prod = produto.cod_prod");
         $stmt->execute();
-        $stmt->bind_result($nome, $rg, $cpf, $id);//, $telefone, $senha, $email, $rg, $cpf, $nivel_d_aces, $cod_end,$id,$nascimento);
-        $result = array();
+        $stmt->bind_result($nome, $produto, $arrecadacao);
+        //$result = array();
         while ($stmt->fetch()) {
-            $p = new Pessoa();
-            $p->set('nome', $nome);            
-            $p->set('rg', $rg);
-            $p->set('cpf', $cpf);            
-            $p->set('id', $id);            
+            $p = new Relatorio();
+            $p->set('nome_pessoa', $nome);            
+            $p->set('nome', $produto);
+            $p->set('arrecadacao', $arrecadacao);                                   
             $result[] = $p;
         }
         $stmt->close();
@@ -35,14 +37,14 @@ class relatorioDAO extends DAO {
         $stmt->execute();
         $stmt->bind_result($tempo, $produtonome, $quant_vend, $total, $produtopreco);// string, string, string, integer
         while ($stmt->fetch()) {
-           echo "tempo: ".$tempo." data1: ".$data1." data2: ".$data2."<br>";
+           //echo "tempo: ".$tempo." data1: ".$data1." data2: ".$data2."<br>";
            list($dt_d1, $dt_m1, $dt_y1) = explode('/', $data1);
            list($dt_d2, $dt_m2, $dt_y2) = explode('/', $data2);
            $data1final = date("Y-m-d"." H:i:s", mktime(0, 0, 0, $dt_m1, $dt_d1, $dt_y1));
            $data2final = date("Y-m-d"." H:i:s", mktime(0, 0, 0, $dt_m2, $dt_d2, $dt_y2));
-           var_dump($data2final);
-           echo "aqui<br>";
-           var_dump($tempo);echo"depois";
+           //var_dump($data2final);
+           //echo "aqui<br>";
+           //var_dump($tempo);echo"depois";
            if(($tempo >= $data1final) && ($data2final >= $tempo)){
            $p = new Produto(); 
            echo $data1." ".$data2."<br>";

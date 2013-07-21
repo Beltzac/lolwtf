@@ -20,18 +20,19 @@
         if($opcao == "op1"){
          $dao = new relatorioDAO();
          $lista = $dao->selectByCiente();
+         var_dump ($lista);
          foreach ($lista as $value){
-            echo "<tr><td>Nome:</td><td>".$value->get('nome')."</td></tr>";  
-            echo "<tr><td>RG:</td><td>".$value->get('rg')."</td></tr>"; 
-            echo "<tr><td>CPF:</td><td>".$value->get('cpf')."</td></tr>"; 
-            echo "<tr><td>id:</td><td>".$value->get('id')."</td></tr>"; 
+            echo "<tr><td>Nome_pessoa:</td><td>".$value->get('nome_pessoa')."</td></tr>";  
+            echo "<tr><td>nome:</td><td>".$value->get('nome')."</td></tr>"; 
+            echo "<tr><td>arrecadacao:</td><td>".$value->get('arrecadacao')."</td></tr>"; 
+            
          }
         }
          if($opcao == "op2"){          
           $dao2 = new relatorioDAO();
-          echo $data1pas."<br>";
-          echo $data2pas."<br>";
-          var_dump($data2pas);
+          //echo $data1pas."<br>";
+          //echo $data2pas."<br>";
+          //var_dump($data2pas);
           $lista2 = $dao2->selectByMarca($cod, $data1, $data2); //$data1, $data2);
                  
           /*echo $data1."<br>";
