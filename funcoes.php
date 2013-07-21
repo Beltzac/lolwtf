@@ -45,6 +45,7 @@ function caixaProduto(Produto $produto) {
     <?php
 }
 
+//Desenha os produtos na pagina de detalhes de pedido
 function detalhePedidoProduto(Produto $produto, $quantidade) {
 
     $codigo = $produto->get('cod_prod');
@@ -152,8 +153,6 @@ function carrinhoProduto(Produto $produto, $quantidade) {
 
 function caixaPessoa(Pessoa $pessoa) {
     ?>
-
-
     <div class="carrinho_box">
 
         <div class="carrinho_center_prod_box2">
@@ -173,9 +172,6 @@ function caixaPessoa(Pessoa $pessoa) {
         </div>
 
     </div>
-
-
-
     <?php
 }
 ?>

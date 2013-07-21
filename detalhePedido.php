@@ -1,6 +1,6 @@
 <?php
-    include 'session_start.php';    
-    if (!$_SESSION['logado']) {
+include 'session_start.php';
+if (!$_SESSION['logado']) {
     header('Location: index.php');
     exit();
 }
@@ -20,7 +20,6 @@
             <?php
             include ('funcoes.php');
             include ('header.php');
-            
             ?>
 
             <div id="main_content">
@@ -36,24 +35,21 @@
                         Pedido <?php echo $_GET['cod'] ?>
                     </div>
 
-                    
                     <?php
-                    
-                    require_once 'DAO/carrinhoDAO.php';                    
-             
-                                                          
-                    $cardao = new carrinhoDAO();                    
-                    $produtos = $cardao->selectProdutosPedido($_GET['cod']);
-                                                          
-                    foreach ($produtos as $value){                        
-                        detalhePedidoProduto($value[0],$value[1]);                    
-                    }
-                    
-                    $t = $cardao->total($_GET['cod']);
-                    echo 'Total do pedido:'.$t[0];
-                    ?>
+                    require_once 'DAO/carrinhoDAO.php';
 
-                 
+
+                    $cardao = new carrinhoDAO();
+                    $produtos = $cardao->selectProdutosPedido($_GET['cod']);
+
+                    foreach ($produtos as $value) {
+                        detalhePedidoProduto($value[0], $value[1]);
+                    }
+
+                    $t = $cardao->total($_GET['cod']);
+                    echo 'Total do pedido:' . $t[0];
+                    ?>
+                    
                 </div><!-- center -->
 
 <?php

@@ -29,7 +29,7 @@ include 'session_start.php';
 					<div class="center_title_bar">
 						Forma de Pagamento:
 					</div>
-					
+                                    
 					<?php
 						if(empty($_POST['pagamento'])&&empty($_POST['pagamento2'])){?>
 						<form method='post' action='formapag.php'>
@@ -38,11 +38,7 @@ include 'session_start.php';
 							<input type='submit' value='Continuar'>
 						</form>
 						<?php }
-					?>
 					
-					
-					
-					<?php
 						if(!empty($_POST['pagamento'])&&empty($_POST['pagamento2'])){
 						$form=$_POST['pagamento'];
 						if($form=="credito"){ ?>
@@ -63,10 +59,7 @@ include 'session_start.php';
 								<input type='submit' value='Continuar'>
 							</form>
 						<?php }	}					
-					?>
-                                    
-                                    <?php 
-                                    //scsasdasd
+				
                                         if(!empty($_POST['pagamento2'])){
                                             $forma=$_POST['pagamento2'];
                                             ?>
@@ -82,17 +75,6 @@ include 'session_start.php';
                                             
                                        <?php }
                                     ?>
-					
-
-					
-					
-					
-
-					
-				
-					
-					
-
 				</div><!-- center -->
 
 				<?php

@@ -1,6 +1,7 @@
 <?php
 if (!isset($_GET['cod'])) {
     header('Location: index.php');
+    exit();
 }
 
 include 'session_start.php';

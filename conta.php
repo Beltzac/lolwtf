@@ -145,9 +145,7 @@ if (!$_SESSION['logado']) {
 
         $pessoa = new Pessoa();
         $endereco = new Endereco();
-
-
-
+        
         if (isset($_SESSION['id'])) {
             $pessoaDAO = new PessoaDAO();
             $select = $pessoaDAO->selectByCod($_SESSION['id']);

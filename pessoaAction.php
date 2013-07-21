@@ -29,10 +29,8 @@ switch ($_POST['acao']) {
 
 
         if (!$err) {
-
-
+            
             $last = $edao->lastID();
-
 
             $p = new Pessoa();
 
@@ -44,18 +42,14 @@ switch ($_POST['acao']) {
             $p->set('nivel_d_aces', 0);
             $p->set('cod_end', $last);
             $p->set('nascimento', $_POST['campoNascimento']);
-            
-           $err = $pdao->insert($p);           
 
-            if(strlen($_POST['senha']) >= 6  && !$err){
-            $last = $pdao->lastID();
-            $pdao->updateSenha($last, $_POST['campoSenha']);            
+            $err = $pdao->insert($p);
+
+            if (strlen($_POST['senha']) >= 6 && !$err) {
+                $last = $pdao->lastID();
+                $pdao->updateSenha($last, $_POST['campoSenha']);
+            }
         }
-        
-        }
-
-
-
         break;
 
     case 'Atualizar':
@@ -78,27 +72,27 @@ switch ($_POST['acao']) {
         $p->set('telefone', $_POST['telefone']);
         $p->set('email', $_POST['email']);
         $p->set('rg', $_POST['rg']);
-        $p->set('cpf', $_POST['cpf']);        
+        $p->set('cpf', $_POST['cpf']);
         $p->set('nascimento', $_POST['nascimento']);
         $p->set('cod_end', $_POST['cod_end']);
         $p->set('id', $_POST['id']);
 
 
         $pdao->update($p);
-        $pdao ->updateNivel($_POST['id'], $_POST['nivel_d_aces']);
-        if(strlen($_POST['senha']) >= 6){
-            $pdao->updateSenha($_POST['id'], $_POST['senha']);            
+        $pdao->updateNivel($_POST['id'], $_POST['nivel_d_aces']);
+        if (strlen($_POST['senha']) >= 6) {
+            $pdao->updateSenha($_POST['id'], $_POST['senha']);
         }
 
         break;
 
     case 'AtualizarPessoa':
-        
+
         $p = new Pessoa();
         $pessoaDAO = new PessoaDAO();
         $select = $pessoaDAO->selectByCod($_SESSION['id']);
-        if($select){
-            $pw=$select;
+        if ($select) {
+            $pw = $select;
         }
         $p->set('nome', $_POST['nome']);
         $p->set('telefone', $_POST['telefone']);
@@ -111,9 +105,9 @@ switch ($_POST['acao']) {
 
 
         $pdao->update($p);
-        
-        if(strlen($_POST['senha']) >= 6&&$_POST['senha']==$_POST['senha2']&&$pw->get('senha')==$_POST['senhaatual']){
-            $pdao->updateSenha($_SESSION['id'], $_POST['senha']);  
+
+        if (strlen($_POST['senha']) >= 6 && $_POST['senha'] == $_POST['senha2'] && $pw->get('senha') == $_POST['senhaatual']) {
+            $pdao->updateSenha($_SESSION['id'], $_POST['senha']);
         }
 
         break;
@@ -131,9 +125,6 @@ switch ($_POST['acao']) {
         $e->set('cod_end', $_POST['cod_end']);
 
         $edao->update($e);
-
-
-
         break;
 
     case 'Deletar':

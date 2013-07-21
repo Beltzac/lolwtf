@@ -1,6 +1,6 @@
 <?php
-    include 'session_start.php';    
-    if (!$_SESSION['logado']) {
+include 'session_start.php';
+if (!$_SESSION['logado']) {
     header('Location: index.php');
     exit();
 }
@@ -22,7 +22,6 @@
             <?php
             include ('funcoes.php');
             include ('header.php');
-            
             ?>
 
             <div id="main_content">
@@ -38,26 +37,23 @@
                         Meu carrinho
                     </div>
 
-                    
                     <?php
-                    
                     require_once 'DAO/carrinhoDAO.php';
-                    
+
                     //inicializa o carrinho se necessario            
-                    if(!$_SESSION['carrinho'] || !isset($_SESSION['carrinho'])){
+                    if (!$_SESSION['carrinho'] || !isset($_SESSION['carrinho'])) {
                         header('Location: dao/carrinhoAction.php?tipo=iniciar');
                     }
-                    
-                                                          
-                    $cardao = new carrinhoDAO();                    
+
+                    $cardao = new carrinhoDAO();
                     $produtos = $cardao->selectProdutosPedido($_SESSION['carrinho']);
-                                                          
-                    foreach ($produtos as $value){                        
-                        carrinhoProduto($value[0],$value[1]);                    
+
+                    foreach ($produtos as $value) {
+                        carrinhoProduto($value[0], $value[1]);
                     }
-                    
+
                     $t = $cardao->total($_SESSION['carrinho']);
-                    echo 'Total:'.$t[0];
+                    echo 'Total:' . $t[0];
                     ?>
 
                     <div class="form_row">
@@ -65,14 +61,14 @@
                     </div>
                 </div><!-- center -->
 
-<?php
-include ('menuDireita.php');
-?>
+                <?php
+                include ('menuDireita.php');
+                ?>
             </div><!-- main index -->
 
-<?php
-include ('footer.html');
-?>
+            <?php
+            include ('footer.html');
+            ?>
         </div>
     </body>
 </html>

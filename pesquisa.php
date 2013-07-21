@@ -2,60 +2,58 @@
 include 'session_start.php';
 ?>
 <html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<title>Resultados da pesquisa - Lolwtf Mobile</title>
-		<link rel="stylesheet" type="text/css" href="style.css" />
-		<script type="text/javascript" src="js/boxOver.js"></script>
-	</head>
-	<body>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Resultados da pesquisa - Lolwtf Mobile</title>
+        <link rel="stylesheet" type="text/css" href="style.css" />
+        <script type="text/javascript" src="js/boxOver.js"></script>
+    </head>
+    <body>
 
-		<div id="main_container">
+        <div id="main_container">
 
-			<?php
-			include ('header.php');
-			?>
+            <?php
+            include ('header.php');
+            ?>
 
-			<div id="main_content">
+            <div id="main_content">
 
-				<?php
-				include ('funcoes.php');
-				include ('menu.php');
-				include ('menuEsquerda.php');
-				?>
+                <?php
+                include ('funcoes.php');
+                include ('menu.php');
+                include ('menuEsquerda.php');
+                ?>
 
-				<div class="center_content">
-					<div class="center_title_bar">
-						Resultados da pesquisa
-					</div>
+                <div class="center_content">
+                    <div class="center_title_bar">
+                        Resultados da pesquisa
+                    </div>
 
-					<?php
+                    <?php
+                    require_once 'DAO/ProdutoDAO.php';
 
-				require_once 'DAO/ProdutoDAO.php';
-                                
-                                $pdao = new ProdutoDAO();
-                                
-                                if(isset($_GET['pesquisa'])){
-                                $pesquisa = $pdao->selectLike($_GET['pesquisa']);
+                    $pdao = new ProdutoDAO();
 
-                                foreach ($pesquisa as $produto) {
+                    if (isset($_GET['pesquisa'])) {
 
-						caixaProduto($produto);
+                        $pesquisa = $pdao->selectLike($_GET['pesquisa']);
 
-					}
-                                }
-					?>
-                                    
-				</div>
+                        foreach ($pesquisa as $produto) {
+                            caixaProduto($produto);
+                        }
+                    }
+                    ?>
 
-				<?php
-				include ('menuDireita.php');
-				?>
-			</div><!-- main index -->
+                </div>
 
-			<?php
-			include ('footer.html');
-			?>
-		</div>
-	</body>
+                <?php
+                include ('menuDireita.php');
+                ?>
+            </div><!-- main index -->
+
+            <?php
+            include ('footer.html');
+            ?>
+        </div>
+    </body>
 </html>

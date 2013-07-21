@@ -147,7 +147,7 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
                 $("#campoRg").mask("99.999.999-9");
             });
         </script>
-        
+
         <script>
             $(function() {
 
@@ -286,7 +286,7 @@ if (isset($_SESSION['logado']) && $_SESSION['logado']) {
                                         <label class="contact"><strong>Cidade:</strong></label>
                                         <input type="text" class="contact_input" name="campoCidade"/>
                                     </div>
-                                    
+
                                     <div class="form_row">
                                         <label class="contact"><strong>Estado:</strong></label>  
                                         <select name="campoEstado" class="contact_input" >                                            

@@ -53,14 +53,14 @@ if (!$_SESSION['admin']) {
 
                 </div>
 
-<?php
-include ('menuDireita.php');
-?>
+                <?php
+                include ('menuDireita.php');
+                ?>
             </div><!-- main index -->
 
-<?php
-include ('footer.html');
-?>
+            <?php
+            include ('footer.html');
+            ?>
         </div>
     </body>
 </html>

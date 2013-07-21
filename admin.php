@@ -19,34 +19,34 @@ if (!$_SESSION['admin']) {
         <script src="js/jquery.validate.min.js"></script>
         <script src="js/jquery.maskedinput.js"></script>
         <script src="js/boxOver.js"></script>
-        
+
 
         <script>
             $(function() {
                 $("#accordion").accordion(
-<?php
-if (isset($_GET['action']) && $_GET['action'] == 'pessoa')
-    echo '{active: 1}';
-if (isset($_GET['action']) && $_GET['action'] == 'fabricante')
-    echo '{active: 2}';
-?>
+                    <?php
+                    if (isset($_GET['action']) && $_GET['action'] == 'pessoa')
+                        echo '{active: 1}';
+                    if (isset($_GET['action']) && $_GET['action'] == 'fabricante')
+                        echo '{active: 2}';
+                    ?>
                 );
-                    $(document).ready(function(){
+                $(document).ready(function() {
                     $("#datepicker2").datepicker({
-                    onSelect: function(dateText, inst) {
-                    alert(dateText);
-                    document.getElementById('datepicker2').value=dateText; 
-                }
-            });
-            });
-                    $(document).ready(function(){
+                        onSelect: function(dateText, inst) {
+                            alert(dateText);
+                            document.getElementById('datepicker2').value = dateText;
+                        }
+                    });
+                });
+                $(document).ready(function() {
                     $("#thedate").datepicker({
-                    onSelect: function(dateText, diferente) { 
-                    alert(dateText);
-                    document.getElementById('thedate').value=dateText; 
-                }
-            });
-            });
+                        onSelect: function(dateText, diferente) {
+                            alert(dateText);
+                            document.getElementById('thedate').value = dateText;
+                        }
+                    });
+                });
 
                 $("#datepicker").datepicker({
                     dateFormat: "dd/mm/yy",
@@ -89,10 +89,10 @@ if (isset($_GET['action']) && $_GET['action'] == 'fabricante')
                     changeMonth: true,
                     changeYear: true
                 });
-              
+
 
             });
-            var currentDate = $( ".selector" ).datepicker( "getDate" );
+            var currentDate = $(".selector").datepicker("getDate");
             document.write(currentDate);
             //document.getElementsByName()
         </script>
@@ -128,8 +128,6 @@ if (isset($_GET['action']) && $_GET['action'] == 'fabricante')
             });
 
         </script>
- 
-        
         <script>
             $(document).ready(function() {
                 $("#cliente").validate({
@@ -250,8 +248,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'fabricante')
             "SP" => "São Paulo",
             "TO" => "Tocantins"
         );
-
-
+        
         if (isset($_GET['action'])) {
             switch ($_GET['action']) {
                 case 'produto':
@@ -269,8 +266,6 @@ if (isset($_GET['action']) && $_GET['action'] == 'fabricante')
                     break;
 
                 case 'pessoa':
-
-
                     if (isset($_GET['cod'])) {
                         $pessoaDAO = new PessoaDAO();
                         $select = $pessoaDAO->selectByCod($_GET['cod']);
@@ -472,7 +467,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'fabricante')
                                         <label class="contact"><strong>CPF:</strong></label>
                                         <input type="text" name="cpf" id="clicpf" class="contact_input" value="<?php echo $pessoa->get('cpf') ?>"/>
                                     </div>
-                                    
+
                                     <div class="form_row">
                                         <label class="contact"><strong>Data de nascimento:</strong></label>
                                         <input type="text" name="nascimento" class="contact_input" id="datepicker" value="<?php echo $pessoa->get('nascimento') ?>"/>
@@ -529,7 +524,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'fabricante')
                                             ?>
                                         </select>
                                     </div>
-                                    
+
                                     <div class="form_row">
                                         <input class="submit" type="submit" value="Atualizar" name="acao"/>
                                         <input class="submit" type="submit" value="Deletar" name="acao"/>
@@ -563,9 +558,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'fabricante')
                                         <label class="contact"><strong>Nome:</strong></label>
                                         <input type="text" name="nome" class="contact_input" value="<?php echo $fabricante->get('nome') ?>"/>
                                     </div>
-
-
-
+                                    
                                     <div class="form_row">
                                         <input class="submit" type="submit" value="Novo" name="tipo"/>
                                         <input class="submit" type="submit" value="Atualizar" name="tipo"/>
@@ -580,19 +573,18 @@ if (isset($_GET['action']) && $_GET['action'] == 'fabricante')
 
                         <div>
                             <div>
-                           <form method='post' action='relatorios.php'>
-                                <div class='form_row'>
-                                    <label class='contact'><strong>De: </strong></label>
-                                  <div type="text" id="datepicker22"> <input type="text" class="contact_input" id="datepicker2" name="datepicker2" value="date"/></div>
-                                </div>
-                                <div class='form_row'>
-                                    <label class='contact'><strong>At&eacute: </strong></label>
-                                    <div type="hidden" id="thedate1"><input type="text" class="contact_input" id="thedate" name="thedate" value="date"/></div>
-                                </div>
-                                <br/>
-                                <br/>
+                                <form method='post' action='relatorios.php'>
+                                    <div class='form_row'>
+                                        <label class='contact'><strong>De: </strong></label>
+                                        <div type="text" id="datepicker22"> <input type="text" class="contact_input" id="datepicker2" name="datepicker2" value="date"/></div>
+                                    </div>
+                                    <div class='form_row'>
+                                        <label class='contact'><strong>At&eacute: </strong></label>
+                                        <div type="hidden" id="thedate1"><input type="text" class="contact_input" id="thedate" name="thedate" value="date"/></div>
+                                    </div>
+                                    <br/>
+                                    <br/>
 
-                               
                                     <input type='radio' name='op' value='op1'>
                                     Clientes
                                     <br/>
@@ -618,14 +610,14 @@ if (isset($_GET['action']) && $_GET['action'] == 'fabricante')
 
                 </div><!-- center -->
 
-<?php
-include ('menuDireita.php');
-?>
+                <?php
+                include ('menuDireita.php');
+                ?>
             </div><!-- main index -->
 
-<?php
-include ('footer.html');
-?>
+            <?php
+            include ('footer.html');
+            ?>
         </div>
     </body>
 </html>

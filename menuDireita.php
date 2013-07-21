@@ -1,13 +1,9 @@
-
-
 <?php
 require_once 'funcoes.php';
 require_once 'DAO/ProdutoDAO.php';
 require_once 'DAO/MarcaDAO.php';
 require_once 'DAO/carrinhoDAO.php';
 include_once 'php_fast_cache.php';
-
-
 
 $p = phpFastCache::get("produtoDireito");
 
@@ -25,8 +21,6 @@ $imagem = imagem($p->get('cod_prod'));
 
 <div class="right_content">
 
-
-
     <div class="title_box">
         Pesquisa
     </div>
@@ -38,8 +32,8 @@ $imagem = imagem($p->get('cod_prod'));
     </div>
 
     <?php
-    if (isset($_SESSION['logado']) && $_SESSION['logado']) { 
-  
+    if (isset($_SESSION['logado']) && $_SESSION['logado']) {
+
         if (!isset($_SESSION['quantidadeProdutos']) || !isset($_SESSION['valorTotal'])) {
 
             $caDAO = new carrinhoDAO();
@@ -55,7 +49,7 @@ $imagem = imagem($p->get('cod_prod'));
             </div>
 
             <div class="cart_details">
-    <?php echo $_SESSION['quantidadeProdutos'] ?> item(s)
+                <?php echo $_SESSION['quantidadeProdutos'] ?> item(s)
                 <br />
                 <span class="border_cart"></span>
                 Total: <span class="price">R$ <?php echo $_SESSION['valorTotal'] ?></span>
@@ -67,7 +61,7 @@ $imagem = imagem($p->get('cod_prod'));
 
         </div>
 
-<?php } else { ?>
+    <?php } else { ?>
 
         <div class="login">
             <div class="title_box">
@@ -85,7 +79,7 @@ $imagem = imagem($p->get('cod_prod'));
             </form>
         </div>
 
-<?php } ?>
+    <?php } ?>
 
     <div class="title_box">
         Novidades
@@ -107,27 +101,27 @@ $imagem = imagem($p->get('cod_prod'));
     </div>
 
     <ul class="left_menu">
-<?php
-$marcas = phpFastCache::get("marcas");
+        <?php
+        $marcas = phpFastCache::get("marcas");
 
-if (!$marcas) {
-    $mdao = new MarcaDAO();
-    $marcas = $mdao->selectAll();
-    phpFastCache::set("marcas", $marcas, 600);
-}
-$i = 0;
-foreach ($marcas as $value) {
+        if (!$marcas) {
+            $mdao = new MarcaDAO();
+            $marcas = $mdao->selectAll();
+            phpFastCache::set("marcas", $marcas, 600);
+        }
+        $i = 0;
+        foreach ($marcas as $value) {
 
-    if ($i % 2 == 0) {
-        echo '<li class="odd">';
-    } else {
-        echo '<li class="even">';
-    }
+            if ($i % 2 == 0) {
+                echo '<li class="odd">';
+            } else {
+                echo '<li class="even">';
+            }
 
-    echo '<a href="pesquisa.php?pesquisa=' . $value->get('nome') . '">' . $value->get('nome') . '</a></li>';
-    $i++;
-}
-?>
+            echo '<a href="pesquisa.php?pesquisa=' . $value->get('nome') . '">' . $value->get('nome') . '</a></li>';
+            $i++;
+        }
+        ?>
     </ul>
 
     <div class="banner_adds">
